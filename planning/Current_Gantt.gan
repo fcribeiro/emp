@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2018-04-20" view-index="0" gantt-divider-location="599" resource-divider-location="300" version="2.8.7" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2018-04-25" view-index="0" gantt-divider-location="599" resource-divider-location="300" version="2.8.7" locale="en_US">
     <description/>
     <view zooming-state="default:1" id="gantt-chart">
-        <field id="tpd3" name="Name" width="276" order="0"/>
-        <field id="tpd4" name="Begin date" width="163" order="1"/>
-        <field id="tpd5" name="End date" width="156" order="2"/>
+        <field id="tpd3" name="Name" width="425" order="0"/>
+        <field id="tpd4" name="Begin date" width="103" order="1"/>
+        <field id="tpd5" name="End date" width="67" order="2"/>
     </view>
     <view id="resource-table">
         <field id="0" name="Name" width="210" order="0"/>
@@ -33,7 +33,6 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="99" name="Learn and deploy Redis" color="#8cb6ce" meeting="false" start="2018-04-24" duration="1" complete="0" thirdDate="2018-05-02" thirdDate-constraint="0" expand="true"/>
         <task id="92" name="Control API" meeting="false" start="2018-04-25" duration="10" complete="0" expand="true">
             <depend id="89" type="2" difference="0" hardness="Rubber"/>
             <depend id="107" type="2" difference="0" hardness="Rubber"/>
