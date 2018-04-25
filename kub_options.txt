@@ -1,0 +1,9 @@
+Nome
+Docker Image
+Métrica de qualidade
+
+
+- Deploy 
+- Ver, parar e eliminar aplicações
+- alterar métricas de qualidade
+- Disponibilizar os gráficos de tracing
