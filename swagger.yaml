@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title: Kubernetes_Controller
+  title: emf_server_Controller
   version: "0.1"
 consumes:
   - application/json
@@ -11,14 +11,14 @@ paths:
     get:
       operationId: application.hello_world
       summary: "Hello World!"
-      tags: [Kub_Controller]
+      tags: [emf_server]
       responses:
         200:
           description: OK
   /app:
     get:
         operationId: application.get_all_apps
-        tags: [Kub_Controller]
+        tags: [emf_server]
         summary: "Gets information about all applications"
         consumes:
         - "application/json"
@@ -38,7 +38,7 @@ paths:
   /app/{appID}:
     get:
         operationId: application.get_app
-        tags: [Kub_Controller]
+        tags: [emf_server]
         summary: "Gets information about a specific application"
         consumes:
         - "application/json"
@@ -64,7 +64,7 @@ paths:
             description: "Internal server error."
     post:
       operationId: application.stop_app
-      tags: [Kub_Controller]
+      tags: [emf_server]
       summary: "Stop an application"
       consumes:
       - "application/json"
@@ -90,7 +90,7 @@ paths:
           description: "Internal server error."
     delete:
         operationId: application.delete_app
-        tags: [Kub_Controller]
+        tags: [emf_server]
         summary: "Removes an application from the platform"
         consumes:
         - "application/json"
@@ -117,7 +117,7 @@ paths:
   /app/deploy:
     post:
       operationId: application.deploy_app
-      tags: [Kub_Controller]
+      tags: [emf_server]
       summary: "Deploy App"
       consumes:
       - "application/json"
@@ -142,7 +142,7 @@ paths:
   /app/tracing/{appID}:
     get:
         operationId: application.get_app_tracing
-        tags: [Kub_Controller]
+        tags: [emf_server]
         summary: "Gets information about tracing of a specific application"
         consumes:
         - "application/json"
