@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title: emf_server_Controller
+  title: EMF_Server_Controller
   version: "0.1"
 consumes:
   - application/json
