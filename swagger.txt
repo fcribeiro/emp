@@ -16,27 +16,63 @@ paths:
         200:
           description: OK
   /app:
+    get:
+        operationId: application.get_all_apps
+        tags: [Kub_Controller]
+        summary: "Gets information about all applications"
+        consumes:
+        - "application/json"
+        produces:
+        - "application/json"
+        responses:
+          200:
+            description: "OK."
+          400:
+            description: "Bad request."
+          404:
+            description: "Not found."
+          500:
+            description: "Internal server error."
+  /app/{appID}:
+    get:
+        operationId: application.get_app
+        tags: [Kub_Controller]
+        summary: "Gets information about a specific application"
+        consumes:
+        - "application/json"
+        produces:
+        - "application/json"
+        parameters:
+        - name: "appID"
+          in: "path"
+          description: "ID of the application to get information"
+          required: true
+          type: "integer"
+          format: "int64"
+        responses:
+          200:
+            description: "OK."
+          400:
+            description: "Bad request."
+          404:
+            description: "Not found."
+          500:
+            description: "Internal server error."
     post:
-      operationId: application.add_song_to_playlist
-      tags: [Playlists_MS]
-      summary: "Adds a song into a playlist"
+      operationId: application.stop_app
+      tags: [Kub_Controller]
+      summary: "Stop an application"
       consumes:
       - "application/json"
       produces:
       - "application/json"
       parameters:
-      - in: "path"
-        name: "id"
-        type: "integer"
+      - name: "appID"
+        in: "path"
+        description: "ID of the application to stop"
         required: true
-      - in: "query"
-        name: "song_id"
         type: "integer"
-        required: true
-      - in: "query"
-        name: "user_id"
-        type: "integer"
-        required: true
+        format: "int64"
       responses:
         200:
           description: "OK."
@@ -47,48 +83,20 @@ paths:
         500:
           description: "Internal server error."
     delete:
-        operationId: application.delete_song_from_playlist
-        tags: [Playlists_MS]
-        summary: "Removes a song from a playlist"
+        operationId: application.delete_app
+        tags: [Kub_Controller]
+        summary: "Removes an application from the platform"
         consumes:
         - "application/json"
         produces:
         - "application/json"
         parameters:
-        - in: "path"
-          name: "id"
-          type: "integer"
+        - name: "appID"
+          in: "path"
+          description: "ID of the application to remove"
           required: true
-        - in: "query"
-          name: "song_id"
           type: "integer"
-          required: true
-        - in: "query"
-          name: "user_id"
-          type: "integer"
-          required: true
-        responses:
-          200:
-            description: "OK."
-          400:
-            description: "Bad request."
-          404:
-            description: "Not found."
-          500:
-            description: "Internal server error."
-    get:
-        operationId: application.get_playlist_songs
-        tags: [Playlists_MS]
-        summary: "Gets all songs from a playlist"
-        consumes:
-        - "application/json"
-        produces:
-        - "application/json"
-        parameters:
-        - in: "path"
-          name: "id"
-          type: "integer"
-          required: true
+          format: "int64"
         responses:
           200:
             description: "OK."
@@ -121,6 +129,31 @@ paths:
           description: "Bad request."
         500:
           description: "Internal server error"
+  /app/tracing/{appID}:
+    get:
+        operationId: application.get_app_tracing
+        tags: [Kub_Controller]
+        summary: "Gets information about all applications"
+        consumes:
+        - "application/json"
+        produces:
+        - "application/json"
+        parameters:
+        - name: "appID"
+          in: "path"
+          description: "ID of the application"
+          required: true
+          type: "integer"
+          format: "int64"
+        responses:
+          200:
+            description: "OK."
+          400:
+            description: "Bad request."
+          404:
+            description: "Not found."
+          500:
+            description: "Internal server error."
 
 definitions:
   Kub:
