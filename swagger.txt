@@ -55,7 +55,7 @@ paths:
           200:
             description: "OK."
             schema:
-              $ref: '#/definitions/AppInfo'
+              $ref: '#/definitions/AppTotalInfo'
           400:
             description: "Bad request."
           404:
@@ -80,6 +80,8 @@ paths:
       responses:
         200:
           description: "OK."
+          schema:
+              $ref: '#/definitions/AppInfo'
         400:
           description: "Bad request."
         404:
@@ -104,6 +106,8 @@ paths:
         responses:
           200:
             description: "OK."
+            schema:
+              $ref: '#/definitions/AppInfo'
           400:
             description: "Bad request."
           404:
@@ -125,10 +129,12 @@ paths:
         description: "Application object to be deployed"
         required: true
         schema:
-          $ref: '#/definitions/Kub'
+          $ref: '#/definitions/AppDeploy'
       responses:
         201:
           description: "Created."
+          schema:
+              $ref: '#/definitions/AppTotalInfo'
         400:
           description: "Bad request."
         500:
@@ -160,7 +166,7 @@ paths:
             description: "Internal server error."
             
 definitions:
-  Kub:
+  AppDeploy:
     type: "object"
     required:
     - "name"
@@ -179,7 +185,7 @@ definitions:
         type: "array"
         items:
           $ref: '#/definitions/QualityMetrics'
-  AppInfo:
+  AppTotalInfo:
       type: "object"
       required:
       - "id"
@@ -208,6 +214,25 @@ definitions:
           type: "array"
           items:
             $ref: '#/definitions/QualityMetrics'
+  AppInfo:
+      type: "object"
+      required:
+      - "id"
+      - "name"
+      - "state"
+      properties:
+        id:
+          type: "integer"
+          example: 1
+          description: "The application ID."
+        name:
+          type: "string"
+          example: "Songs Application"
+          description: "Name of the deployed application"
+        state:
+          type: "string"
+          example: "Stopped"
+          description: "Current state of the application"
   ArrayOfApps:
       type: "array"
       items:
