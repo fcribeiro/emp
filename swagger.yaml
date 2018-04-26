@@ -143,7 +143,7 @@ paths:
     get:
         operationId: application.get_app_tracing
         tags: [Kub_Controller]
-        summary: "Gets information about all applications"
+        summary: "Gets information about tracing of a specific application"
         consumes:
         - "application/json"
         produces:
@@ -158,6 +158,9 @@ paths:
         responses:
           200:
             description: "OK."
+            schema:
+                type: string
+                example: 127.0.0.1:8080
           400:
             description: "Bad request."
           404:
