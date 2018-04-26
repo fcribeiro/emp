@@ -1,0 +1,147 @@
+swagger: '2.0'
+info:
+  title: Kubernetes_Controller
+  version: "0.1"
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /:
+    get:
+      operationId: application.hello_world
+      summary: "Hello World!"
+      tags: [Kub_Controller]
+      responses:
+        200:
+          description: OK
+  /app:
+    post:
+      operationId: application.add_song_to_playlist
+      tags: [Playlists_MS]
+      summary: "Adds a song into a playlist"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        type: "integer"
+        required: true
+      - in: "query"
+        name: "song_id"
+        type: "integer"
+        required: true
+      - in: "query"
+        name: "user_id"
+        type: "integer"
+        required: true
+      responses:
+        200:
+          description: "OK."
+        400:
+          description: "Bad request."
+        404:
+          description: "Not found."
+        500:
+          description: "Internal server error."
+    delete:
+        operationId: application.delete_song_from_playlist
+        tags: [Playlists_MS]
+        summary: "Removes a song from a playlist"
+        consumes:
+        - "application/json"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "path"
+          name: "id"
+          type: "integer"
+          required: true
+        - in: "query"
+          name: "song_id"
+          type: "integer"
+          required: true
+        - in: "query"
+          name: "user_id"
+          type: "integer"
+          required: true
+        responses:
+          200:
+            description: "OK."
+          400:
+            description: "Bad request."
+          404:
+            description: "Not found."
+          500:
+            description: "Internal server error."
+    get:
+        operationId: application.get_playlist_songs
+        tags: [Playlists_MS]
+        summary: "Gets all songs from a playlist"
+        consumes:
+        - "application/json"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "path"
+          name: "id"
+          type: "integer"
+          required: true
+        responses:
+          200:
+            description: "OK."
+          400:
+            description: "Bad request."
+          404:
+            description: "Not found."
+          500:
+            description: "Internal server error."
+  /app/deploy:
+    post:
+      operationId: application.deploy_app
+      tags: [Kub_Controller]
+      summary: "Deploy App"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Application object to be deployed"
+        required: true
+        schema:
+          $ref: '#/definitions/Kub'
+      responses:
+        201:
+          description: "Created."
+        400:
+          description: "Bad request."
+        500:
+          description: "Internal server error"
+
+definitions:
+  Kub:
+    type: "object"
+    required:
+    - "name"
+    - "docker_image"
+    - "quality_metric"
+    properties:
+      name:
+        type: "string"
+        example: "Songs Application"
+        description: "Name of the deployed application"
+      docker_image:
+        type: "string"
+        example: "fcribeiro/Songs_MS"
+        description: "Name of the docker image"
+      quality_metric:
+        type: "array"
+        xml:
+          name: "metrics"
+          wrapped: true
+        items:
+          type: "string"
