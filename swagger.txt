@@ -27,6 +27,8 @@ paths:
         responses:
           200:
             description: "OK."
+            schema:
+              $ref: '#/definitions/ArrayOfApps'
           400:
             description: "Bad request."
           404:
@@ -52,6 +54,8 @@ paths:
         responses:
           200:
             description: "OK."
+            schema:
+              $ref: '#/definitions/AppInfo'
           400:
             description: "Bad request."
           404:
@@ -154,27 +158,65 @@ paths:
             description: "Not found."
           500:
             description: "Internal server error."
-
+            
 definitions:
   Kub:
     type: "object"
     required:
     - "name"
     - "docker_image"
-    - "quality_metric"
+    - "quality_metrics"
     properties:
       name:
         type: "string"
         example: "Songs Application"
-        description: "Name of the deployed application"
+        description: "Name of the application to be deployed"
       docker_image:
         type: "string"
         example: "fcribeiro/Songs_MS"
         description: "Name of the docker image"
-      quality_metric:
+      quality_metrics:
         type: "array"
-        xml:
-          name: "metrics"
-          wrapped: true
         items:
+          $ref: '#/definitions/QualityMetrics'
+  AppInfo:
+      type: "object"
+      required:
+      - "id"
+      - "name"
+      - "state"
+      - "docker_image"
+      - "quality_metrics"
+      properties:
+        id:
+          type: "integer"
+          example: 1
+          description: "The application ID."
+        name:
           type: "string"
+          example: "Songs Application"
+          description: "Name of the deployed application"
+        state:
+          type: "string"
+          example: "Running"
+          description: "Current state of the application"
+        docker_image:
+          type: "string"
+          example: "fcribeiro/Songs_MS"
+          description: "Name of the docker image"
+        quality_metrics:
+          type: "array"
+          items:
+            $ref: '#/definitions/QualityMetrics'
+  ArrayOfApps:
+      type: "array"
+      items:
+        $ref: '#/definitions/AppInfo'
+  QualityMetrics:
+      type: "object"
+      properties:
+        metric:
+          type: "string"
+        value:
+          type: "string"
+        
