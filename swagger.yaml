@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title: EMF_Server_Controller
+  title: EMP_Server_Controller
   version: "0.1"
 consumes:
   - application/json
@@ -10,15 +10,15 @@ paths:
   /:
     get:
       operationId: application.hello_world
-      summary: "EMF Working!"
-      tags: [emf_server]
+      summary: "EMP Working!"
+      tags: [emp_server]
       responses:
         200:
           description: OK
   /app:
     get:
         operationId: application.get_all_apps
-        tags: [emf_server]
+        tags: [emp_server]
         summary: "Gets information about all applications"
         consumes:
         - "application/json"
@@ -37,7 +37,7 @@ paths:
             description: "Internal server error."
     post:
       operationId: application.deploy_app
-      tags: [emf_server]
+      tags: [emp_server]
       summary: "Deploys an application in the platform"
       consumes:
       - "application/json"
@@ -62,7 +62,7 @@ paths:
   /app/{appID}:
     get:
         operationId: application.get_app
-        tags: [emf_server]
+        tags: [emp_server]
         summary: "Gets information about a specific application"
         consumes:
         - "application/json"
@@ -88,7 +88,7 @@ paths:
             description: "Internal server error."
     patch:
       operationId: application.change_app_state
-      tags: [emf_server]
+      tags: [emp_server]
       summary: "Changes an application state"
       consumes:
       - "application/json"
@@ -103,7 +103,7 @@ paths:
         format: "int64"
       - in: "body"
         name: "state"
-        description: "Application state (true to start, false to stop)"
+        description: "Parameters that will change the state of the application"
         required: true
         schema:
           $ref: "#/definitions/AppState"
@@ -120,7 +120,7 @@ paths:
           description: "Internal server error."
     delete:
         operationId: application.delete_app
-        tags: [emf_server]
+        tags: [emp_server]
         summary: "Removes an application from the platform"
         consumes:
         - "application/json"
@@ -147,7 +147,7 @@ paths:
   /app/tracing/{appID}:
     get:
         operationId: application.get_app_tracing
-        tags: [emf_server]
+        tags: [emp_server]
         summary: "Gets information about tracing of a specific application"
         consumes:
         - "application/json"
@@ -263,14 +263,17 @@ definitions:
       properties:
         metric:
           type: "string"
-        value:
+        values:
           type: "string"
   AppState:
       type: "object"
-      required:
-      - "state"
       properties:
         state:
           type: "boolean"
+        quality_metrics:
+          type: "array"
+          items: 
+            $ref: '#/definitions/QualityMetrics'
+          
 
         
