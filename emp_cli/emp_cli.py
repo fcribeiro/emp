@@ -1,4 +1,11 @@
 import click
+import swagger_client
+from swagger_client.rest import ApiException
+
+api = swagger_client.EmpServerApi()
+api.api_client.configuration.host = "http://localhost:8080"
+
+
 
 
 @click.group()
@@ -10,6 +17,24 @@ def cli():
 def deploy():
 	"""Deploys an application in the platform"""
 	click.echo('Deploy Command Executed')
+
+
+@cli.command()
+@click.argument('id', type=int)
+def info(id):
+	"""Returns all information about a specific application in the platform. This command requires an "id" of a specific application as an argument"""
+	click.echo('Info Command Executed')
+
+
+@cli.command()
+def list():
+	"""Returns all information about all applications in the platform."""
+	try:
+		reponse = api.application_get_all_apps()
+		click.echo(reponse)
+	except ApiException as e:
+		click.echo("Exception: %s\n" % e)
+	click.echo('List Command Executed')
 
 
 @cli.command()
@@ -40,8 +65,3 @@ def tracing(id):
 	click.echo('Tracing Command Executed')
 
 
-@cli.command()
-@click.argument('id', type=int)
-def info(id):
-	"""Returns all information about a specific application in the platform. This command requires an "id" of a specific application as an argument"""
-	click.echo('Info Command Executed')
