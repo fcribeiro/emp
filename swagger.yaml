@@ -174,6 +174,7 @@ definitions:
     required:
     - "name"
     - "docker_image"
+    - "stateless"
     - "quality_metrics"
     properties:
       name:
@@ -184,6 +185,10 @@ definitions:
         type: "string"
         example: "fcribeiro/Songs_MS"
         description: "Name of the docker image"
+      stateless:
+          type: "integer"
+          example: 1
+          description: "For stateless apps use 1, stateful use 0."
       quality_metrics:
         type: "array"
         items:
@@ -195,6 +200,7 @@ definitions:
       - "name"
       - "state"
       - "docker_image"
+      - "stateless"
       - "quality_metrics"
       properties:
         id:
@@ -213,6 +219,10 @@ definitions:
           type: "string"
           example: "fcribeiro/Songs_MS"
           description: "Name of the docker image"
+        stateless:
+          type: "integer"
+          example: 1
+          description: "Stateless apps use 1, stateful use 0."
         quality_metrics:
           type: "array"
           items:
@@ -242,6 +252,9 @@ definitions:
         $ref: '#/definitions/AppInfo'
   QualityMetrics:
       type: "object"
+      required:
+      - "metric"
+      - "value"
       properties:
         metric:
           type: "string"
