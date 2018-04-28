@@ -62,10 +62,10 @@ paths:
             description: "Not found."
           500:
             description: "Internal server error."
-    post:
-      operationId: application.stop_app
+    patch:
+      operationId: application.change_app_state
       tags: [emf_server]
-      summary: "Stop an application"
+      summary: "Changes an application state"
       consumes:
       - "application/json"
       produces:
@@ -73,10 +73,16 @@ paths:
       parameters:
       - name: "appID"
         in: "path"
-        description: "ID of the application to stop"
+        description: "ID of the application to change its state"
         required: true
         type: "integer"
         format: "int64"
+      - in: "body"
+        name: "state"
+        description: "Application state (true to start, false to stop)"
+        required: true
+        schema:
+          $ref: "#/definitions/AppState"
       responses:
         200:
           description: "OK."
@@ -118,14 +124,14 @@ paths:
     post:
       operationId: application.deploy_app
       tags: [emf_server]
-      summary: "Deploy App"
+      summary: "Deploy application in the platform"
       consumes:
       - "application/json"
       produces:
       - "application/json"
       parameters:
       - in: "body"
-        name: "body"
+        name: "deploy"
         description: "Application object to be deployed"
         required: true
         schema:
@@ -186,9 +192,9 @@ definitions:
         example: "fcribeiro/Songs_MS"
         description: "Name of the docker image"
       stateless:
-          type: "integer"
-          example: 1
-          description: "For stateless apps use 1, stateful use 0."
+          type: "boolean"
+          example: true
+          description: "For stateless apps use true, stateful use false."
       quality_metrics:
         type: "array"
         items:
@@ -220,9 +226,9 @@ definitions:
           example: "fcribeiro/Songs_MS"
           description: "Name of the docker image"
         stateless:
-          type: "integer"
-          example: 1
-          description: "Stateless apps use 1, stateful use 0."
+          type: "boolean"
+          example: true
+          description: "Stateless apps use true, stateful use false."
         quality_metrics:
           type: "array"
           items:
@@ -260,4 +266,12 @@ definitions:
           type: "string"
         value:
           type: "string"
+  AppState:
+      type: "object"
+      required:
+      - "state"
+      properties:
+        state:
+          type: "boolean"
+
         
