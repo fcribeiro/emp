@@ -19,7 +19,7 @@ paths:
     get:
         operationId: application.get_all_apps
         tags: [emp_server]
-        summary: "Gets information about all applications"
+        summary: "Gets general information about all applications"
         consumes:
         - "application/json"
         produces:
@@ -59,17 +59,17 @@ paths:
           description: "Bad request."
         500:
           description: "Internal server error"
-  /app/{appID}:
+  /app/{app_id}:
     get:
         operationId: application.get_app
         tags: [emp_server]
-        summary: "Gets information about a specific application"
+        summary: "Gets all information about a specific application"
         consumes:
         - "application/json"
         produces:
         - "application/json"
         parameters:
-        - name: "appID"
+        - name: "app_id"
           in: "path"
           description: "ID of the application to get information"
           required: true
@@ -95,7 +95,7 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "appID"
+      - name: "app_id"
         in: "path"
         description: "ID of the application to change its state"
         required: true
@@ -127,7 +127,7 @@ paths:
         produces:
         - "application/json"
         parameters:
-        - name: "appID"
+        - name: "app_id"
           in: "path"
           description: "ID of the application to remove"
           required: true
@@ -144,7 +144,7 @@ paths:
             description: "Not found."
           500:
             description: "Internal server error."
-  /app/tracing/{appID}:
+  /app/tracing/{app_id}:
     get:
         operationId: application.get_app_tracing
         tags: [emp_server]
@@ -154,7 +154,7 @@ paths:
         produces:
         - "application/json"
         parameters:
-        - name: "appID"
+        - name: "app_id"
           in: "path"
           description: "ID of the application"
           required: true
