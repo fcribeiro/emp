@@ -1,0 +1,325 @@
+---
+swagger: "2.0"
+info:
+  version: "0.1"
+  title: "EMP_Server_Controller"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /:
+    get:
+      tags:
+      - "emp_server"
+      summary: "EMP Working!"
+      operationId: "application_hello_world"
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
+  /app:
+    get:
+      tags:
+      - "emp_server"
+      summary: "Gets general information about all applications"
+      operationId: "application_get_all_apps"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "OK."
+          schema:
+            $ref: "#/definitions/ArrayOfApps"
+        400:
+          description: "Bad request."
+        404:
+          description: "Not found."
+        500:
+          description: "Internal server error."
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
+    post:
+      tags:
+      - "emp_server"
+      summary: "Deploys an application in the platform"
+      operationId: "application_deploy_app"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "deploy"
+        description: "Application object to be deployed"
+        required: true
+        schema:
+          $ref: "#/definitions/AppDeploy"
+      responses:
+        201:
+          description: "Created."
+          schema:
+            $ref: "#/definitions/AppTotalInfo"
+        400:
+          description: "Bad request."
+        500:
+          description: "Internal server error"
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
+  /app/{app_id}:
+    get:
+      tags:
+      - "emp_server"
+      summary: "Gets all information about a specific application"
+      operationId: "application_get_app"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "app_id"
+        in: "path"
+        description: "ID of the application to get information"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK."
+          schema:
+            $ref: "#/definitions/AppTotalInfo"
+        400:
+          description: "Bad request."
+        404:
+          description: "Not found."
+        500:
+          description: "Internal server error."
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
+    delete:
+      tags:
+      - "emp_server"
+      summary: "Removes an application from the platform"
+      operationId: "application_delete_app"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "app_id"
+        in: "path"
+        description: "ID of the application to remove"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK."
+          schema:
+            $ref: "#/definitions/AppInfo"
+        400:
+          description: "Bad request."
+        404:
+          description: "Not found."
+        500:
+          description: "Internal server error."
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
+    patch:
+      tags:
+      - "emp_server"
+      summary: "Changes an application state"
+      operationId: "application_change_app_state"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "app_id"
+        in: "path"
+        description: "ID of the application to change its state"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "state"
+        description: "Parameters that will change the state of the application"
+        required: true
+        schema:
+          $ref: "#/definitions/AppState"
+      responses:
+        200:
+          description: "OK."
+          schema:
+            $ref: "#/definitions/AppInfo"
+        400:
+          description: "Bad request."
+        404:
+          description: "Not found."
+        500:
+          description: "Internal server error."
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
+  /app/tracing/{app_id}:
+    get:
+      tags:
+      - "emp_server"
+      summary: "Gets information about tracing of a specific application"
+      operationId: "application_get_app_tracing"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "app_id"
+        in: "path"
+        description: "ID of the application"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK."
+          schema:
+            type: "string"
+            example: "127.0.0.1:8080"
+        400:
+          description: "Bad request."
+        404:
+          description: "Not found."
+        500:
+          description: "Internal server error."
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
+definitions:
+  AppDeploy:
+    type: "object"
+    required:
+    - "docker_image"
+    - "name"
+    - "quality_metrics"
+    - "stateless"
+    properties:
+      name:
+        type: "string"
+        example: "Songs Application"
+        description: "Name of the application to be deployed"
+      docker_image:
+        type: "string"
+        example: "fcribeiro/Songs_MS"
+        description: "Name of the docker image"
+      stateless:
+        type: "boolean"
+        example: true
+        description: "For stateless apps use true, stateful use false."
+      quality_metrics:
+        type: "array"
+        items:
+          $ref: "#/definitions/QualityMetrics"
+    example:
+      quality_metrics:
+      - metric: "metric"
+        values: "values"
+      - metric: "metric"
+        values: "values"
+      name: "Songs Application"
+      stateless: true
+      docker_image: "fcribeiro/Songs_MS"
+  AppTotalInfo:
+    type: "object"
+    required:
+    - "docker_image"
+    - "id"
+    - "name"
+    - "quality_metrics"
+    - "state"
+    - "stateless"
+    properties:
+      id:
+        type: "integer"
+        example: 1
+        description: "The application ID."
+      name:
+        type: "string"
+        example: "Songs Application"
+        description: "Name of the deployed application"
+      state:
+        type: "string"
+        example: "Running"
+        description: "Current state of the application"
+      docker_image:
+        type: "string"
+        example: "fcribeiro/Songs_MS"
+        description: "Name of the docker image"
+      stateless:
+        type: "boolean"
+        example: true
+        description: "Stateless apps use true, stateful use false."
+      quality_metrics:
+        type: "array"
+        items:
+          $ref: "#/definitions/QualityMetrics"
+    example:
+      quality_metrics:
+      - metric: "metric"
+        values: "values"
+      - metric: "metric"
+        values: "values"
+      name: "Songs Application"
+      id: 1
+      state: "Running"
+      stateless: true
+      docker_image: "fcribeiro/Songs_MS"
+  AppInfo:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    - "state"
+    properties:
+      id:
+        type: "integer"
+        example: 1
+        description: "The application ID."
+      name:
+        type: "string"
+        example: "Songs Application"
+        description: "Name of the deployed application"
+      state:
+        type: "string"
+        example: "Stopped"
+        description: "Current state of the application"
+    example:
+      name: "Songs Application"
+      id: 1
+      state: "Stopped"
+  ArrayOfApps:
+    type: "array"
+    items:
+      $ref: "#/definitions/AppInfo"
+  QualityMetrics:
+    type: "object"
+    required:
+    - "metric"
+    properties:
+      metric:
+        type: "string"
+      values:
+        type: "string"
+    example:
+      metric: "metric"
+      values: "values"
+  AppState:
+    type: "object"
+    properties:
+      state:
+        type: "boolean"
+      quality_metrics:
+        type: "array"
+        items:
+          $ref: "#/definitions/QualityMetrics"
+    example:
+      quality_metrics:
+      - metric: "metric"
+        values: "values"
+      - metric: "metric"
+        values: "values"
+      state: true
