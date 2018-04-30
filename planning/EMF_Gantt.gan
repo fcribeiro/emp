@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2018-04-20" view-index="0" gantt-divider-location="599" resource-divider-location="300" version="2.8.6" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2018-04-20" view-index="0" gantt-divider-location="599" resource-divider-location="300" version="2.8.7" locale="en_US">
     <description/>
     <view zooming-state="default:1" id="gantt-chart">
         <field id="tpd3" name="Name" width="276" order="0"/>
@@ -47,7 +47,7 @@
             <task id="100" name="Write Client CLI" color="#8cb6ce" meeting="false" start="2018-04-27" duration="2" complete="0" thirdDate="2018-04-30" thirdDate-constraint="0" expand="true">
                 <depend id="101" type="2" difference="0" hardness="Rubber"/>
             </task>
-            <task id="101" name="Write Kub Server Logic" color="#8cb6ce" meeting="false" start="2018-05-01" duration="2" complete="0" thirdDate="2018-05-02" thirdDate-constraint="0" expand="true">
+            <task id="101" name="Write Server Business" color="#8cb6ce" meeting="false" start="2018-05-01" duration="2" complete="0" thirdDate="2018-05-01" thirdDate-constraint="0" expand="true">
                 <depend id="105" type="2" difference="0" hardness="Rubber"/>
             </task>
             <task id="105" name="Kubernetes Server Interaction" color="#8cb6ce" meeting="false" start="2018-05-07" duration="2" complete="0" thirdDate="2018-05-04" thirdDate-constraint="0" expand="true"/>

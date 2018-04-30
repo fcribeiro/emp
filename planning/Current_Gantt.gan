@@ -33,13 +33,10 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="92" name="Control API" meeting="false" start="2018-04-27" duration="8" complete="0" expand="true">
+        <task id="92" name="Control API" meeting="false" start="2018-05-01" duration="6" complete="0" expand="true">
             <depend id="89" type="2" difference="0" hardness="Rubber"/>
             <depend id="107" type="2" difference="0" hardness="Rubber"/>
-            <task id="100" name="Write Client CLI" color="#8cb6ce" meeting="false" start="2018-04-27" duration="2" complete="0" thirdDate="2018-04-30" thirdDate-constraint="0" expand="true">
-                <depend id="101" type="2" difference="0" hardness="Rubber"/>
-            </task>
-            <task id="101" name="Write Kub Server Logic" color="#8cb6ce" meeting="false" start="2018-05-01" duration="2" complete="0" thirdDate="2018-05-02" thirdDate-constraint="0" expand="true">
+            <task id="101" name="Write Server Business" color="#8cb6ce" meeting="false" start="2018-05-01" duration="2" complete="0" thirdDate="2018-05-01" thirdDate-constraint="0" expand="true">
                 <depend id="105" type="2" difference="0" hardness="Rubber"/>
             </task>
             <task id="105" name="Kubernetes Server Interaction" color="#8cb6ce" meeting="false" start="2018-05-07" duration="2" complete="0" thirdDate="2018-05-04" thirdDate-constraint="0" expand="true"/>
