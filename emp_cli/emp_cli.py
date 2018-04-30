@@ -3,10 +3,9 @@ import swagger_client
 import json
 from swagger_client.rest import ApiException
 
+
 api = swagger_client.EmpServerApi()
 api.api_client.configuration.host = "http://localhost:8080"
-
-
 
 
 @click.group()
@@ -15,13 +14,20 @@ def cli():
 
 
 @cli.command()
-@click.argument('name', type=str)
-@click.argument('docker_image', type=str)
-@click.argument('stateless', type=bool)
-@click.argument('quality_metrics', type=int)
-def deploy(name, docker_image, stateless, quality_metrics):
+@click.argument('file', type=click.File('r'))
+def deploy(file):
 	"""Deploys an application in the platform"""
-	click.echo('Deploy Command Executed')
+
+	json_object = is_valid_json(file.read())
+	if not json_object:
+		click.echo('Invalid json format')
+		return
+
+	try:
+		reponse = api.application_deploy_app(deploy=json_object)
+		click.echo(reponse)
+	except ApiException as e:
+		click.echo("Exception: %s\n" % e)
 
 
 @cli.command()
@@ -33,7 +39,6 @@ def info(id):
 		click.echo(reponse)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
-	click.echo('Info Command Executed')
 
 
 @cli.command()
@@ -44,7 +49,6 @@ def list():
 		click.echo(reponse)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
-	click.echo('List Command Executed')
 
 
 @cli.command()
@@ -58,8 +62,6 @@ def stop(id):
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
 
-	click.echo('Stop Command Executed')
-
 
 @cli.command()
 @click.argument('id', type=int)
@@ -72,8 +74,6 @@ def start(id):
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
 
-	click.echo('Start Command Executed')
-
 
 @cli.command()
 @click.argument('id', type=int)
@@ -84,7 +84,6 @@ def remove(id):
 		click.echo(reponse)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
-	click.echo('Remove Command Executed')
 
 
 @cli.command()
@@ -96,4 +95,11 @@ def tracing(id):
 		click.echo(reponse)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
-	click.echo('Tracing Command Executed')
+
+
+def is_valid_json(text):
+	try:
+		json_object = json.loads(text)
+	except ValueError as e:
+		return False
+	return json_object
