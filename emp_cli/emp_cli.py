@@ -24,8 +24,8 @@ def deploy(file):
 		return
 
 	try:
-		reponse = api.application_deploy_app(deploy=json_object)
-		click.echo(reponse)
+		response = api.application_deploy_app(deploy=json_object)
+		click.echo(response)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
 
@@ -35,8 +35,8 @@ def deploy(file):
 def info(id):
 	"""Returns all information about a specific application in the platform. This command requires an "id" of a specific application as an argument"""
 	try:
-		reponse = api.application_get_app(app_id=id)
-		click.echo(reponse)
+		response = api.application_get_app(app_id=id)
+		click.echo(response)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
 
@@ -45,8 +45,8 @@ def info(id):
 def list():
 	"""Returns all information about all applications in the platform."""
 	try:
-		reponse = api.application_get_all_apps()
-		click.echo(reponse)
+		response = api.application_get_all_apps()
+		click.echo(response)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
 
@@ -57,8 +57,8 @@ def stop(id):
 	"""Stops an application that is running in the platform. This command requires an "id" of a specific application as an argument"""
 	try:
 		state = json.dumps({"state": False})
-		reponse = api.application_change_app_state(app_id=id, state=json.loads(state))
-		click.echo(reponse)
+		response = api.application_change_app_state(app_id=id, state=json.loads(state))
+		click.echo(response)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
 
@@ -69,8 +69,8 @@ def start(id):
 	"""Starts an application that is stopped in the platform. This command requires an "id" of a specific application as an argument"""
 	try:
 		state = json.dumps({"state": True})
-		reponse = api.application_change_app_state(app_id=id, state=json.loads(state))
-		click.echo(reponse)
+		response = api.application_change_app_state(app_id=id, state=json.loads(state))
+		click.echo(response)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
 
@@ -80,8 +80,7 @@ def start(id):
 def remove(id):
 	"""Removes an application from the platform. This command requires an "id" of a specific application as an argument"""
 	try:
-		reponse = api.application_delete_app(app_id=id)
-		click.echo(reponse)
+		response = api.application_delete_app(app_id=id)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
 
@@ -91,8 +90,8 @@ def remove(id):
 def tracing(id):
 	"""Returns a link containing traces of a specific application. This command requires an "id" of a specific application as an argument"""
 	try:
-		reponse = api.application_get_app_tracing(app_id=id)
-		click.echo(reponse)
+		response = api.application_get_app_tracing(app_id=id)
+		click.echo(response)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
 

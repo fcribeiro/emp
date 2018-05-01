@@ -50,9 +50,12 @@ class AppInfo(object):
         self._state = None
         self.discriminator = None
 
-        self.id = id
-        self.name = name
-        self.state = state
+        if id is not None:
+            self.id = id
+        if name is not None:
+            self.name = name
+        if state is not None:
+            self.state = state
 
     @property
     def id(self):
@@ -74,8 +77,6 @@ class AppInfo(object):
         :param id: The id of this AppInfo.  # noqa: E501
         :type: int
         """
-        if id is None:
-            raise ValueError("Invalid value for `id`, must not be `None`")  # noqa: E501
 
         self._id = id
 
@@ -99,8 +100,6 @@ class AppInfo(object):
         :param name: The name of this AppInfo.  # noqa: E501
         :type: str
         """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")  # noqa: E501
 
         self._name = name
 
@@ -124,8 +123,6 @@ class AppInfo(object):
         :param state: The state of this AppInfo.  # noqa: E501
         :type: str
         """
-        if state is None:
-            raise ValueError("Invalid value for `state`, must not be `None`")  # noqa: E501
 
         self._state = state
 

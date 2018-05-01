@@ -200,13 +200,6 @@ definitions:
           $ref: '#/definitions/QualityMetrics'
   AppTotalInfo:
       type: "object"
-      required:
-      - "id"
-      - "name"
-      - "state"
-      - "docker_image"
-      - "stateless"
-      - "quality_metrics"
       properties:
         id:
           type: "integer"
@@ -234,10 +227,6 @@ definitions:
             $ref: '#/definitions/QualityMetrics'
   AppInfo:
       type: "object"
-      required:
-      - "id"
-      - "name"
-      - "state"
       properties:
         id:
           type: "integer"
