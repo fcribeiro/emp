@@ -19,6 +19,12 @@ def change_app_state(app_id, state):
     :rtype: AppInfo
     """
 
+    # TODO Update redis state
+
+    app = cluster.get_app(app_id)
+    if app is None:
+        return
+
     if cluster.change_app_state(app_id=app_id, state=state):
         app_info = cluster.get_app(app_id)
         return app_info
@@ -36,12 +42,15 @@ def delete_app(app_id):
     :rtype: AppInfo
     """
 
-    app_info = cluster.get_app(app_id)
-    if app_info is None:
+    app = cluster.get_app(app_id)
+    if app is None:
         return
-    response = cluster.delete_app(app_id)
+    # response = cluster.delete_app(app_id)
 
-    return response
+    # TODO Decide what to return when an application is deleted successfully
+    # TODO Delete in Redis?
+
+    return app
 
 
 def deploy_app(deploy):
@@ -53,7 +62,8 @@ def deploy_app(deploy):
     :rtype: AppTotalInfo
     """
 
-    "STORE IN REDIS"
+    # TODO Store in redis
+
     app_deployed = cluster.deploy_app(deploy)
     if app_deployed is None:
         return

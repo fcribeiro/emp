@@ -1,11 +1,12 @@
 import json
 import swagger_server.controllers.kubernetes_controller as kubernetes
 
-from swagger_server.models.app_deploy import AppDeploy  # noqa: E501
-from swagger_server.models.app_info import AppInfo  # noqa: E501
-from swagger_server.models.app_state import AppState  # noqa: E501
-from swagger_server.models.app_total_info import AppTotalInfo  # noqa: E501
-from swagger_server.models.array_of_apps import ArrayOfApps  # noqa: E501
+from swagger_server.models.app_deploy import AppDeploy
+from swagger_server.models.app_info import AppInfo
+from swagger_server.models.app_state import AppState
+from swagger_server.models.quality_metrics import QualityMetrics
+from swagger_server.models.app_total_info import AppTotalInfo
+from swagger_server.models.array_of_apps import ArrayOfApps
 from swagger_server import util
 
 
@@ -17,13 +18,12 @@ def change_app_state(app_id, state):
     :param state: Parameters that will change the state of the application
     :type state: dict | bytes
 
-    :rtype: AppInfo
+    :rtype: boolean
     """
 
-    name = 'Songs_MS'
-    state = 'Running'
+    # TODO Change application state using kubernetes_controller (return true is successful or false otherwise)
 
-    return AppInfo(id=app_id, name=name, state=state)
+    return True
 
 
 def delete_app(app_id):
@@ -32,18 +32,12 @@ def delete_app(app_id):
     :param app_id: ID of the application to remove
     :type app_id: int
 
-    :rtype: AppInfo
+    :rtype: boolean
     """
 
-    # app_info = kubernetes.get_app(app_id)
-    # if app_info is None:
-    #     return
-    # response = kubernetes.delete_app(app_id)
+    # TODO Delete application using kubernetes_controller (return true is successful or false otherwise)
 
-    name = 'Songs_MS'
-    state = 'Running'
-
-    return AppInfo(id=app_id, name=name, state=state)
+    return True
 
 
 def deploy_app(deploy):
@@ -52,9 +46,15 @@ def deploy_app(deploy):
     :param deploy: Application object to be deployed
     :type deploy: dict | bytes
 
-    :rtype: AppTotalInfo
+    :rtype: boolean
     """
-    return
+
+    # TODO Call all kubernetes_controller functions to deploy a new application
+    # TODO (return application ID)
+
+    app_id = 10
+
+    return app_id
 
 
 def get_all_apps():
@@ -62,6 +62,9 @@ def get_all_apps():
 
     :rtype: ArrayOfApps
     """
+
+    # TODO Decide how to implement this because some kind of user ID is necessary
+
     return 'All Apps Listed Here'
 
 
@@ -74,10 +77,15 @@ def get_app(app_id):
     :rtype: AppTotalInfo
     """
 
+    # TODO Call kubernetes_controller function to return all the information about a specific application
+
     name = 'Songs_MS'
     state = 'Running'
+    quality_metrics = []
+    qm = QualityMetrics(metric="metric", values="val")
+    quality_metrics.append(qm)
 
-    return AppInfo(id=app_id, name=name, state=state)
+    return AppTotalInfo(id=app_id, name=name, state=state, quality_metrics=quality_metrics)
 
 
 def get_app_tracing(app_id):
@@ -89,7 +97,7 @@ def get_app_tracing(app_id):
     :rtype: str
     """
 
-    # REQUEST FOR APPLICATION TRACING LINK
+    # TODO Request for the specific application tracing link
 
     app_link = 'http://localhost:8080'
 
