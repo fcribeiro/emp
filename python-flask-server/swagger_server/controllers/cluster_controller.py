@@ -79,13 +79,16 @@ def get_app(app_id):
 
     # TODO Call kubernetes_controller function to return all the information about a specific application
 
-    name = 'Songs_MS'
+    name = 'Songs Aplication'
+    docker_image = 'fcribeiro/Songs_MS'
+    stateless = True
     state = 'Running'
     quality_metrics = []
     qm = QualityMetrics(metric="metric", values="val")
     quality_metrics.append(qm)
 
-    return AppTotalInfo(id=app_id, name=name, state=state, quality_metrics=quality_metrics)
+    return AppTotalInfo(id=app_id, name=name, state=state, docker_image=docker_image, stateless=stateless,
+                        quality_metrics=quality_metrics)
 
 
 def get_app_tracing(app_id):

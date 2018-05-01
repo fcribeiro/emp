@@ -45,7 +45,10 @@ def delete_app(app_id):
     app = cluster.get_app(app_id)
     if app is None:
         return
-    # response = cluster.delete_app(app_id)
+    if cluster.delete_app(app_id):
+        app.state = "Deleted"
+    else:
+        return
 
     # TODO Decide what to return when an application is deleted successfully
     # TODO Delete in Redis?
@@ -64,10 +67,10 @@ def deploy_app(deploy):
 
     # TODO Store in redis
 
-    app_deployed = cluster.deploy_app(deploy)
-    if app_deployed is None:
+    app_id = cluster.deploy_app(deploy)
+    if app_id is None:
         return
-    app_info = cluster.get_app(app_deployed.id)
+    app_info = cluster.get_app(app_id)
 
     return app_info
 
