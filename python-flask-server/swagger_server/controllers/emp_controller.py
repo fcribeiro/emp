@@ -1,4 +1,5 @@
 import json
+import redis
 import swagger_server.controllers.cluster_controller as cluster
 from swagger_server.models.app_deploy import AppDeploy  # noqa: E501
 from swagger_server.models.app_info import AppInfo  # noqa: E501
@@ -65,11 +66,18 @@ def deploy_app(deploy):
     :rtype: AppTotalInfo
     """
 
-    # TODO Store in redis
-
     app_id = cluster.deploy_app(deploy)
     if app_id is None:
         return
+
+    # TODO Store in redis
+
+    r = redis.StrictRedis(host='172.17.0.2', port=6379, db=0)
+    app = 'app_%s' % app_id
+    r.set(app, deploy)
+    value = r.get('app')
+    print(value)
+
     app_info = cluster.get_app(app_id)
 
     return app_info
