@@ -1,7 +1,7 @@
 import connexion
 import six
 
-import swagger_server.controllers.emp_controller as emp
+import swagger_server.controllers.emp_server as emp
 from swagger_server.models.app_deploy import AppDeploy  # noqa: E501
 from swagger_server.models.app_info import AppInfo  # noqa: E501
 from swagger_server.models.app_state import AppState  # noqa: E501
@@ -20,7 +20,7 @@ def application_change_app_state(app_id, state):  # noqa: E501
     :param state: Parameters that will change the state of the application
     :type state: dict | bytes
 
-    :rtype: AppInfo
+    :rtype: AppTotalInfo
     """
     if connexion.request.is_json:
         state = AppState.from_dict(connexion.request.get_json())  # noqa: E501
@@ -48,7 +48,7 @@ def application_deploy_app(deploy):  # noqa: E501
     :param deploy: Application object to be deployed
     :type deploy: dict | bytes
 
-    :rtype: AppTotalInfo
+    :rtype: AppInfo
     """
     if connexion.request.is_json:
         deploy = AppDeploy.from_dict(connexion.request.get_json())  # noqa: E501
@@ -76,7 +76,7 @@ def application_get_app(app_id):  # noqa: E501
 
     :rtype: AppTotalInfo
     """
-    return emp.get_app_tracing(app_id)
+    return emp.get_app(app_id)
 
 
 def application_get_app_tracing(app_id):  # noqa: E501

@@ -62,7 +62,7 @@ paths:
         201:
           description: "Created."
           schema:
-            $ref: "#/definitions/AppTotalInfo"
+            $ref: "#/definitions/AppInfo"
         400:
           description: "Bad request."
         500:
@@ -151,7 +151,7 @@ paths:
         200:
           description: "OK."
           schema:
-            $ref: "#/definitions/AppInfo"
+            $ref: "#/definitions/AppTotalInfo"
         400:
           description: "Bad request."
         404:
@@ -225,13 +225,6 @@ definitions:
       docker_image: "fcribeiro/Songs_MS"
   AppTotalInfo:
     type: "object"
-    required:
-    - "docker_image"
-    - "id"
-    - "name"
-    - "quality_metrics"
-    - "state"
-    - "stateless"
     properties:
       id:
         type: "integer"
@@ -270,10 +263,6 @@ definitions:
       docker_image: "fcribeiro/Songs_MS"
   AppInfo:
     type: "object"
-    required:
-    - "id"
-    - "name"
-    - "state"
     properties:
       id:
         type: "integer"

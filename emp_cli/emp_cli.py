@@ -81,6 +81,7 @@ def remove(id):
 	"""Removes an application from the platform. This command requires an "id" of a specific application as an argument"""
 	try:
 		response = api.application_delete_app(app_id=id)
+		click.echo(response)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
 

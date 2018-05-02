@@ -91,6 +91,23 @@ def get_app(app_id):
                         quality_metrics=quality_metrics)
 
 
+def get_app_general_info(app_id):
+    """Gets general information about a specific application
+
+    :param app_id: ID of the application to get information
+    :type app_id: int
+
+    :rtype: AppInfo
+    """
+
+    # TODO Call kubernetes_controller function to return all the information about a specific application
+
+    name = 'Songs Aplication'
+    state = 'Running'
+
+    return AppInfo(id=app_id, name=name, state=state)
+
+
 def get_app_tracing(app_id):
     """Gets information about tracing of a specific application
 

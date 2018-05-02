@@ -72,8 +72,6 @@ class AppInfo(Model):
         :param id: The id of this AppInfo.
         :type id: int
         """
-        if id is None:
-            raise ValueError("Invalid value for `id`, must not be `None`")  # noqa: E501
 
         self._id = id
 
@@ -97,8 +95,6 @@ class AppInfo(Model):
         :param name: The name of this AppInfo.
         :type name: str
         """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")  # noqa: E501
 
         self._name = name
 
@@ -122,7 +118,5 @@ class AppInfo(Model):
         :param state: The state of this AppInfo.
         :type state: str
         """
-        if state is None:
-            raise ValueError("Invalid value for `state`, must not be `None`")  # noqa: E501
 
         self._state = state

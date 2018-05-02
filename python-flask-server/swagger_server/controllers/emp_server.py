@@ -1,6 +1,6 @@
 import json
 import redis
-import swagger_server.controllers.cluster_controller as cluster
+import swagger_server.controllers.cluster_manager as cluster
 from swagger_server.models.app_deploy import AppDeploy  # noqa: E501
 from swagger_server.models.app_info import AppInfo  # noqa: E501
 from swagger_server.models.app_state import AppState  # noqa: E501
@@ -17,7 +17,7 @@ def change_app_state(app_id, state):
     :param state: Parameters that will change the state of the application
     :type state: dict | bytes
 
-    :rtype: AppInfo
+    :rtype: AppTotalInfo
     """
 
     # TODO Update redis state
@@ -43,7 +43,7 @@ def delete_app(app_id):
     :rtype: AppInfo
     """
 
-    app = cluster.get_app(app_id)
+    app = cluster.get_app_general_info(app_id)
     if app is None:
         return
     if cluster.delete_app(app_id):
@@ -75,10 +75,12 @@ def deploy_app(deploy):
     r = redis.StrictRedis(host='172.17.0.2', port=6379, db=0)
     app = 'app_%s' % app_id
     r.set(app, deploy)
+    # r.execute_command()
     value = r.get('app')
-    print(value)
+    test = value(AppDeploy)
+    print(test)
 
-    app_info = cluster.get_app(app_id)
+    app_info = cluster.get_app_general_info(app_id)
 
     return app_info
 
