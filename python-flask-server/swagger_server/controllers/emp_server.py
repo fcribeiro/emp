@@ -66,19 +66,19 @@ def deploy_app(deploy):
     :rtype: AppTotalInfo
     """
 
-    app_id = cluster.deploy_app(deploy)
-    if app_id is None:
-        return
-
     # TODO Store in redis
 
     r = redis.StrictRedis(host='172.17.0.2', port=6379, db=0)
-    app = 'app_%s' % app_id
+    app = 'app_%s' % deploy
     r.set(app, deploy)
     # r.execute_command()
     value = r.get('app')
     test = value(AppDeploy)
     print(test)
+
+    app_id = cluster.deploy_app(deploy)
+    if app_id is None:
+        return
 
     app_info = cluster.get_app_general_info(app_id)
 

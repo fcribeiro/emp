@@ -14,6 +14,21 @@ def cli():
 
 
 @cli.command()
+@click.option('--username', prompt=True, hide_input=False)
+@click.option('--password', prompt=True, hide_input=True,
+              confirmation_prompt=True)
+def create_account(username, password):
+    click.echo('Account Created')
+
+
+@cli.command()
+@click.option('--username', prompt=True, hide_input=False)
+@click.option('--password', prompt=True, hide_input=True)
+def login(username, password):
+    click.echo('Logged in')
+
+
+@cli.command()
 @click.argument('file', type=click.File('r'))
 def deploy(file):
 	"""Deploys an application in the platform"""
