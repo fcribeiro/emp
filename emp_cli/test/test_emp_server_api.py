@@ -36,6 +36,13 @@ class TestEmpServerApi(unittest.TestCase):
         """
         pass
 
+    def test_application_create_user(self):
+        """Test case for application_create_user
+
+        Creates a user with all the necessary information  # noqa: E501
+        """
+        pass
+
     def test_application_delete_app(self):
         """Test case for application_delete_app
 
@@ -75,6 +82,13 @@ class TestEmpServerApi(unittest.TestCase):
         """Test case for application_hello_world
 
         EMP Working!  # noqa: E501
+        """
+        pass
+
+    def test_application_login_user(self):
+        """Test case for application_login_user
+
+        User login  # noqa: E501
         """
         pass
 

@@ -59,6 +59,64 @@ paths:
           description: "Bad request."
         500:
           description: "Internal server error"
+  /app/user:
+    post:
+        operationId: application.create_user
+        tags: [emp_server]
+        summary: "Creates a user with all the necessary information"
+        consumes:
+        - "application/json"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "User information"
+          required: true
+          schema:
+            $ref: '#/definitions/UserInfo'
+        responses:
+          200:
+            description: "User created successfully"
+          400:
+            description: "Bad request."
+          404:
+            description: "Not found."
+          500:
+            description: "Internal server error."
+  /app/login/{user_id}:
+    post:
+        operationId: application.login_user
+        tags: [emp_server]
+        summary: "User login"
+        consumes:
+        - "application/json"
+        produces:
+        - "application/json"
+        parameters:
+        - name: "user_id"
+          in: "path"
+          description: "ID of the user to login"
+          required: true
+          type: "integer"
+          format: "int64"
+        - in: "body"
+          name: "body"
+          description: "User information"
+          required: true
+          schema:
+            $ref: '#/definitions/UserInfo'
+        responses:
+          200:
+            description: "Logged in successfully"
+          400:
+            description: "Bad request."
+          401:
+            description: "Login Failed."
+          404:
+            description: "Not found."
+          500:
+            description: "Internal server error."
   /app/{app_id}:
     get:
         operationId: application.get_app
@@ -263,6 +321,20 @@ definitions:
           type: "array"
           items: 
             $ref: '#/definitions/QualityMetrics'
+  UserInfo:
+      type: "object"
+      required: 
+      - "user_name"
+      - "password"
+      properties:
+        user_name:
+          type: "string"
+          example: "fcribeiro"
+          description: "Username of the user"
+        password:
+          type: "string"
+          example: "ribeiro123"
+          description: "Password of the user"
           
 
         

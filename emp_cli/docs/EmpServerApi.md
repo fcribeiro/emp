@@ -5,12 +5,14 @@ All URIs are relative to *https://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**application_change_app_state**](EmpServerApi.md#application_change_app_state) | **PATCH** /app/{app_id} | Changes an application state
+[**application_create_user**](EmpServerApi.md#application_create_user) | **POST** /app/user | Creates a user with all the necessary information
 [**application_delete_app**](EmpServerApi.md#application_delete_app) | **DELETE** /app/{app_id} | Removes an application from the platform
 [**application_deploy_app**](EmpServerApi.md#application_deploy_app) | **POST** /app | Deploys an application in the platform
 [**application_get_all_apps**](EmpServerApi.md#application_get_all_apps) | **GET** /app | Gets general information about all applications
 [**application_get_app**](EmpServerApi.md#application_get_app) | **GET** /app/{app_id} | Gets all information about a specific application
 [**application_get_app_tracing**](EmpServerApi.md#application_get_app_tracing) | **GET** /app/tracing/{app_id} | Gets information about tracing of a specific application
 [**application_hello_world**](EmpServerApi.md#application_hello_world) | **GET** / | EMP Working!
+[**application_login_user**](EmpServerApi.md#application_login_user) | **POST** /app/login/{user_id} | User login
 
 
 # **application_change_app_state**
@@ -49,6 +51,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AppTotalInfo**](AppTotalInfo.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **application_create_user**
+> application_create_user(body)
+
+Creates a user with all the necessary information
+
+### Example
+```python
+from __future__ import print_function
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.EmpServerApi()
+body = swagger_client.UserInfo() # UserInfo | User information
+
+try:
+    # Creates a user with all the necessary information
+    api_instance.application_create_user(body)
+except ApiException as e:
+    print("Exception when calling EmpServerApi->application_create_user: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**UserInfo**](UserInfo.md)| User information | 
+
+### Return type
+
+void (empty response body)
 
 ### Authorization
 
@@ -288,7 +335,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **application_hello_world**
-> application_hello_world()
+> str application_hello_world()
 
 EMP Working!
 
@@ -305,13 +352,61 @@ api_instance = swagger_client.EmpServerApi()
 
 try:
     # EMP Working!
-    api_instance.application_hello_world()
+    api_response = api_instance.application_hello_world()
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling EmpServerApi->application_hello_world: %s\n" % e)
 ```
 
 ### Parameters
 This endpoint does not need any parameter.
+
+### Return type
+
+**str**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **application_login_user**
+> application_login_user(user_id, body)
+
+User login
+
+### Example
+```python
+from __future__ import print_function
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.EmpServerApi()
+user_id = 789 # int | ID of the user to login
+body = swagger_client.UserInfo() # UserInfo | User information
+
+try:
+    # User login
+    api_instance.application_login_user(user_id, body)
+except ApiException as e:
+    print("Exception when calling EmpServerApi->application_login_user: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **user_id** | **int**| ID of the user to login | 
+ **body** | [**UserInfo**](UserInfo.md)| User information | 
 
 ### Return type
 

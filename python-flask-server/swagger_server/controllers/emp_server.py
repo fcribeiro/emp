@@ -9,6 +9,9 @@ from swagger_server.models.array_of_apps import ArrayOfApps  # noqa: E501
 from swagger_server import util
 
 
+redis = redis.StrictRedis(host='172.17.0.2', port=6379, db=0, decode_responses=True)
+
+
 def change_app_state(app_id, state):
     """Changes an application state
 
@@ -81,7 +84,6 @@ def deploy_app(deploy):
         return
 
     app_info = cluster.get_app_general_info(app_id)
-
     return app_info
 
 
@@ -122,9 +124,21 @@ def get_app_tracing(app_id):
     return app_link
 
 
+def create_user(body):
+
+    return 'User Created'
+
+
+def login(user_id, body):
+    return "Login"
+
+
 def hello_world():
     """EMP Working!
 
     :rtype: None
     """
-    return 'EMP WORKING!'
+
+    #print(str(value, 'utf-8'))
+
+    return "EMP WORKING!"

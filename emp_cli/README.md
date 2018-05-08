@@ -71,12 +71,14 @@ All URIs are relative to *https://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *EmpServerApi* | [**application_change_app_state**](docs/EmpServerApi.md#application_change_app_state) | **PATCH** /app/{app_id} | Changes an application state
+*EmpServerApi* | [**application_create_user**](docs/EmpServerApi.md#application_create_user) | **POST** /app/user | Creates a user with all the necessary information
 *EmpServerApi* | [**application_delete_app**](docs/EmpServerApi.md#application_delete_app) | **DELETE** /app/{app_id} | Removes an application from the platform
 *EmpServerApi* | [**application_deploy_app**](docs/EmpServerApi.md#application_deploy_app) | **POST** /app | Deploys an application in the platform
 *EmpServerApi* | [**application_get_all_apps**](docs/EmpServerApi.md#application_get_all_apps) | **GET** /app | Gets general information about all applications
 *EmpServerApi* | [**application_get_app**](docs/EmpServerApi.md#application_get_app) | **GET** /app/{app_id} | Gets all information about a specific application
 *EmpServerApi* | [**application_get_app_tracing**](docs/EmpServerApi.md#application_get_app_tracing) | **GET** /app/tracing/{app_id} | Gets information about tracing of a specific application
 *EmpServerApi* | [**application_hello_world**](docs/EmpServerApi.md#application_hello_world) | **GET** / | EMP Working!
+*EmpServerApi* | [**application_login_user**](docs/EmpServerApi.md#application_login_user) | **POST** /app/login/{user_id} | User login
 
 
 ## Documentation For Models
@@ -87,6 +89,7 @@ Class | Method | HTTP request | Description
  - [AppTotalInfo](docs/AppTotalInfo.md)
  - [ArrayOfApps](docs/ArrayOfApps.md)
  - [QualityMetrics](docs/QualityMetrics.md)
+ - [UserInfo](docs/UserInfo.md)
 
 
 ## Documentation For Authorization

@@ -7,6 +7,7 @@ from swagger_server.models.app_info import AppInfo  # noqa: E501
 from swagger_server.models.app_state import AppState  # noqa: E501
 from swagger_server.models.app_total_info import AppTotalInfo  # noqa: E501
 from swagger_server.models.array_of_apps import ArrayOfApps  # noqa: E501
+from swagger_server.models.user_info import UserInfo  # noqa: E501
 from swagger_server import util
 
 
@@ -24,7 +25,22 @@ def application_change_app_state(app_id, state):  # noqa: E501
     """
     if connexion.request.is_json:
         state = AppState.from_dict(connexion.request.get_json())  # noqa: E501
-    return emp.change_app_state(app_id=app_id, state=state)
+    return emp.change_app_state(app_id=app_id)
+
+
+def application_create_user(body):  # noqa: E501
+    """Creates a user with all the necessary information
+
+     # noqa: E501
+
+    :param body: User information
+    :type body: dict | bytes
+
+    :rtype: None
+    """
+    if connexion.request.is_json:
+        body = UserInfo.from_dict(connexion.request.get_json())  # noqa: E501
+    return emp.create_user(body)
 
 
 def application_delete_app(app_id):  # noqa: E501
@@ -98,6 +114,23 @@ def application_hello_world():  # noqa: E501
      # noqa: E501
 
 
-    :rtype: None
+    :rtype: str
     """
     return emp.hello_world()
+
+
+def application_login_user(user_id, body):  # noqa: E501
+    """User login
+
+     # noqa: E501
+
+    :param user_id: ID of the user to login
+    :type user_id: int
+    :param body: User information
+    :type body: dict | bytes
+
+    :rtype: None
+    """
+    if connexion.request.is_json:
+        body = UserInfo.from_dict(connexion.request.get_json())  # noqa: E501
+    return emp.login(user_id=user_id, body=body)

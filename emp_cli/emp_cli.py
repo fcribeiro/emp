@@ -18,14 +18,35 @@ def cli():
 @click.option('--password', prompt=True, hide_input=True,
               confirmation_prompt=True)
 def create_account(username, password):
-    click.echo('Account Created')
+
+	body = {}
+	body['user_name'] = username
+	body['password'] = password
+	body = json.dumps(body)
+	body = json.loads(body)
+	try:
+		response = api.application_create_user(body=body)
+		click.echo(response)
+	except ApiException as e:
+		click.echo("Exception: %s\n" % e)
 
 
 @cli.command()
 @click.option('--username', prompt=True, hide_input=False)
 @click.option('--password', prompt=True, hide_input=True)
 def login(username, password):
-    click.echo('Logged in')
+	body = {}
+	body['user_name'] = username
+	body['password'] = password
+	body = json.dumps(body)
+	body = json.loads(body)
+	id=1
+	try:
+		response = api.application_login_user(user_id=id, body=body)
+		click.echo(response)
+	except ApiException as e:
+		click.echo("Exception: %s\n" % e)
+
 
 
 @cli.command()
@@ -107,6 +128,17 @@ def tracing(id):
 	"""Returns a link containing traces of a specific application. This command requires an "id" of a specific application as an argument"""
 	try:
 		response = api.application_get_app_tracing(app_id=id)
+		click.echo(response)
+	except ApiException as e:
+		click.echo("Exception: %s\n" % e)
+
+
+@cli.command()
+def hello():
+	"""Hello World"""
+	try:
+		response = api.application_hello_world()
+		#response = json.dumps(response)
 		click.echo(response)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)

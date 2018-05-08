@@ -18,6 +18,8 @@ paths:
       responses:
         200:
           description: "OK"
+          schema:
+            type: "string"
       x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
   /app:
     get:
@@ -67,6 +69,68 @@ paths:
           description: "Bad request."
         500:
           description: "Internal server error"
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
+  /app/user:
+    post:
+      tags:
+      - "emp_server"
+      summary: "Creates a user with all the necessary information"
+      operationId: "application_create_user"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User information"
+        required: true
+        schema:
+          $ref: "#/definitions/UserInfo"
+      responses:
+        200:
+          description: "User created successfully"
+        400:
+          description: "Bad request."
+        404:
+          description: "Not found."
+        500:
+          description: "Internal server error."
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
+  /app/login/{user_id}:
+    post:
+      tags:
+      - "emp_server"
+      summary: "User login"
+      operationId: "application_login_user"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "ID of the user to login"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "User information"
+        required: true
+        schema:
+          $ref: "#/definitions/UserInfo"
+      responses:
+        200:
+          description: "Logged in successfully"
+        400:
+          description: "Bad request."
+        401:
+          description: "Login Failed."
+        404:
+          description: "Not found."
+        500:
+          description: "Internal server error."
       x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
   /app/{app_id}:
     get:
@@ -312,3 +376,20 @@ definitions:
       - metric: "metric"
         values: "values"
       state: true
+  UserInfo:
+    type: "object"
+    required:
+    - "password"
+    - "user_name"
+    properties:
+      user_name:
+        type: "string"
+        example: "fcribeiro"
+        description: "Username of the user"
+      password:
+        type: "string"
+        example: "ribeiro123"
+        description: "Password of the user"
+    example:
+      password: "ribeiro123"
+      user_name: "fcribeiro"

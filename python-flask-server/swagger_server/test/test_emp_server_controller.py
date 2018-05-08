@@ -10,6 +10,7 @@ from swagger_server.models.app_info import AppInfo  # noqa: E501
 from swagger_server.models.app_state import AppState  # noqa: E501
 from swagger_server.models.app_total_info import AppTotalInfo  # noqa: E501
 from swagger_server.models.array_of_apps import ArrayOfApps  # noqa: E501
+from swagger_server.models.user_info import UserInfo  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
@@ -26,6 +27,20 @@ class TestEmpServerController(BaseTestCase):
             '/app/{app_id}'.format(app_id=789),
             method='PATCH',
             data=json.dumps(state),
+            content_type='application/json')
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
+    def test_application_create_user(self):
+        """Test case for application_create_user
+
+        Creates a user with all the necessary information
+        """
+        body = UserInfo()
+        response = self.client.open(
+            '/app/user',
+            method='POST',
+            data=json.dumps(body),
             content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
@@ -100,6 +115,20 @@ class TestEmpServerController(BaseTestCase):
         response = self.client.open(
             '/',
             method='GET',
+            content_type='application/json')
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
+    def test_application_login_user(self):
+        """Test case for application_login_user
+
+        User login
+        """
+        body = UserInfo()
+        response = self.client.open(
+            '/app/login/{user_id}'.format(user_id=789),
+            method='POST',
+            data=json.dumps(body),
             content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
