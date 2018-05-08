@@ -22,11 +22,11 @@ class TestEmpServerController(BaseTestCase):
 
         Changes an application state
         """
-        state = AppState()
+        app_state = AppState()
         response = self.client.open(
             '/app/{app_id}'.format(app_id=789),
             method='PATCH',
-            data=json.dumps(state),
+            data=json.dumps(app_state),
             content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
@@ -36,11 +36,11 @@ class TestEmpServerController(BaseTestCase):
 
         Creates a user with all the necessary information
         """
-        body = UserInfo()
+        user_info = UserInfo()
         response = self.client.open(
             '/app/user',
             method='POST',
-            data=json.dumps(body),
+            data=json.dumps(user_info),
             content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
@@ -62,11 +62,11 @@ class TestEmpServerController(BaseTestCase):
 
         Deploys an application in the platform
         """
-        deploy = AppDeploy()
+        app_info = AppDeploy()
         response = self.client.open(
             '/app',
             method='POST',
-            data=json.dumps(deploy),
+            data=json.dumps(app_info),
             content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
@@ -124,11 +124,11 @@ class TestEmpServerController(BaseTestCase):
 
         User login
         """
-        body = UserInfo()
+        user_info = UserInfo()
         response = self.client.open(
             '/app/login/{user_id}'.format(user_id=789),
             method='POST',
-            data=json.dumps(body),
+            data=json.dumps(user_info),
             content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))

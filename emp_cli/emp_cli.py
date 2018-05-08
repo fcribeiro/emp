@@ -25,7 +25,7 @@ def create_account(username, password):
 	body = json.dumps(body)
 	body = json.loads(body)
 	try:
-		response = api.application_create_user(body=body)
+		response = api.application_create_user(user_info=body)
 		click.echo(response)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
@@ -42,7 +42,7 @@ def login(username, password):
 	body = json.loads(body)
 	id=1
 	try:
-		response = api.application_login_user(user_id=id, body=body)
+		response = api.application_login_user(user_id=id, user_info=body)
 		click.echo(response)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
@@ -60,7 +60,7 @@ def deploy(file):
 		return
 
 	try:
-		response = api.application_deploy_app(deploy=json_object)
+		response = api.application_deploy_app(app_info=json_object)
 		click.echo(response)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)
@@ -93,7 +93,7 @@ def stop(id):
 	"""Stops an application that is running in the platform. This command requires an "id" of a specific application as an argument"""
 	try:
 		state = json.dumps({"state": False})
-		response = api.application_change_app_state(app_id=id, state=json.loads(state))
+		response = api.application_change_app_state(app_id=id, app_state=json.loads(state))
 		click.echo(response)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e)

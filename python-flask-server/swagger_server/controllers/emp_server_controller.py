@@ -11,36 +11,36 @@ from swagger_server.models.user_info import UserInfo  # noqa: E501
 from swagger_server import util
 
 
-def application_change_app_state(app_id, state):  # noqa: E501
+def application_change_app_state(app_id, app_state):  # noqa: E501
     """Changes an application state
 
      # noqa: E501
 
     :param app_id: ID of the application to change its state
     :type app_id: int
-    :param state: Parameters that will change the state of the application
-    :type state: dict | bytes
+    :param app_state: Parameters that will change the state of the application
+    :type app_state: dict | bytes
 
     :rtype: AppTotalInfo
     """
     if connexion.request.is_json:
-        state = AppState.from_dict(connexion.request.get_json())  # noqa: E501
-    return emp.change_app_state(app_id=app_id)
+        app_state = AppState.from_dict(connexion.request.get_json())  # noqa: E501
+    return emp.change_app_state(app_id=app_id, app_state=app_state)
 
 
-def application_create_user(body):  # noqa: E501
+def application_create_user(user_info):  # noqa: E501
     """Creates a user with all the necessary information
 
      # noqa: E501
 
-    :param body: User information
-    :type body: dict | bytes
+    :param user_info: User information
+    :type user_info: dict | bytes
 
-    :rtype: None
+    :rtype: str
     """
     if connexion.request.is_json:
-        body = UserInfo.from_dict(connexion.request.get_json())  # noqa: E501
-    return emp.create_user(body)
+        user_info = UserInfo.from_dict(connexion.request.get_json())  # noqa: E501
+    return emp.create_user(user_info)
 
 
 def application_delete_app(app_id):  # noqa: E501
@@ -56,19 +56,19 @@ def application_delete_app(app_id):  # noqa: E501
     return emp.delete_app(app_id)
 
 
-def application_deploy_app(deploy):  # noqa: E501
+def application_deploy_app(app_info):  # noqa: E501
     """Deploys an application in the platform
 
      # noqa: E501
 
-    :param deploy: Application object to be deployed
-    :type deploy: dict | bytes
+    :param app_info: Application object to be deployed
+    :type app_info: dict | bytes
 
     :rtype: AppInfo
     """
     if connexion.request.is_json:
-        deploy = AppDeploy.from_dict(connexion.request.get_json())  # noqa: E501
-    return emp.deploy_app(deploy)
+        app_info = AppDeploy.from_dict(connexion.request.get_json())  # noqa: E501
+    return emp.deploy_app(app_info)
 
 
 def application_get_all_apps():  # noqa: E501
@@ -119,18 +119,18 @@ def application_hello_world():  # noqa: E501
     return emp.hello_world()
 
 
-def application_login_user(user_id, body):  # noqa: E501
+def application_login_user(user_id, user_info):  # noqa: E501
     """User login
 
      # noqa: E501
 
     :param user_id: ID of the user to login
     :type user_id: int
-    :param body: User information
-    :type body: dict | bytes
+    :param user_info: User information
+    :type user_info: dict | bytes
 
-    :rtype: None
+    :rtype: str
     """
     if connexion.request.is_json:
-        body = UserInfo.from_dict(connexion.request.get_json())  # noqa: E501
-    return emp.login(user_id=user_id, body=body)
+        user_info = UserInfo.from_dict(connexion.request.get_json())  # noqa: E501
+    return emp.login(user_id=user_id, user_info=user_info)

@@ -53,11 +53,11 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = swagger_client.EmpServerApi()
 app_id = 789 # int | ID of the application to change its state
-state = swagger_client.AppState() # AppState | Parameters that will change the state of the application
+app_state = swagger_client.AppState() # AppState | Parameters that will change the state of the application
 
 try:
     # Changes an application state
-    api_response = api_instance.application_change_app_state(app_id, state)
+    api_response = api_instance.application_change_app_state(app_id, app_state)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling EmpServerApi->application_change_app_state: %s\n" % e)

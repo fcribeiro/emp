@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 # **application_change_app_state**
-> AppTotalInfo application_change_app_state(app_id, state)
+> AppTotalInfo application_change_app_state(app_id, app_state)
 
 Changes an application state
 
@@ -31,11 +31,11 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = swagger_client.EmpServerApi()
 app_id = 789 # int | ID of the application to change its state
-state = swagger_client.AppState() # AppState | Parameters that will change the state of the application
+app_state = swagger_client.AppState() # AppState | Parameters that will change the state of the application
 
 try:
     # Changes an application state
-    api_response = api_instance.application_change_app_state(app_id, state)
+    api_response = api_instance.application_change_app_state(app_id, app_state)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling EmpServerApi->application_change_app_state: %s\n" % e)
@@ -46,7 +46,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **app_id** | **int**| ID of the application to change its state | 
- **state** | [**AppState**](AppState.md)| Parameters that will change the state of the application | 
+ **app_state** | [**AppState**](AppState.md)| Parameters that will change the state of the application | 
 
 ### Return type
 
@@ -64,7 +64,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **application_create_user**
-> application_create_user(body)
+> str application_create_user(user_info)
 
 Creates a user with all the necessary information
 
@@ -78,11 +78,12 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.EmpServerApi()
-body = swagger_client.UserInfo() # UserInfo | User information
+user_info = swagger_client.UserInfo() # UserInfo | User information
 
 try:
     # Creates a user with all the necessary information
-    api_instance.application_create_user(body)
+    api_response = api_instance.application_create_user(user_info)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling EmpServerApi->application_create_user: %s\n" % e)
 ```
@@ -91,11 +92,11 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**UserInfo**](UserInfo.md)| User information | 
+ **user_info** | [**UserInfo**](UserInfo.md)| User information | 
 
 ### Return type
 
-void (empty response body)
+**str**
 
 ### Authorization
 
@@ -155,7 +156,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **application_deploy_app**
-> AppInfo application_deploy_app(deploy)
+> AppInfo application_deploy_app(app_info)
 
 Deploys an application in the platform
 
@@ -169,11 +170,11 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.EmpServerApi()
-deploy = swagger_client.AppDeploy() # AppDeploy | Application object to be deployed
+app_info = swagger_client.AppDeploy() # AppDeploy | Application object to be deployed
 
 try:
     # Deploys an application in the platform
-    api_response = api_instance.application_deploy_app(deploy)
+    api_response = api_instance.application_deploy_app(app_info)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling EmpServerApi->application_deploy_app: %s\n" % e)
@@ -183,7 +184,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **deploy** | [**AppDeploy**](AppDeploy.md)| Application object to be deployed | 
+ **app_info** | [**AppDeploy**](AppDeploy.md)| Application object to be deployed | 
 
 ### Return type
 
@@ -377,7 +378,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **application_login_user**
-> application_login_user(user_id, body)
+> str application_login_user(user_id, user_info)
 
 User login
 
@@ -392,11 +393,12 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = swagger_client.EmpServerApi()
 user_id = 789 # int | ID of the user to login
-body = swagger_client.UserInfo() # UserInfo | User information
+user_info = swagger_client.UserInfo() # UserInfo | User information
 
 try:
     # User login
-    api_instance.application_login_user(user_id, body)
+    api_response = api_instance.application_login_user(user_id, user_info)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling EmpServerApi->application_login_user: %s\n" % e)
 ```
@@ -406,11 +408,11 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **int**| ID of the user to login | 
- **body** | [**UserInfo**](UserInfo.md)| User information | 
+ **user_info** | [**UserInfo**](UserInfo.md)| User information | 
 
 ### Return type
 
-void (empty response body)
+**str**
 
 ### Authorization
 

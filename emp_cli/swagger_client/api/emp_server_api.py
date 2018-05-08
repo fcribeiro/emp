@@ -33,45 +33,45 @@ class EmpServerApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def application_change_app_state(self, app_id, state, **kwargs):  # noqa: E501
+    def application_change_app_state(self, app_id, app_state, **kwargs):  # noqa: E501
         """Changes an application state  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.application_change_app_state(app_id, state, async=True)
+        >>> thread = api.application_change_app_state(app_id, app_state, async=True)
         >>> result = thread.get()
 
         :param async bool
         :param int app_id: ID of the application to change its state (required)
-        :param AppState state: Parameters that will change the state of the application (required)
+        :param AppState app_state: Parameters that will change the state of the application (required)
         :return: AppTotalInfo
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.application_change_app_state_with_http_info(app_id, state, **kwargs)  # noqa: E501
+            return self.application_change_app_state_with_http_info(app_id, app_state, **kwargs)  # noqa: E501
         else:
-            (data) = self.application_change_app_state_with_http_info(app_id, state, **kwargs)  # noqa: E501
+            (data) = self.application_change_app_state_with_http_info(app_id, app_state, **kwargs)  # noqa: E501
             return data
 
-    def application_change_app_state_with_http_info(self, app_id, state, **kwargs):  # noqa: E501
+    def application_change_app_state_with_http_info(self, app_id, app_state, **kwargs):  # noqa: E501
         """Changes an application state  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.application_change_app_state_with_http_info(app_id, state, async=True)
+        >>> thread = api.application_change_app_state_with_http_info(app_id, app_state, async=True)
         >>> result = thread.get()
 
         :param async bool
         :param int app_id: ID of the application to change its state (required)
-        :param AppState state: Parameters that will change the state of the application (required)
+        :param AppState app_state: Parameters that will change the state of the application (required)
         :return: AppTotalInfo
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['app_id', 'state']  # noqa: E501
+        all_params = ['app_id', 'app_state']  # noqa: E501
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -90,10 +90,10 @@ class EmpServerApi(object):
         if ('app_id' not in params or
                 params['app_id'] is None):
             raise ValueError("Missing the required parameter `app_id` when calling `application_change_app_state`")  # noqa: E501
-        # verify the required parameter 'state' is set
-        if ('state' not in params or
-                params['state'] is None):
-            raise ValueError("Missing the required parameter `state` when calling `application_change_app_state`")  # noqa: E501
+        # verify the required parameter 'app_state' is set
+        if ('app_state' not in params or
+                params['app_state'] is None):
+            raise ValueError("Missing the required parameter `app_state` when calling `application_change_app_state`")  # noqa: E501
 
         collection_formats = {}
 
@@ -109,8 +109,8 @@ class EmpServerApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'state' in params:
-            body_params = params['state']
+        if 'app_state' in params:
+            body_params = params['app_state']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
@@ -138,43 +138,43 @@ class EmpServerApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def application_create_user(self, body, **kwargs):  # noqa: E501
+    def application_create_user(self, user_info, **kwargs):  # noqa: E501
         """Creates a user with all the necessary information  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.application_create_user(body, async=True)
+        >>> thread = api.application_create_user(user_info, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param UserInfo body: User information (required)
-        :return: None
+        :param UserInfo user_info: User information (required)
+        :return: str
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.application_create_user_with_http_info(body, **kwargs)  # noqa: E501
+            return self.application_create_user_with_http_info(user_info, **kwargs)  # noqa: E501
         else:
-            (data) = self.application_create_user_with_http_info(body, **kwargs)  # noqa: E501
+            (data) = self.application_create_user_with_http_info(user_info, **kwargs)  # noqa: E501
             return data
 
-    def application_create_user_with_http_info(self, body, **kwargs):  # noqa: E501
+    def application_create_user_with_http_info(self, user_info, **kwargs):  # noqa: E501
         """Creates a user with all the necessary information  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.application_create_user_with_http_info(body, async=True)
+        >>> thread = api.application_create_user_with_http_info(user_info, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param UserInfo body: User information (required)
-        :return: None
+        :param UserInfo user_info: User information (required)
+        :return: str
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']  # noqa: E501
+        all_params = ['user_info']  # noqa: E501
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -189,10 +189,10 @@ class EmpServerApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `application_create_user`")  # noqa: E501
+        # verify the required parameter 'user_info' is set
+        if ('user_info' not in params or
+                params['user_info'] is None):
+            raise ValueError("Missing the required parameter `user_info` when calling `application_create_user`")  # noqa: E501
 
         collection_formats = {}
 
@@ -206,8 +206,8 @@ class EmpServerApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if 'user_info' in params:
+            body_params = params['user_info']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
@@ -227,7 +227,7 @@ class EmpServerApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type=None,  # noqa: E501
+            response_type='str',  # noqa: E501
             auth_settings=auth_settings,
             async=params.get('async'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -332,43 +332,43 @@ class EmpServerApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def application_deploy_app(self, deploy, **kwargs):  # noqa: E501
+    def application_deploy_app(self, app_info, **kwargs):  # noqa: E501
         """Deploys an application in the platform  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.application_deploy_app(deploy, async=True)
+        >>> thread = api.application_deploy_app(app_info, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param AppDeploy deploy: Application object to be deployed (required)
+        :param AppDeploy app_info: Application object to be deployed (required)
         :return: AppInfo
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.application_deploy_app_with_http_info(deploy, **kwargs)  # noqa: E501
+            return self.application_deploy_app_with_http_info(app_info, **kwargs)  # noqa: E501
         else:
-            (data) = self.application_deploy_app_with_http_info(deploy, **kwargs)  # noqa: E501
+            (data) = self.application_deploy_app_with_http_info(app_info, **kwargs)  # noqa: E501
             return data
 
-    def application_deploy_app_with_http_info(self, deploy, **kwargs):  # noqa: E501
+    def application_deploy_app_with_http_info(self, app_info, **kwargs):  # noqa: E501
         """Deploys an application in the platform  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.application_deploy_app_with_http_info(deploy, async=True)
+        >>> thread = api.application_deploy_app_with_http_info(app_info, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param AppDeploy deploy: Application object to be deployed (required)
+        :param AppDeploy app_info: Application object to be deployed (required)
         :return: AppInfo
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['deploy']  # noqa: E501
+        all_params = ['app_info']  # noqa: E501
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -383,10 +383,10 @@ class EmpServerApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'deploy' is set
-        if ('deploy' not in params or
-                params['deploy'] is None):
-            raise ValueError("Missing the required parameter `deploy` when calling `application_deploy_app`")  # noqa: E501
+        # verify the required parameter 'app_info' is set
+        if ('app_info' not in params or
+                params['app_info'] is None):
+            raise ValueError("Missing the required parameter `app_info` when calling `application_deploy_app`")  # noqa: E501
 
         collection_formats = {}
 
@@ -400,8 +400,8 @@ class EmpServerApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'deploy' in params:
-            body_params = params['deploy']
+        if 'app_info' in params:
+            body_params = params['app_info']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
@@ -801,45 +801,45 @@ class EmpServerApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def application_login_user(self, user_id, body, **kwargs):  # noqa: E501
+    def application_login_user(self, user_id, user_info, **kwargs):  # noqa: E501
         """User login  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.application_login_user(user_id, body, async=True)
+        >>> thread = api.application_login_user(user_id, user_info, async=True)
         >>> result = thread.get()
 
         :param async bool
         :param int user_id: ID of the user to login (required)
-        :param UserInfo body: User information (required)
-        :return: None
+        :param UserInfo user_info: User information (required)
+        :return: str
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.application_login_user_with_http_info(user_id, body, **kwargs)  # noqa: E501
+            return self.application_login_user_with_http_info(user_id, user_info, **kwargs)  # noqa: E501
         else:
-            (data) = self.application_login_user_with_http_info(user_id, body, **kwargs)  # noqa: E501
+            (data) = self.application_login_user_with_http_info(user_id, user_info, **kwargs)  # noqa: E501
             return data
 
-    def application_login_user_with_http_info(self, user_id, body, **kwargs):  # noqa: E501
+    def application_login_user_with_http_info(self, user_id, user_info, **kwargs):  # noqa: E501
         """User login  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.application_login_user_with_http_info(user_id, body, async=True)
+        >>> thread = api.application_login_user_with_http_info(user_id, user_info, async=True)
         >>> result = thread.get()
 
         :param async bool
         :param int user_id: ID of the user to login (required)
-        :param UserInfo body: User information (required)
-        :return: None
+        :param UserInfo user_info: User information (required)
+        :return: str
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['user_id', 'body']  # noqa: E501
+        all_params = ['user_id', 'user_info']  # noqa: E501
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -858,10 +858,10 @@ class EmpServerApi(object):
         if ('user_id' not in params or
                 params['user_id'] is None):
             raise ValueError("Missing the required parameter `user_id` when calling `application_login_user`")  # noqa: E501
-        # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `application_login_user`")  # noqa: E501
+        # verify the required parameter 'user_info' is set
+        if ('user_info' not in params or
+                params['user_info'] is None):
+            raise ValueError("Missing the required parameter `user_info` when calling `application_login_user`")  # noqa: E501
 
         collection_formats = {}
 
@@ -877,8 +877,8 @@ class EmpServerApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if 'user_info' in params:
+            body_params = params['user_info']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
@@ -898,7 +898,7 @@ class EmpServerApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type=None,  # noqa: E501
+            response_type='str',  # noqa: E501
             auth_settings=auth_settings,
             async=params.get('async'),
             _return_http_data_only=params.get('_return_http_data_only'),
