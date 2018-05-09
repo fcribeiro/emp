@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**application_get_app**](EmpServerApi.md#application_get_app) | **GET** /app/{app_id} | Gets all information about a specific application
 [**application_get_app_tracing**](EmpServerApi.md#application_get_app_tracing) | **GET** /app/tracing/{app_id} | Gets information about tracing of a specific application
 [**application_hello_world**](EmpServerApi.md#application_hello_world) | **GET** / | EMP Working!
-[**application_login_user**](EmpServerApi.md#application_login_user) | **POST** /app/login/{user_id} | User login
+[**application_login_user**](EmpServerApi.md#application_login_user) | **POST** /app/login | User login
 
 
 # **application_change_app_state**
@@ -30,7 +30,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.EmpServerApi()
-app_id = 789 # int | ID of the application to change its state
+app_id = 'app_id_example' # str | ID of the application to change its state
 app_state = swagger_client.AppState() # AppState | Parameters that will change the state of the application
 
 try:
@@ -45,7 +45,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **app_id** | **int**| ID of the application to change its state | 
+ **app_id** | **str**| ID of the application to change its state | 
  **app_state** | [**AppState**](AppState.md)| Parameters that will change the state of the application | 
 
 ### Return type
@@ -124,7 +124,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.EmpServerApi()
-app_id = 789 # int | ID of the application to remove
+app_id = 'app_id_example' # str | ID of the application to remove
 
 try:
     # Removes an application from the platform
@@ -138,7 +138,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **app_id** | **int**| ID of the application to remove | 
+ **app_id** | **str**| ID of the application to remove | 
 
 ### Return type
 
@@ -258,7 +258,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.EmpServerApi()
-app_id = 789 # int | ID of the application to get information
+app_id = 'app_id_example' # str | ID of the application to get information
 
 try:
     # Gets all information about a specific application
@@ -272,7 +272,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **app_id** | **int**| ID of the application to get information | 
+ **app_id** | **str**| ID of the application to get information | 
 
 ### Return type
 
@@ -304,7 +304,7 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.EmpServerApi()
-app_id = 789 # int | ID of the application
+app_id = 'app_id_example' # str | ID of the application
 
 try:
     # Gets information about tracing of a specific application
@@ -318,7 +318,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **app_id** | **int**| ID of the application | 
+ **app_id** | **str**| ID of the application | 
 
 ### Return type
 
@@ -378,7 +378,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **application_login_user**
-> str application_login_user(user_id, user_info)
+> str application_login_user(user_info)
 
 User login
 
@@ -392,12 +392,11 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.EmpServerApi()
-user_id = 789 # int | ID of the user to login
 user_info = swagger_client.UserInfo() # UserInfo | User information
 
 try:
     # User login
-    api_response = api_instance.application_login_user(user_id, user_info)
+    api_response = api_instance.application_login_user(user_info)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling EmpServerApi->application_login_user: %s\n" % e)
@@ -407,7 +406,6 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **int**| ID of the user to login | 
  **user_info** | [**UserInfo**](UserInfo.md)| User information | 
 
 ### Return type

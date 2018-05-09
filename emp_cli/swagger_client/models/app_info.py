@@ -31,7 +31,7 @@ class AppInfo(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'id': 'int',
+        'id': 'str',
         'name': 'str',
         'state': 'str'
     }
@@ -64,7 +64,7 @@ class AppInfo(object):
         The application ID.  # noqa: E501
 
         :return: The id of this AppInfo.  # noqa: E501
-        :rtype: int
+        :rtype: str
         """
         return self._id
 
@@ -75,7 +75,7 @@ class AppInfo(object):
         The application ID.  # noqa: E501
 
         :param id: The id of this AppInfo.  # noqa: E501
-        :type: int
+        :type: str
         """
 
         self._id = id

@@ -42,7 +42,7 @@ class EmpServerApi(object):
         >>> result = thread.get()
 
         :param async bool
-        :param int app_id: ID of the application to change its state (required)
+        :param str app_id: ID of the application to change its state (required)
         :param AppState app_state: Parameters that will change the state of the application (required)
         :return: AppTotalInfo
                  If the method is called asynchronously,
@@ -64,7 +64,7 @@ class EmpServerApi(object):
         >>> result = thread.get()
 
         :param async bool
-        :param int app_id: ID of the application to change its state (required)
+        :param str app_id: ID of the application to change its state (required)
         :param AppState app_state: Parameters that will change the state of the application (required)
         :return: AppTotalInfo
                  If the method is called asynchronously,
@@ -244,7 +244,7 @@ class EmpServerApi(object):
         >>> result = thread.get()
 
         :param async bool
-        :param int app_id: ID of the application to remove (required)
+        :param str app_id: ID of the application to remove (required)
         :return: AppInfo
                  If the method is called asynchronously,
                  returns the request thread.
@@ -265,7 +265,7 @@ class EmpServerApi(object):
         >>> result = thread.get()
 
         :param async bool
-        :param int app_id: ID of the application to remove (required)
+        :param str app_id: ID of the application to remove (required)
         :return: AppInfo
                  If the method is called asynchronously,
                  returns the request thread.
@@ -527,7 +527,7 @@ class EmpServerApi(object):
         >>> result = thread.get()
 
         :param async bool
-        :param int app_id: ID of the application to get information (required)
+        :param str app_id: ID of the application to get information (required)
         :return: AppTotalInfo
                  If the method is called asynchronously,
                  returns the request thread.
@@ -548,7 +548,7 @@ class EmpServerApi(object):
         >>> result = thread.get()
 
         :param async bool
-        :param int app_id: ID of the application to get information (required)
+        :param str app_id: ID of the application to get information (required)
         :return: AppTotalInfo
                  If the method is called asynchronously,
                  returns the request thread.
@@ -624,7 +624,7 @@ class EmpServerApi(object):
         >>> result = thread.get()
 
         :param async bool
-        :param int app_id: ID of the application (required)
+        :param str app_id: ID of the application (required)
         :return: str
                  If the method is called asynchronously,
                  returns the request thread.
@@ -645,7 +645,7 @@ class EmpServerApi(object):
         >>> result = thread.get()
 
         :param async bool
-        :param int app_id: ID of the application (required)
+        :param str app_id: ID of the application (required)
         :return: str
                  If the method is called asynchronously,
                  returns the request thread.
@@ -801,16 +801,15 @@ class EmpServerApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def application_login_user(self, user_id, user_info, **kwargs):  # noqa: E501
+    def application_login_user(self, user_info, **kwargs):  # noqa: E501
         """User login  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.application_login_user(user_id, user_info, async=True)
+        >>> thread = api.application_login_user(user_info, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param int user_id: ID of the user to login (required)
         :param UserInfo user_info: User information (required)
         :return: str
                  If the method is called asynchronously,
@@ -818,28 +817,27 @@ class EmpServerApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.application_login_user_with_http_info(user_id, user_info, **kwargs)  # noqa: E501
+            return self.application_login_user_with_http_info(user_info, **kwargs)  # noqa: E501
         else:
-            (data) = self.application_login_user_with_http_info(user_id, user_info, **kwargs)  # noqa: E501
+            (data) = self.application_login_user_with_http_info(user_info, **kwargs)  # noqa: E501
             return data
 
-    def application_login_user_with_http_info(self, user_id, user_info, **kwargs):  # noqa: E501
+    def application_login_user_with_http_info(self, user_info, **kwargs):  # noqa: E501
         """User login  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.application_login_user_with_http_info(user_id, user_info, async=True)
+        >>> thread = api.application_login_user_with_http_info(user_info, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param int user_id: ID of the user to login (required)
         :param UserInfo user_info: User information (required)
         :return: str
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['user_id', 'user_info']  # noqa: E501
+        all_params = ['user_info']  # noqa: E501
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -854,10 +852,6 @@ class EmpServerApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'user_id' is set
-        if ('user_id' not in params or
-                params['user_id'] is None):
-            raise ValueError("Missing the required parameter `user_id` when calling `application_login_user`")  # noqa: E501
         # verify the required parameter 'user_info' is set
         if ('user_info' not in params or
                 params['user_info'] is None):
@@ -866,8 +860,6 @@ class EmpServerApi(object):
         collection_formats = {}
 
         path_params = {}
-        if 'user_id' in params:
-            path_params['user_id'] = params['user_id']  # noqa: E501
 
         query_params = []
 
@@ -891,7 +883,7 @@ class EmpServerApi(object):
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/app/login/{user_id}', 'POST',
+            '/app/login', 'POST',
             path_params,
             query_params,
             header_params,

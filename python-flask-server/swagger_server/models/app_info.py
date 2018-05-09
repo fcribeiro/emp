@@ -15,18 +15,18 @@ class AppInfo(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, id: int=None, name: str=None, state: str=None):  # noqa: E501
+    def __init__(self, id: str=None, name: str=None, state: str=None):  # noqa: E501
         """AppInfo - a model defined in Swagger
 
         :param id: The id of this AppInfo.  # noqa: E501
-        :type id: int
+        :type id: str
         :param name: The name of this AppInfo.  # noqa: E501
         :type name: str
         :param state: The state of this AppInfo.  # noqa: E501
         :type state: str
         """
         self.swagger_types = {
-            'id': int,
+            'id': str,
             'name': str,
             'state': str
         }
@@ -53,24 +53,24 @@ class AppInfo(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def id(self) -> int:
+    def id(self) -> str:
         """Gets the id of this AppInfo.
 
         The application ID.  # noqa: E501
 
         :return: The id of this AppInfo.
-        :rtype: int
+        :rtype: str
         """
         return self._id
 
     @id.setter
-    def id(self, id: int):
+    def id(self, id: str):
         """Sets the id of this AppInfo.
 
         The application ID.  # noqa: E501
 
         :param id: The id of this AppInfo.
-        :type id: int
+        :type id: str
         """
 
         self._id = id

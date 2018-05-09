@@ -24,7 +24,7 @@ class TestEmpServerController(BaseTestCase):
         """
         app_state = AppState()
         response = self.client.open(
-            '/app/{app_id}'.format(app_id=789),
+            '/app/{app_id}'.format(app_id='app_id_example'),
             method='PATCH',
             data=json.dumps(app_state),
             content_type='application/json')
@@ -51,7 +51,7 @@ class TestEmpServerController(BaseTestCase):
         Removes an application from the platform
         """
         response = self.client.open(
-            '/app/{app_id}'.format(app_id=789),
+            '/app/{app_id}'.format(app_id='app_id_example'),
             method='DELETE',
             content_type='application/json')
         self.assert200(response,
@@ -89,7 +89,7 @@ class TestEmpServerController(BaseTestCase):
         Gets all information about a specific application
         """
         response = self.client.open(
-            '/app/{app_id}'.format(app_id=789),
+            '/app/{app_id}'.format(app_id='app_id_example'),
             method='GET',
             content_type='application/json')
         self.assert200(response,
@@ -101,7 +101,7 @@ class TestEmpServerController(BaseTestCase):
         Gets information about tracing of a specific application
         """
         response = self.client.open(
-            '/app/tracing/{app_id}'.format(app_id=789),
+            '/app/tracing/{app_id}'.format(app_id='app_id_example'),
             method='GET',
             content_type='application/json')
         self.assert200(response,
@@ -126,7 +126,7 @@ class TestEmpServerController(BaseTestCase):
         """
         user_info = UserInfo()
         response = self.client.open(
-            '/app/login/{user_id}'.format(user_id=789),
+            '/app/login',
             method='POST',
             data=json.dumps(user_info),
             content_type='application/json')

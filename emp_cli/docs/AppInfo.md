@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** | The application ID. | [optional] 
+**id** | **str** | The application ID. | [optional] 
 **name** | **str** | Name of the deployed application | [optional] 
 **state** | **str** | Current state of the application | [optional] 
 

@@ -17,7 +17,7 @@ def application_change_app_state(app_id, app_state):  # noqa: E501
      # noqa: E501
 
     :param app_id: ID of the application to change its state
-    :type app_id: int
+    :type app_id: str
     :param app_state: Parameters that will change the state of the application
     :type app_state: dict | bytes
 
@@ -49,7 +49,7 @@ def application_delete_app(app_id):  # noqa: E501
      # noqa: E501
 
     :param app_id: ID of the application to remove
-    :type app_id: int
+    :type app_id: str
 
     :rtype: AppInfo
     """
@@ -88,7 +88,7 @@ def application_get_app(app_id):  # noqa: E501
      # noqa: E501
 
     :param app_id: ID of the application to get information
-    :type app_id: int
+    :type app_id: str
 
     :rtype: AppTotalInfo
     """
@@ -101,7 +101,7 @@ def application_get_app_tracing(app_id):  # noqa: E501
      # noqa: E501
 
     :param app_id: ID of the application
-    :type app_id: int
+    :type app_id: str
 
     :rtype: str
     """
@@ -119,13 +119,11 @@ def application_hello_world():  # noqa: E501
     return emp.hello_world()
 
 
-def application_login_user(user_id, user_info):  # noqa: E501
+def application_login_user(user_info):  # noqa: E501
     """User login
 
      # noqa: E501
 
-    :param user_id: ID of the user to login
-    :type user_id: int
     :param user_info: User information
     :type user_info: dict | bytes
 
@@ -133,4 +131,4 @@ def application_login_user(user_id, user_info):  # noqa: E501
     """
     if connexion.request.is_json:
         user_info = UserInfo.from_dict(connexion.request.get_json())  # noqa: E501
-    return emp.login(user_id=user_id, user_info=user_info)
+    return emp.login(user_info)

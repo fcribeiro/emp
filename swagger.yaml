@@ -104,7 +104,7 @@ paths:
             description: "Internal server error."
             schema:
               type: "string"
-  /app/login/{user_id}:
+  /app/login:
     post:
         operationId: application.login_user
         tags: [emp_server]
@@ -114,12 +114,6 @@ paths:
         produces:
         - "application/json"
         parameters:
-        - name: "user_id"
-          in: "path"
-          description: "ID of the user to login"
-          required: true
-          type: "integer"
-          format: "int64"
         - in: "body"
           name: "user_info"
           description: "User information"
@@ -161,8 +155,7 @@ paths:
           in: "path"
           description: "ID of the application to get information"
           required: true
-          type: "integer"
-          format: "int64"
+          type: "string"
         responses:
           200:
             description: "OK."
@@ -193,8 +186,7 @@ paths:
         in: "path"
         description: "ID of the application to change its state"
         required: true
-        type: "integer"
-        format: "int64"
+        type: "string"
       - in: "body"
         name: "app_state"
         description: "Parameters that will change the state of the application"
@@ -231,8 +223,7 @@ paths:
           in: "path"
           description: "ID of the application to remove"
           required: true
-          type: "integer"
-          format: "int64"
+          type: "string"
         responses:
           200:
             description: "OK."
@@ -264,14 +255,13 @@ paths:
           in: "path"
           description: "ID of the application"
           required: true
-          type: "integer"
-          format: "int64"
+          type: "string"
         responses:
           200:
             description: "OK."
             schema:
-                type: string
-                example: 127.0.0.1:8080
+                type: "string"
+                example: "127.0.0.1:8080"
           400:
             description: "Bad request."
             schema:
@@ -314,8 +304,8 @@ definitions:
       type: "object"
       properties:
         id:
-          type: "integer"
-          example: 1
+          type: "string"
+          example: "abcABC"
           description: "The application ID."
         name:
           type: "string"
@@ -341,8 +331,8 @@ definitions:
       type: "object"
       properties:
         id:
-          type: "integer"
-          example: 1
+          type: "string"
+          example: "abcABC"
           description: "The application ID."
         name:
           type: "string"
