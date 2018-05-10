@@ -51,24 +51,24 @@ def application_delete_app(app_id):  # noqa: E501
     :param app_id: ID of the application to remove
     :type app_id: str
 
-    :rtype: AppInfo
+    :rtype: str
     """
     return emp.delete_app(app_id)
 
 
-def application_deploy_app(app_info):  # noqa: E501
+def application_deploy_app(app_deploy):  # noqa: E501
     """Deploys an application in the platform
 
      # noqa: E501
 
-    :param app_info: Application object to be deployed
-    :type app_info: dict | bytes
+    :param app_deploy: Application object to be deployed
+    :type app_deploy: dict | bytes
 
     :rtype: AppInfo
     """
     if connexion.request.is_json:
-        app_info = AppDeploy.from_dict(connexion.request.get_json())  # noqa: E501
-    return emp.deploy_app(app_info)
+        app_deploy = AppDeploy.from_dict(connexion.request.get_json())  # noqa: E501
+    return emp.deploy_app(app_deploy)
 
 
 def application_get_all_apps():  # noqa: E501

@@ -31,49 +31,49 @@ class UserInfo(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'user_name': 'str',
+        'username': 'str',
         'password': 'str'
     }
 
     attribute_map = {
-        'user_name': 'user_name',
+        'username': 'username',
         'password': 'password'
     }
 
-    def __init__(self, user_name=None, password=None):  # noqa: E501
+    def __init__(self, username=None, password=None):  # noqa: E501
         """UserInfo - a model defined in Swagger"""  # noqa: E501
 
-        self._user_name = None
+        self._username = None
         self._password = None
         self.discriminator = None
 
-        self.user_name = user_name
+        self.username = username
         self.password = password
 
     @property
-    def user_name(self):
-        """Gets the user_name of this UserInfo.  # noqa: E501
+    def username(self):
+        """Gets the username of this UserInfo.  # noqa: E501
 
         Username of the user  # noqa: E501
 
-        :return: The user_name of this UserInfo.  # noqa: E501
+        :return: The username of this UserInfo.  # noqa: E501
         :rtype: str
         """
-        return self._user_name
+        return self._username
 
-    @user_name.setter
-    def user_name(self, user_name):
-        """Sets the user_name of this UserInfo.
+    @username.setter
+    def username(self, username):
+        """Sets the username of this UserInfo.
 
         Username of the user  # noqa: E501
 
-        :param user_name: The user_name of this UserInfo.  # noqa: E501
+        :param username: The username of this UserInfo.  # noqa: E501
         :type: str
         """
-        if user_name is None:
-            raise ValueError("Invalid value for `user_name`, must not be `None`")  # noqa: E501
+        if username is None:
+            raise ValueError("Invalid value for `username`, must not be `None`")  # noqa: E501
 
-        self._user_name = user_name
+        self._username = username
 
     @property
     def password(self):

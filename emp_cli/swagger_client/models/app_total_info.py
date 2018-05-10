@@ -61,18 +61,12 @@ class AppTotalInfo(object):
         self._quality_metrics = None
         self.discriminator = None
 
-        if id is not None:
-            self.id = id
-        if name is not None:
-            self.name = name
-        if state is not None:
-            self.state = state
-        if docker_image is not None:
-            self.docker_image = docker_image
-        if stateless is not None:
-            self.stateless = stateless
-        if quality_metrics is not None:
-            self.quality_metrics = quality_metrics
+        self.id = id
+        self.name = name
+        self.state = state
+        self.docker_image = docker_image
+        self.stateless = stateless
+        self.quality_metrics = quality_metrics
 
     @property
     def id(self):
@@ -94,6 +88,8 @@ class AppTotalInfo(object):
         :param id: The id of this AppTotalInfo.  # noqa: E501
         :type: str
         """
+        if id is None:
+            raise ValueError("Invalid value for `id`, must not be `None`")  # noqa: E501
 
         self._id = id
 
@@ -117,6 +113,8 @@ class AppTotalInfo(object):
         :param name: The name of this AppTotalInfo.  # noqa: E501
         :type: str
         """
+        if name is None:
+            raise ValueError("Invalid value for `name`, must not be `None`")  # noqa: E501
 
         self._name = name
 
@@ -140,6 +138,8 @@ class AppTotalInfo(object):
         :param state: The state of this AppTotalInfo.  # noqa: E501
         :type: str
         """
+        if state is None:
+            raise ValueError("Invalid value for `state`, must not be `None`")  # noqa: E501
 
         self._state = state
 
@@ -163,6 +163,8 @@ class AppTotalInfo(object):
         :param docker_image: The docker_image of this AppTotalInfo.  # noqa: E501
         :type: str
         """
+        if docker_image is None:
+            raise ValueError("Invalid value for `docker_image`, must not be `None`")  # noqa: E501
 
         self._docker_image = docker_image
 
@@ -186,6 +188,8 @@ class AppTotalInfo(object):
         :param stateless: The stateless of this AppTotalInfo.  # noqa: E501
         :type: bool
         """
+        if stateless is None:
+            raise ValueError("Invalid value for `stateless`, must not be `None`")  # noqa: E501
 
         self._stateless = stateless
 
@@ -207,6 +211,8 @@ class AppTotalInfo(object):
         :param quality_metrics: The quality_metrics of this AppTotalInfo.  # noqa: E501
         :type: list[QualityMetrics]
         """
+        if quality_metrics is None:
+            raise ValueError("Invalid value for `quality_metrics`, must not be `None`")  # noqa: E501
 
         self._quality_metrics = quality_metrics
 

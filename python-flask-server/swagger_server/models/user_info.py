@@ -15,25 +15,25 @@ class UserInfo(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, user_name: str=None, password: str=None):  # noqa: E501
+    def __init__(self, username: str=None, password: str=None):  # noqa: E501
         """UserInfo - a model defined in Swagger
 
-        :param user_name: The user_name of this UserInfo.  # noqa: E501
-        :type user_name: str
+        :param username: The username of this UserInfo.  # noqa: E501
+        :type username: str
         :param password: The password of this UserInfo.  # noqa: E501
         :type password: str
         """
         self.swagger_types = {
-            'user_name': str,
+            'username': str,
             'password': str
         }
 
         self.attribute_map = {
-            'user_name': 'user_name',
+            'username': 'username',
             'password': 'password'
         }
 
-        self._user_name = user_name
+        self._username = username
         self._password = password
 
     @classmethod
@@ -48,29 +48,29 @@ class UserInfo(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def user_name(self) -> str:
-        """Gets the user_name of this UserInfo.
+    def username(self) -> str:
+        """Gets the username of this UserInfo.
 
         Username of the user  # noqa: E501
 
-        :return: The user_name of this UserInfo.
+        :return: The username of this UserInfo.
         :rtype: str
         """
-        return self._user_name
+        return self._username
 
-    @user_name.setter
-    def user_name(self, user_name: str):
-        """Sets the user_name of this UserInfo.
+    @username.setter
+    def username(self, username: str):
+        """Sets the username of this UserInfo.
 
         Username of the user  # noqa: E501
 
-        :param user_name: The user_name of this UserInfo.
-        :type user_name: str
+        :param username: The username of this UserInfo.
+        :type username: str
         """
-        if user_name is None:
-            raise ValueError("Invalid value for `user_name`, must not be `None`")  # noqa: E501
+        if username is None:
+            raise ValueError("Invalid value for `username`, must not be `None`")  # noqa: E501
 
-        self._user_name = user_name
+        self._username = username
 
     @property
     def password(self) -> str:

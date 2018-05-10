@@ -61,7 +61,7 @@ paths:
       - "application/json"
       parameters:
       - in: "body"
-        name: "app_info"
+        name: "app_deploy"
         description: "Application object to be deployed"
         required: true
         schema:
@@ -207,7 +207,7 @@ paths:
         200:
           description: "OK."
           schema:
-            $ref: "#/definitions/AppInfo"
+            type: "string"
         400:
           description: "Bad request."
           schema:
@@ -331,6 +331,13 @@ definitions:
       docker_image: "fcribeiro/Songs_MS"
   AppTotalInfo:
     type: "object"
+    required:
+    - "docker_image"
+    - "id"
+    - "name"
+    - "quality_metrics"
+    - "state"
+    - "stateless"
     properties:
       id:
         type: "string"
@@ -369,6 +376,10 @@ definitions:
       docker_image: "fcribeiro/Songs_MS"
   AppInfo:
     type: "object"
+    required:
+    - "id"
+    - "name"
+    - "state"
     properties:
       id:
         type: "string"
@@ -422,9 +433,9 @@ definitions:
     type: "object"
     required:
     - "password"
-    - "user_name"
+    - "username"
     properties:
-      user_name:
+      username:
         type: "string"
         example: "fcribeiro"
         description: "Username of the user"
@@ -434,4 +445,4 @@ definitions:
         description: "Password of the user"
     example:
       password: "ribeiro123"
-      user_name: "fcribeiro"
+      username: "fcribeiro"

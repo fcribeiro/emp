@@ -110,7 +110,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **application_delete_app**
-> AppInfo application_delete_app(app_id)
+> str application_delete_app(app_id)
 
 Removes an application from the platform
 
@@ -142,7 +142,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AppInfo**](AppInfo.md)
+**str**
 
 ### Authorization
 
@@ -156,7 +156,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **application_deploy_app**
-> AppInfo application_deploy_app(app_info)
+> AppInfo application_deploy_app(app_deploy)
 
 Deploys an application in the platform
 
@@ -170,11 +170,11 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.EmpServerApi()
-app_info = swagger_client.AppDeploy() # AppDeploy | Application object to be deployed
+app_deploy = swagger_client.AppDeploy() # AppDeploy | Application object to be deployed
 
 try:
     # Deploys an application in the platform
-    api_response = api_instance.application_deploy_app(app_info)
+    api_response = api_instance.application_deploy_app(app_deploy)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling EmpServerApi->application_deploy_app: %s\n" % e)
@@ -184,7 +184,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **app_info** | [**AppDeploy**](AppDeploy.md)| Application object to be deployed | 
+ **app_deploy** | [**AppDeploy**](AppDeploy.md)| Application object to be deployed | 
 
 ### Return type
 

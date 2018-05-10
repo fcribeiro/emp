@@ -53,7 +53,7 @@ paths:
       - "application/json"
       parameters:
       - in: "body"
-        name: "app_info"
+        name: "app_deploy"
         description: "Application object to be deployed"
         required: true
         schema:
@@ -228,7 +228,7 @@ paths:
           200:
             description: "OK."
             schema:
-              $ref: '#/definitions/AppInfo'
+              type: "string"
           400:
             description: "Bad request."
             schema:
@@ -302,6 +302,13 @@ definitions:
           $ref: '#/definitions/QualityMetrics'
   AppTotalInfo:
       type: "object"
+      required:
+      - "id"
+      - "name"
+      - "state"
+      - "docker_image"
+      - "stateless"
+      - "quality_metrics"
       properties:
         id:
           type: "string"
@@ -329,6 +336,10 @@ definitions:
             $ref: '#/definitions/QualityMetrics'
   AppInfo:
       type: "object"
+      required:
+      - "id"
+      - "name"
+      - "state"
       properties:
         id:
           type: "string"
@@ -368,10 +379,10 @@ definitions:
   UserInfo:
       type: "object"
       required: 
-      - "user_name"
+      - "username"
       - "password"
       properties:
-        user_name:
+        username:
           type: "string"
           example: "fcribeiro"
           description: "Username of the user"

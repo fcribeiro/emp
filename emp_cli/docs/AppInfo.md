@@ -3,9 +3,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | The application ID. | [optional] 
-**name** | **str** | Name of the deployed application | [optional] 
-**state** | **str** | Current state of the application | [optional] 
+**id** | **str** | The application ID. | 
+**name** | **str** | Name of the deployed application | 
+**state** | **str** | Current state of the application | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

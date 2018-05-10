@@ -245,7 +245,7 @@ class EmpServerApi(object):
 
         :param async bool
         :param str app_id: ID of the application to remove (required)
-        :return: AppInfo
+        :return: str
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -266,7 +266,7 @@ class EmpServerApi(object):
 
         :param async bool
         :param str app_id: ID of the application to remove (required)
-        :return: AppInfo
+        :return: str
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -324,7 +324,7 @@ class EmpServerApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='AppInfo',  # noqa: E501
+            response_type='str',  # noqa: E501
             auth_settings=auth_settings,
             async=params.get('async'),
             _return_http_data_only=params.get('_return_http_data_only'),
@@ -332,43 +332,43 @@ class EmpServerApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def application_deploy_app(self, app_info, **kwargs):  # noqa: E501
+    def application_deploy_app(self, app_deploy, **kwargs):  # noqa: E501
         """Deploys an application in the platform  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.application_deploy_app(app_info, async=True)
+        >>> thread = api.application_deploy_app(app_deploy, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param AppDeploy app_info: Application object to be deployed (required)
+        :param AppDeploy app_deploy: Application object to be deployed (required)
         :return: AppInfo
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.application_deploy_app_with_http_info(app_info, **kwargs)  # noqa: E501
+            return self.application_deploy_app_with_http_info(app_deploy, **kwargs)  # noqa: E501
         else:
-            (data) = self.application_deploy_app_with_http_info(app_info, **kwargs)  # noqa: E501
+            (data) = self.application_deploy_app_with_http_info(app_deploy, **kwargs)  # noqa: E501
             return data
 
-    def application_deploy_app_with_http_info(self, app_info, **kwargs):  # noqa: E501
+    def application_deploy_app_with_http_info(self, app_deploy, **kwargs):  # noqa: E501
         """Deploys an application in the platform  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
-        >>> thread = api.application_deploy_app_with_http_info(app_info, async=True)
+        >>> thread = api.application_deploy_app_with_http_info(app_deploy, async=True)
         >>> result = thread.get()
 
         :param async bool
-        :param AppDeploy app_info: Application object to be deployed (required)
+        :param AppDeploy app_deploy: Application object to be deployed (required)
         :return: AppInfo
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['app_info']  # noqa: E501
+        all_params = ['app_deploy']  # noqa: E501
         all_params.append('async')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -383,10 +383,10 @@ class EmpServerApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'app_info' is set
-        if ('app_info' not in params or
-                params['app_info'] is None):
-            raise ValueError("Missing the required parameter `app_info` when calling `application_deploy_app`")  # noqa: E501
+        # verify the required parameter 'app_deploy' is set
+        if ('app_deploy' not in params or
+                params['app_deploy'] is None):
+            raise ValueError("Missing the required parameter `app_deploy` when calling `application_deploy_app`")  # noqa: E501
 
         collection_formats = {}
 
@@ -400,8 +400,8 @@ class EmpServerApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'app_info' in params:
-            body_params = params['app_info']
+        if 'app_deploy' in params:
+            body_params = params['app_deploy']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501

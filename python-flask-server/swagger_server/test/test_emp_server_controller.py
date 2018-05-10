@@ -62,11 +62,11 @@ class TestEmpServerController(BaseTestCase):
 
         Deploys an application in the platform
         """
-        app_info = AppDeploy()
+        app_deploy = AppDeploy()
         response = self.client.open(
             '/app',
             method='POST',
-            data=json.dumps(app_info),
+            data=json.dumps(app_deploy),
             content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))

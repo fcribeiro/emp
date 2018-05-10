@@ -16,7 +16,10 @@ from swagger_server import util
 
 
 ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+USER_APPS = "apps:"
+USER_DATA = "user:"
 rs = redis.StrictRedis(host='172.17.0.2', port=6379, db=0, decode_responses=True)
+
 
 # while True:
 #     try:
@@ -59,16 +62,28 @@ def change_app_state(app_id, app_state):
     # else:
     #     return
 
-    name = 'Songs Aplication'
-    docker_image = 'fcribeiro/Songs_MS'
-    stateless = True
-    state = 'Running'
-    quality_metrics = []
-    qm = QualityMetrics(metric="metric", values="val")
-    quality_metrics.append(qm)
+    username = "fcribeiro"  # TODO Get username from authentication token
 
-    return AppTotalInfo(id=app_id, name=name, state=state, docker_image=docker_image, stateless=stateless,
-                        quality_metrics=quality_metrics)
+    user_apps = "apps:" + username
+
+    app = rs.hget(user_apps, app_id)
+    app = json.loads(app)
+
+    if app_state.state is not None:
+        if app_state.state:     # TODO Start application in kubernetes
+            state = "Running"
+        else:
+            state = "Stopped"   # TODO Stop application in kubernetes
+        app["state"] = state
+
+    if app_state.quality_metrics is not None:       # TODO Change quality metrics in kubenetes application
+        qm = app_state.to_dict()
+        app["quality_metrics"] = qm["quality_metrics"]
+
+    app_update = json.dumps(app)
+    rs.hset(user_apps, app_id, app_update)
+    return AppTotalInfo(id=app_id, name=app["name"], state=app["state"], docker_image=app["docker_image"],
+                        stateless=app["stateless"], quality_metrics=app["quality_metrics"])
 
 
 def create_user(user_info):
@@ -79,9 +94,9 @@ def create_user(user_info):
 
     :rtype: str
     """
-    name = "user:"+user_info.username
-    if rs.hsetnx(name, "username", user_info.username):
-        rs.hset(name, "password", user_info.password)
+    key = USER_DATA + user_info.username
+    if rs.hsetnx(key, "username", user_info.username):
+        rs.hset(key, "password", user_info.password)
 
     return "User Created"
 
@@ -92,7 +107,7 @@ def delete_app(app_id):
     :param app_id: ID of the application to remove
     :type app_id: str
 
-    :rtype: AppInfo
+    :rtype: str
     """
 
     # app = cluster.get_app_general_info(app_id)
@@ -103,21 +118,12 @@ def delete_app(app_id):
     # else:
     #     return
 
-    # ****************************************************************************************** #
-    name = 'Songs Aplication'
-    state = 'Deleted'
-
-    app = AppInfo(id=app_id, name=name, state=state)
-    # ****************************************************************************************** #
-    # TODO Decide what to return when an application is deleted successfully
     # TODO Delete in Redis?
-    username = "fabio"
-    user_apps = "apps:" + username
-    rs.srem(user_apps, app_id)
-    app = "appdata:" + app_id
-    rs.delete(app)
+    username = "fcribeiro"
+    user_apps = USER_APPS + username
+    rs.hdel(user_apps, app_id)
 
-    return app
+    return "Application Deleted Successfully"
 
 
 def deploy_app(app_info):
@@ -129,7 +135,7 @@ def deploy_app(app_info):
     :rtype: AppInfo
     """
 
-    username = "ribeiro"          # TODO Get username from authentication token
+    username = "fcribeiro"          # TODO Get username from authentication token
 
     user_apps = "apps:" + username
     app_id = str(base62uuid())       # Generates a random uuid
@@ -147,7 +153,7 @@ def get_all_apps():
     :rtype: ArrayOfApps
     """
 
-    username = "ribeiro"  # TODO Get username from authentication token
+    username = "fcribeiro"  # TODO Get username from authentication token
 
     user_apps = "apps:" + username
 
@@ -166,10 +172,11 @@ def get_app(app_id):
     :rtype: AppTotalInfo
     """
 
-    username = "ribeiro"    # TODO Get username from authentication token
+    username = "fcribeiro"    # TODO Get username from authentication token
     # TODO GET STATE
     user_apps = "apps:" + username
     resp = rs.hget(user_apps, app_id)
+    # print(resp)
     app = json.loads(resp)
 
     return AppTotalInfo(id=app_id, name=app["name"], state=app["state"], docker_image=app["docker_image"],
@@ -207,14 +214,14 @@ def login(user_info):
     :rtype: str
     """
     key = "user:" + user_info.username
-    result = redis.hgetall(key)
+    result = rs.hgetall(key)
     print(result)
     if not result:  # Checks if dictionary is empty, meaning that no user with that username was found
-        return "No user found with that username"
+        return "Login failed"
 
     print(result['username'])
     print(result['password'])
-    return "User %s logged in successfully" % (result['username'])
+    return "User logged in"
 
 
 
