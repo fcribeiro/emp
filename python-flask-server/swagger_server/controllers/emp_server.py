@@ -1,6 +1,10 @@
 import json
 import redis
 import uuid
+import hashlib
+import baseconv
+import jsonpickle
+
 from swagger_server.models.app_deploy import AppDeploy
 from swagger_server.models.app_info import AppInfo
 from swagger_server.models.app_state import AppState
@@ -11,7 +15,24 @@ from swagger_server.models.array_of_apps import ArrayOfApps
 from swagger_server import util
 
 
-redis = redis.StrictRedis(host='172.17.0.2', port=6379, db=0, decode_responses=True)
+ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+rs = redis.StrictRedis(host='172.17.0.2', port=6379, db=0, decode_responses=True)
+
+# while True:
+#     try:
+#         resp = rs.ping()
+#         if resp == "PONG":
+#             print("DEU")
+#             break
+#     except Exception as ex:
+#         print("Could not connect to Redis")
+
+
+def base62uuid():
+    converter = baseconv.BaseConverter(ALPHABET)
+    uuid4_as_hex = str(uuid.uuid4()).replace('-', '')
+    uuid4_as_int = int(uuid4_as_hex, 16)
+    return converter.encode(uuid4_as_int)
 
 
 def change_app_state(app_id, app_state):
@@ -59,8 +80,8 @@ def create_user(user_info):
     :rtype: str
     """
     name = "user:"+user_info.username
-    if redis.hsetnx(name, "username", user_info.username):
-        redis.hset(name, "password", user_info.password)
+    if rs.hsetnx(name, "username", user_info.username):
+        rs.hset(name, "password", user_info.password)
 
     return "User Created"
 
@@ -92,9 +113,9 @@ def delete_app(app_id):
     # TODO Delete in Redis?
     username = "fabio"
     user_apps = "apps:" + username
-    redis.srem(user_apps, app_id)
+    rs.srem(user_apps, app_id)
     app = "appdata:" + app_id
-    redis.delete(app)
+    rs.delete(app)
 
     return app
 
@@ -108,21 +129,31 @@ def deploy_app(app_info):
     :rtype: AppInfo
     """
 
-    username = "fabio"      # TODO Get username from authentication token
+    username = "ribeiro"          # TODO Get username from authentication token
 
     user_apps = "apps:" + username
-    app_id = str(uuid.uuid4())        # Generates a random uuid
-    redis.sadd(user_apps, app_id)     # Stores the apps uuid in the users Set of apps
-
-    app = "appdata:" + app_id
-    redis.set(app, app_info)            # Stores the app deploy information
-
-    # ****************************************************************************************** #
-    name = 'Songs Aplication'
-    state = 'Running'
+    app_id = str(base62uuid())       # Generates a random uuid
     print(app_id)
 
+    # app = {}
+    # app["name"] = app_info.name
+    # app["docker_image"] = app_info.docker_image
+    # app["stateless"] = app_info.stateless
+    # app["quality_metrics"] = app_info.quality_metrics
+    print(app_info.__dict__)
+    frozen = jsonpickle.encode(app_info.__dict__)
+    # print(frozen)
+    # app = json.dumps(app_info.__dict__)
+
+    # rs.hset(user_apps, app_id, app)
+
+    # ****************************************************************************************** #
+
+    name = 'Songs Aplication'
+    state = 'Running'
+
     return AppInfo(id=app_id, name=name, state=state)        # TODO Change ID to string
+
 
 
 def get_all_apps():
@@ -141,6 +172,17 @@ def get_app(app_id):
 
     :rtype: AppTotalInfo
     """
+
+    username = "ribeiro"  # TODO Get username from authentication token
+    # TODO str = str.replace("\'", "\"")
+
+    user_apps = "apps:" + username
+    resp = rs.hget(user_apps, app_id)
+    print(resp)
+    resp = json.loads(resp)
+    #
+    # print(resp['name'])
+
     name = 'Songs Aplication'
     docker_image = 'fcribeiro/Songs_MS'
     stateless = True
@@ -171,8 +213,6 @@ def hello_world():
 
     :rtype: str
     """
-
-    # print(str(value, 'utf-8'))
 
     return "EMP WORKING!"
 
