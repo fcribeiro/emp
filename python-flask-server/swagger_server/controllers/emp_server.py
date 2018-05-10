@@ -133,27 +133,12 @@ def deploy_app(app_info):
 
     user_apps = "apps:" + username
     app_id = str(base62uuid())       # Generates a random uuid
-    print(app_id)
-
-    # app = {}
-    # app["name"] = app_info.name
-    # app["docker_image"] = app_info.docker_image
-    # app["stateless"] = app_info.stateless
-    # app["quality_metrics"] = app_info.quality_metrics
-    print(app_info.__dict__)
-    frozen = jsonpickle.encode(app_info.__dict__)
-    # print(frozen)
-    # app = json.dumps(app_info.__dict__)
-
-    # rs.hset(user_apps, app_id, app)
-
-    # ****************************************************************************************** #
-
-    name = 'Songs Aplication'
-    state = 'Running'
-
-    return AppInfo(id=app_id, name=name, state=state)        # TODO Change ID to string
-
+    app = app_info.to_dict()
+    app["state"] = "Deployed"
+    app = json.dumps(app)
+    rs.hset(user_apps, app_id, app)
+    # TODO GET APP INFO
+    return AppInfo(id=app_id, name=app_info.name, state="Deployed")        # TODO Change ID to string
 
 
 def get_all_apps():
@@ -161,7 +146,15 @@ def get_all_apps():
 
     :rtype: ArrayOfApps
     """
-    return 'All Apps Listed Here'
+
+    username = "ribeiro"  # TODO Get username from authentication token
+
+    user_apps = "apps:" + username
+
+    apps = rs.hgetall(user_apps)
+    for key in apps:
+        apps[key] = json.loads(apps[key])
+    return apps
 
 
 def get_app(app_id):
@@ -173,26 +166,14 @@ def get_app(app_id):
     :rtype: AppTotalInfo
     """
 
-    username = "ribeiro"  # TODO Get username from authentication token
-    # TODO str = str.replace("\'", "\"")
-
+    username = "ribeiro"    # TODO Get username from authentication token
+    # TODO GET STATE
     user_apps = "apps:" + username
     resp = rs.hget(user_apps, app_id)
-    print(resp)
-    resp = json.loads(resp)
-    #
-    # print(resp['name'])
+    app = json.loads(resp)
 
-    name = 'Songs Aplication'
-    docker_image = 'fcribeiro/Songs_MS'
-    stateless = True
-    state = 'Running'
-    quality_metrics = []
-    qm = QualityMetrics(metric="metric", values="val")
-    quality_metrics.append(qm)
-
-    return AppTotalInfo(id=app_id, name=name, state=state, docker_image=docker_image, stateless=stateless,
-                        quality_metrics=quality_metrics)
+    return AppTotalInfo(id=app_id, name=app["name"], state=app["state"], docker_image=app["docker_image"],
+                        stateless=app["stateless"], quality_metrics=app["quality_metrics"])
 
 
 def get_app_tracing(app_id):
