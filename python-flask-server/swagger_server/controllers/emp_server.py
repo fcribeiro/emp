@@ -125,9 +125,10 @@ def delete_app(app_id):     # TODO CHECK IF EXISTS
     # TODO Delete in Redis?
     username = "fcribeiro"
     user_apps = USER_APPS + username
-    rs.hdel(user_apps, app_id)
-
-    return "Application Deleted Successfully"
+    if rs.hdel(user_apps, app_id):
+        return "Application Deleted Successfully"
+    else:
+        return "Application not found", 400
 
 
 def deploy_app(app_info):
@@ -146,10 +147,11 @@ def deploy_app(app_info):
     app = app_info.to_dict()
     app["state"] = "Deployed"
     app = json.dumps(app)
-    rs.hset(user_apps, app_id, app)
-
-    # TODO GET APP INFO
-    return AppInfo(id=app_id, name=app_info.name, state="Deployed")        # TODO Change ID to string
+    if rs.hsetnx(user_apps, app_id, app):   # If the uuid already exists it returns zero
+        # TODO GET APP INFO
+        return AppInfo(id=app_id, name=app_info.name, state="Deployed")        # TODO Change ID to string
+    else:
+        return "This operation could not be performed due to a duplicate uuid generated. Please try again", 400
 
 
 def get_all_apps():

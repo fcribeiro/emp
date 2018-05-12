@@ -1,0 +1,11 @@
+{
+  "name": "Songs Application",
+  "docker_image": "fcribeiro/Songs_MS",
+  "stateless": true,
+  "quality_metrics": [
+    {
+      "metric": "string",
+      "values": "string"
+    }
+  ]
+}
