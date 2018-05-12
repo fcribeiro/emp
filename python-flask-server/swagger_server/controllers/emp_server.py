@@ -67,6 +67,8 @@ def change_app_state(app_id, app_state):
     user_apps = "apps:" + username
 
     app = rs.hget(user_apps, app_id)
+    if app is None:
+        return "Application not found", 400
     app = json.loads(app)
 
     if app_state.state is not None:
@@ -97,11 +99,13 @@ def create_user(user_info):
     key = USER_DATA + user_info.username
     if rs.hsetnx(key, "username", user_info.username):
         rs.hset(key, "password", user_info.password)
+    else:
+        return "Username already exists"
 
-    return "User Created"
+    return "Account created successfully"
 
 
-def delete_app(app_id):
+def delete_app(app_id):     # TODO CHECK IF EXISTS
     """Removes an application from the platform
 
     :param app_id: ID of the application to remove
@@ -143,6 +147,7 @@ def deploy_app(app_info):
     app["state"] = "Deployed"
     app = json.dumps(app)
     rs.hset(user_apps, app_id, app)
+
     # TODO GET APP INFO
     return AppInfo(id=app_id, name=app_info.name, state="Deployed")        # TODO Change ID to string
 
@@ -176,7 +181,8 @@ def get_app(app_id):
     # TODO GET STATE
     user_apps = "apps:" + username
     resp = rs.hget(user_apps, app_id)
-    # print(resp)
+    if resp is None:            # TODO App Not Found
+        return "Application not found", 400
     app = json.loads(resp)
 
     return AppTotalInfo(id=app_id, name=app["name"], state=app["state"], docker_image=app["docker_image"],
@@ -191,7 +197,11 @@ def get_app_tracing(app_id):
 
     :rtype: str
     """
+    # TODO Get the applications tracing link
     app_link = "http://localhost:8080"
+
+    if False:   # TODO IN CASE THE APP DOES NOT EXIST
+        return "Application not found", 400
 
     return app_link
 
@@ -215,13 +225,9 @@ def login(user_info):
     """
     key = "user:" + user_info.username
     result = rs.hgetall(key)
-    print(result)
     if not result:  # Checks if dictionary is empty, meaning that no user with that username was found
         return "Login failed"
-
-    print(result['username'])
-    print(result['password'])
-    return "User logged in"
+    return "Login successful"
 
 
 

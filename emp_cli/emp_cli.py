@@ -63,9 +63,18 @@ def info(id):
 	"""Returns all information about a specific application in the platform. This command requires an "id" of a specific application as an argument"""
 	try:
 		response = api.application_get_app(app_id=id)
-		click.echo(response)
+		click.echo("ID: %s" % response.id)
+		click.echo("Name: %s" % response.name)
+		click.echo("Docker Image: %s" % response.docker_image)
+		click.echo("State: %s" % response.state)
+		click.echo("Stateless: %s" % response.stateless)
+		click.echo("Quality Metrics: %s" % response.quality_metrics)
 	except ApiException as e:
-		click.echo("Exception: %s\n" % e)
+		if e.status == 400:
+			click.echo("Application not found")
+			#click.echo(e.body)
+		else:
+			click.echo("Exception: %s\n" % e)
 
 
 @cli.command()
@@ -85,9 +94,14 @@ def start(id):
 	try:
 		state = {"state": True}
 		response = api.application_change_app_state(app_id=id, app_state=state)
-		click.echo(response)
+		click.echo("ID: %s" % response.id)
+		click.echo("Name: %s" % response.name)
+		click.echo("State: %s" % response.state)
 	except ApiException as e:
-		click.echo("Exception: %s\n" % e)
+		if e.status == 400:
+			click.echo("Application not found")
+		else:
+			click.echo("Exception: %s\n" % e)
 
 
 @cli.command()
@@ -97,9 +111,14 @@ def stop(id):
 	try:
 		state = {"state": False}
 		response = api.application_change_app_state(app_id=id, app_state=state)
-		click.echo(response)
+		click.echo("ID: %s" % response.id)
+		click.echo("Name: %s" % response.name)
+		click.echo("State: %s" % response.state)
 	except ApiException as e:
-		click.echo("Exception: %s\n" % e)
+		if e.status == 400:
+			click.echo("Application not found")
+		else:
+			click.echo("Exception: %s\n" % e)
 
 
 @cli.command()
@@ -113,7 +132,10 @@ def update_metrics(id, metric, values):
 		response = api.application_change_app_state(app_id=id, app_state=state)
 		click.echo(response)
 	except ApiException as e:
-		click.echo("Exception: %s\n" % e)
+		if e.status == 400:
+			click.echo("Application not found")
+		else:
+			click.echo("Exception: %s\n" % e)
 
 
 @cli.command()
@@ -124,7 +146,10 @@ def remove(id):
 		response = api.application_delete_app(app_id=id)
 		click.echo(response)
 	except ApiException as e:
-		click.echo("Exception: %s\n" % e)
+		if e.status == 400:
+			click.echo("Application not found")
+		else:
+			click.echo("Exception: %s\n" % e)
 
 
 @cli.command()
@@ -135,7 +160,10 @@ def tracing(id):
 		response = api.application_get_app_tracing(app_id=id)
 		click.echo(response)
 	except ApiException as e:
-		click.echo("Exception: %s\n" % e)
+		if e.status == 400:
+			click.echo("Application not found")
+		else:
+			click.echo("Exception: %s\n" % e)
 
 
 @cli.command()
