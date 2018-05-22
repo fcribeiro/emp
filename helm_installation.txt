@@ -1,0 +1,15 @@
+**********************************************************************************************************
+HELM INSTALLATION
+**********************************************************************************************************
+
+
+wget -P /home/ubuntu/kub-testing/ "https://kubernetes-helm.storage.googleapis.com/helm-v2.9.1-linux-amd64.tar.gz"
+tar -zxvf helm-v2.9.1-linux-amd64.tar.gz
+mv linux-amd64/helm /usr/local/bin/helm
+
+helm init
+
+$ kubectl create clusterrolebinding add-on-cluster-admin \
+  --clusterrole=cluster-admin \
+  --serviceaccount=kube-system:default
+$ helm reset
