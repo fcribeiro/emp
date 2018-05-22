@@ -1,0 +1,55 @@
+**********************************************************************************************************
+ALL NODES (INCLUDING MASTERS) CONFIGURATION
+**********************************************************************************************************
+
+sudo apt-get update && sudo apt-get install -y sudo apt-transport-https
+sudo apt install docker.io
+
+sudo nano /etc/hosts
+Adicionar no localhost ----> localhost.localdomain (Nome da maquina)
+
+sudo systemctl start docker
+sudo systemctl enable docker
+
+sudo su
+sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add
+exit
+
+sudo touch /etc/apt/sources.list.d/kubernetes.list
+sudo nano /etc/apt/sources.list.d/kubernetes.list
+Add --> deb http://apt.kubernetes.io/ kubernetes-xenial main
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+
+
+**********************************************************************************************************
+MASTER NODE ONLY
+**********************************************************************************************************
+Guardar o output do próximo comando pois será necessário para adicionar os nós workers ao kubernetes.
+
+
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+sudo sysctl net.bridge.bridge-nf-call-iptables=1
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
+
+
+
+#################
+Check if kubernetes dns is running:
+kubectl get pods --all-namespaces
+
+
+inspect if necessary:
+kubectl --namespace=kube-system describe pod (POD_NAME))
+
+
+**********************************************************************************************************
+ADD WORKER NODES
+**********************************************************************************************************
+
+sudo kubeadm join 10.3.4.45:6443 --token jgzx06.x0jo43f5wo9s166p --discovery-token-ca-cert-hash sha256:15647303ea6a4702305ba03bb649d9f926c9b33e6e686aef19db0945bbc24299
