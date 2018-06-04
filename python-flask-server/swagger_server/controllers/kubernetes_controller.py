@@ -18,8 +18,9 @@ def create_deployment_object():
         metadata=client.V1ObjectMeta(labels={"app": "nginx"}),
         spec=client.V1PodSpec(containers=[container]))
     # Create the specification of deployment
+    # client.V1EnvVar
     spec = client.ExtensionsV1beta1DeploymentSpec(
-        replicas=3,
+        replicas=1,
         template=template)
     # Instantiate the deployment object
     deployment = client.ExtensionsV1beta1Deployment(
@@ -65,17 +66,24 @@ def main():
     # Configs can be set in Configuration class directly or using helper
     # utility. If no argument provided, the config will be loaded from
     # default location.
-    config.load_kube_config()
+    print("Before Config")
+    config.load_kube_config(config_file="/home/fabio/Desktop/Projects/emp/python-flask-server/kube-config")
+    print("After Config")
     extensions_v1beta1 = client.ExtensionsV1beta1Api()
+    print("After Extensions")
     # Create a deployment object with client-python API. The deployment we
     # created is same as the `nginx-deployment.yaml` in the /examples folder.
-    # deployment = create_deployment_object()
-    #
-    # create_deployment(extensions_v1beta1, deployment)
-    #
-    # update_deployment(extensions_v1beta1, deployment)
+    deployment = create_deployment_object()
+    print("After Deployment")
+
+    create_deployment(extensions_v1beta1, deployment)
+    print("After Create Deployment")
+
+    update_deployment(extensions_v1beta1, deployment)
+    print("After Update Deployment")
 
     delete_deployment(extensions_v1beta1)
+    print("After Delete Deployment")
 
 
 if __name__ == '__main__':

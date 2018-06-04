@@ -29,3 +29,6 @@ class ClusterManager(object):
 
     def get_app_tracing(self):
         raise NotImplementedError
+
+    def scale_app(self):
+        raise NotImplementedError
