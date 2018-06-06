@@ -155,7 +155,7 @@ def main():
 
     kub = KubernetesController()
 
-    create_namespace(username)
+    # create_namespace(username)
     # delete_namespace(username)
     # kub.deploy_app(app_info=app_info, namespace=username)
 
