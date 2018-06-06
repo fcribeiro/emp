@@ -12,23 +12,23 @@ class ClusterManager(object):
         """
         raise NotImplementedError
 
-    def get_app(self):
+    def get_app(self, name):
         raise NotImplementedError
 
-    def start_app(self):
+    def start_app(self, name):
         raise NotImplementedError
 
-    def stop_app(self):
+    def stop_app(self, name):
         raise NotImplementedError
 
-    def update_app(self):
+    def update_app_metrics(self):
         raise NotImplementedError
 
-    def delete_app(self):
+    def delete_app(self, name):
         raise NotImplementedError
 
-    def get_app_tracing(self):
+    def get_app_tracing(self, name):
         raise NotImplementedError
 
-    def scale_app(self):
+    def scale_app(self, scale):
         raise NotImplementedError

@@ -78,7 +78,7 @@ def change_app_state(app_id, app_state):
             state = "Stopped"   # TODO Stop application in kubernetes
         app["state"] = state
 
-    if app_state.quality_metrics is not None:       # TODO Change quality metrics in kubenetes application
+    if app_state.quality_metrics is not None:       # TODO Change quality metrics in kubernetes application
         qm = app_state.to_dict()
         app["quality_metrics"] = qm["quality_metrics"]
 
@@ -148,8 +148,8 @@ def deploy_app(app_info):
     app["state"] = "Deployed"
     app = json.dumps(app)
     if rs.hsetnx(user_apps, app_id, app):   # If the uuid already exists it returns zero
-        # TODO GET APP INFO
-        return AppInfo(id=app_id, name=app_info.name, state="Deployed")        # TODO Change ID to string
+        # TODO Deploy on Kubernetes
+        return AppInfo(id=app_id, name=app_info.name, state="Deployed")
     else:
         return "This operation could not be performed due to a duplicate uuid generated. Please try again", 400
 
