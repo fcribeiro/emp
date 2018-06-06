@@ -146,6 +146,7 @@ def deploy_app(app_info):
     app_id = str(base62uuid())       # Generates a random uuid
     app = app_info.to_dict()
     app["state"] = "Deployed"
+    app["name"] = username + "-" + app["name"].lower()
     app = json.dumps(app)
     if rs.hsetnx(user_apps, app_id, app):   # If the uuid already exists it returns zero
         # TODO Deploy on Kubernetes

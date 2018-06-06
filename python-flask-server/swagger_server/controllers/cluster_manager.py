@@ -1,34 +1,19 @@
 class ClusterManager(object):
-    def __init__(self, cluster_address):
-        self.cluster_address = cluster_address
 
-    def deploy_app(self, name):
-        """Deploys an application in the platform
-
-        :param name: Name of the application to be deployed
-        :type name: str
-
-        :rtype: AppInfo
-        """
+    def deploy_app(self, app_info):
         raise NotImplementedError
 
     def get_app(self, name):
         raise NotImplementedError
 
-    def start_app(self, name):
+    def start_app(self, name, stateless):
         raise NotImplementedError
 
-    def stop_app(self, name):
-        raise NotImplementedError
-
-    def update_app_metrics(self):
+    def stop_app(self, name, stateless):
         raise NotImplementedError
 
     def delete_app(self, name):
         raise NotImplementedError
 
-    def get_app_tracing(self, name):
-        raise NotImplementedError
-
-    def scale_app(self, scale):
+    def scale_app(self, name, replicas):
         raise NotImplementedError
