@@ -17,9 +17,9 @@ class ClusterManager(object):
         :param name: Name of the application to get information
         :type name: str
 
-        :return: Application information in a       # TODO Return type doc
+        :return: All application information
         :rtype: AppTotalInfo
-        """
+        """     # TODO Return type DOC
         raise NotImplementedError
 
     def start_app(self, name, stateless):

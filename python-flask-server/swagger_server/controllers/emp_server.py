@@ -12,14 +12,16 @@ from swagger_server.models.user_info import UserInfo
 from swagger_server.models.quality_metrics import QualityMetrics
 from swagger_server.models.app_total_info import AppTotalInfo
 from swagger_server.models.array_of_apps import ArrayOfApps
+from swagger_server.controllers.kubernetes_controller import KubernetesController
 from swagger_server import util
 
 
 ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 USER_APPS = "apps:"
 USER_DATA = "user:"
+NAMESPACE = "user-"
 rs = redis.StrictRedis(host='172.17.0.2', port=6379, db=0, decode_responses=True)
-
+kub = KubernetesController()
 
 # while True:
 #     try:
@@ -49,22 +51,9 @@ def change_app_state(app_id, app_state):
     :rtype: AppTotalInfo
     """
 
-    # TODO Update redis state
-
-    # app = cluster.get_app(app_id)
-    # if app is None:
-    #     return
-    #
-    # if cluster.change_app_state(app_id=app_id, state=app_state):
-    #     app_info = cluster.get_app(app_id)
-    #     return app_info
-    #
-    # else:
-    #     return
-
     username = "fcribeiro"  # TODO Get username from authentication token
 
-    user_apps = "apps:" + username
+    user_apps = USER_APPS + username
 
     app = rs.hget(user_apps, app_id)
     if app is None:
@@ -72,13 +61,17 @@ def change_app_state(app_id, app_state):
     app = json.loads(app)
 
     if app_state.state is not None:
-        if app_state.state:     # TODO Start application in kubernetes
+        if app_state.state:
             state = "Running"
+            if not kub.start_app(name=app["name"], stateless=app["stateless"], namespace=NAMESPACE + username):
+                return "Error Starting the Application", 400
         else:
-            state = "Stopped"   # TODO Stop application in kubernetes
+            state = "Stopped"
+            if not kub.stop_app(name=app["name"], stateless=app["stateless"], namespace=NAMESPACE + username):
+                return "Error Stopping the Application", 400
         app["state"] = state
 
-    if app_state.quality_metrics is not None:       # TODO Change quality metrics in kubernetes application
+    if app_state.quality_metrics is not None:
         qm = app_state.to_dict()
         app["quality_metrics"] = qm["quality_metrics"]
 
@@ -96,8 +89,8 @@ def create_user(user_info):
 
     :rtype: str
     """
-    key = USER_DATA + user_info.username
-    if rs.hsetnx(key, "username", user_info.username):
+    key = USER_DATA + user_info.username.lower()
+    if rs.hsetnx(key, "username", user_info.username.lower()):
         rs.hset(key, "password", user_info.password)
     else:
         return "Username already exists"
@@ -114,17 +107,17 @@ def delete_app(app_id):     # TODO CHECK IF EXISTS
     :rtype: str
     """
 
-    # app = cluster.get_app_general_info(app_id)
-    # if app is None:
-    #     return
-    # if cluster.delete_app(app_id):
-    #     app.state = "Deleted"
-    # else:
-    #     return
+    username = "fcribeiro"  # TODO Get username from authentication token
 
-    # TODO Delete in Redis?
-    username = "fcribeiro"
     user_apps = USER_APPS + username
+
+    app = rs.hget(user_apps, app_id)
+    if app is None:
+        return "Application not found", 400
+    app = json.loads(app)
+
+    if not kub.delete_app(name=app["name"], namespace=NAMESPACE + username):
+        return "Error Deleting the Application", 400
     if rs.hdel(user_apps, app_id):
         return "Application Deleted Successfully"
     else:
@@ -142,14 +135,14 @@ def deploy_app(app_info):
 
     username = "fcribeiro"          # TODO Get username from authentication token
 
-    user_apps = "apps:" + username
+    user_apps = USER_APPS + username
     app_id = str(base62uuid())       # Generates a random uuid
     app = app_info.to_dict()
     app["state"] = "Deployed"
-    app["name"] = username + "-" + app["name"].lower()
+    app["name"] = app["name"].lower()
     app = json.dumps(app)
     if rs.hsetnx(user_apps, app_id, app):   # If the uuid already exists it returns zero
-        # TODO Deploy on Kubernetes
+        kub.deploy_app(app_info=app_info, namespace=NAMESPACE + username)
         return AppInfo(id=app_id, name=app_info.name, state="Deployed")
     else:
         return "This operation could not be performed due to a duplicate uuid generated. Please try again", 400
@@ -163,7 +156,7 @@ def get_all_apps():
 
     username = "fcribeiro"  # TODO Get username from authentication token
 
-    user_apps = "apps:" + username
+    user_apps = USER_APPS + username
 
     apps = rs.hgetall(user_apps)
     for key in apps:
@@ -181,8 +174,7 @@ def get_app(app_id):
     """
 
     username = "fcribeiro"    # TODO Get username from authentication token
-    # TODO GET STATE
-    user_apps = "apps:" + username
+    user_apps = USER_APPS + username
     resp = rs.hget(user_apps, app_id)
     if resp is None:            # TODO App Not Found
         return "Application not found", 400
@@ -202,8 +194,9 @@ def get_app_tracing(app_id):
     """
     # TODO Get the applications tracing link
     app_link = "http://localhost:8080"
+    variable = False        # TODO REMOVE THIS
 
-    if False:   # TODO IN CASE THE APP DOES NOT EXIST
+    if variable:   # TODO IN CASE THE APP DOES NOT EXIST
         return "Application not found", 400
 
     return app_link

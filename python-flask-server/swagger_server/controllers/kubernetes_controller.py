@@ -81,8 +81,10 @@ class KubernetesController(ClusterManager):
                 pretty=True)
             # pprint(api_response)
             print("Deployment created. status='%s'" % str(api_response.status))
+            return True
         except ApiException as e:
             print("Exception when calling ExtensionsV1beta1Api->create_namespaced_deployment: %s\n" % e)
+            return False
 
     def scale_app(self, name, replicas, namespace=None):
         api_instance = client.ExtensionsV1beta1Api()
@@ -124,7 +126,6 @@ class KubernetesController(ClusterManager):
             self.scale_app(name=name, replicas=0, namespace=namespace)
         else:                   # TODO It is also necessary to delete the volume
             self.scale_app(name=name, replicas=0, namespace=namespace)
-        return
 
     def start_app(self, name, stateless, namespace=None):
         # api_instance = client.ExtensionsV1beta1Api()
@@ -132,14 +133,13 @@ class KubernetesController(ClusterManager):
             self.scale_app(name=name, replicas=1, namespace=namespace)
         else:  # TODO It is also necessary to start the volume
             self.scale_app(name=name, replicas=1, namespace=namespace)
-        return
 
     def get_app(self, name, namespace=None):
         api_instance = client.ExtensionsV1beta1Api()
         try:
             api_response = api_instance.read_namespaced_deployment(name, namespace, pretty=True, exact=True, export=True)
             pprint(api_response)
-            return api_response
+            return api_response         # TODO Decide what to return
         except ApiException as e:
             print("Exception when calling ExtensionsV1beta1Api->read_namespaced_deployment: %s\n" % e)
             return None
