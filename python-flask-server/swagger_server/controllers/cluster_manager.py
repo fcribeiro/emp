@@ -4,7 +4,7 @@ class ClusterManager(object):
         """Deploys an application in the platform
 
         :param app_info: Application object to be deployed
-        :type app_info: dict | bytes
+        :type app_info: AppDeploy
 
         :return: True if the deployment was successful, False otherwise
         :rtype: bool

@@ -24,7 +24,7 @@ def create_account(username, password):
 		response = api.application_create_user(user_info=info)
 		click.echo(response)
 	except ApiException as e:
-		click.echo("Exception: %s\n" % e)
+		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 
 
 @cli.command()
@@ -37,7 +37,7 @@ def login(username, password):
 		response = api.application_login_user(user_info=info)
 		click.echo(response)
 	except ApiException as e:
-		click.echo("Exception: %s\n" % e)
+		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 
 
 
@@ -57,7 +57,7 @@ def deploy(file):
 		click.echo("Name: %s" % response.name)
 		click.echo("State: %s" % response.state)
 	except ApiException as e:
-		click.echo("Exception: %s\n" % e)
+		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 
 
 @cli.command()
@@ -73,11 +73,7 @@ def info(id):
 		click.echo("Stateless: %s" % response.stateless)
 		click.echo("Quality Metrics: %s" % response.quality_metrics)
 	except ApiException as e:
-		if e.status == 400:
-			click.echo("Application not found")
-			#click.echo(e.body)
-		else:
-			click.echo("Exception: %s\n" % e)
+		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 
 
 @cli.command()
@@ -85,9 +81,18 @@ def list():
 	"""Returns all information about all applications of the current user in the platform."""
 	try:
 		response = api.application_get_all_apps()
+		#for i in response:
+#		print(response)
+		#for i in response:
+			#click.echo("ID: %s" % i.id)
+			#click.echo("Name: %s" % i.name)
+			#click.echo("Docker Image: %s" % i.docker_image)
+			#click.echo("State: %s" % i.state)
+			#click.echo("Stateless: %s" % i.stateless)
+			#click.echo("Quality Metrics: %s" % i.quality_metrics)
 		click.echo(response)
 	except ApiException as e:
-		click.echo("Exception: %s\n" % e)
+		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 
 
 @cli.command()
@@ -101,10 +106,7 @@ def start(id):
 		click.echo("Name: %s" % response.name)
 		click.echo("State: %s" % response.state)
 	except ApiException as e:
-		if e.status == 400:
-			click.echo("Application not found")
-		else:
-			click.echo("Exception: %s\n" % e)
+		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 
 
 @cli.command()
@@ -118,10 +120,7 @@ def stop(id):
 		click.echo("Name: %s" % response.name)
 		click.echo("State: %s" % response.state)
 	except ApiException as e:
-		if e.status == 400:
-			click.echo("Application not found")
-		else:
-			click.echo("Exception: %s\n" % e)
+		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 
 
 @cli.command()
@@ -135,10 +134,7 @@ def update_metrics(id, metric, values):
 		response = api.application_change_app_state(app_id=id, app_state=state)
 		click.echo(response)
 	except ApiException as e:
-		if e.status == 400:
-			click.echo("Application not found")
-		else:
-			click.echo("Exception: %s\n" % e)
+		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 
 
 @cli.command()
@@ -149,10 +145,7 @@ def remove(id):
 		response = api.application_delete_app(app_id=id)
 		click.echo(response)
 	except ApiException as e:
-		if e.status == 400:
-			click.echo("Application not found")
-		else:
-			click.echo("Exception: %s\n" % e)
+		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 
 
 @cli.command()
@@ -163,10 +156,7 @@ def tracing(id):
 		response = api.application_get_app_tracing(app_id=id)
 		click.echo(response)
 	except ApiException as e:
-		if e.status == 400:
-			click.echo("Application not found")
-		else:
-			click.echo("Exception: %s\n" % e)
+		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 
 
 @cli.command()
@@ -177,7 +167,7 @@ def hello():
 		#response = json.dumps(response)
 		click.echo(response)
 	except ApiException as e:
-		click.echo("Exception: %s\n" % e)
+		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 
 
 def is_valid_json(text):

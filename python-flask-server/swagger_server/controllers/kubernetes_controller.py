@@ -36,20 +36,20 @@ def create_deployment_object(name, docker_image):
     return deployment
 
 
-def create_namespace(username):
+def create_namespace(namespace):
     api_instance = client.CoreV1Api()
     body = client.V1Namespace()  # V1Namespace |
-    body.metadata = {"name": username}
+    body.metadata = {"name": namespace}
     pretty = 'pretty_example'  # str | If 'true', then the output is pretty printed. (optional)
 
     try:
         api_response = api_instance.create_namespace(body, pretty=pretty)
-        pprint(api_response)
+        # pprint(api_response)
     except ApiException as e:
         print("Exception when calling CoreV1Api->create_namespace: %s\n" % e)
 
 
-def delete_namespace(name):
+def delete_namespace(namespace):
     # create an instance of the API class
     api_instance = client.CoreV1Api()
     body = client.V1DeleteOptions()  # V1DeleteOptions |
@@ -59,10 +59,10 @@ def delete_namespace(name):
     propagation_policy = 'propagation_policy_example'  # str | Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground. (optional)
 
     try:
-        api_response = api_instance.delete_namespace(name, body, pretty=pretty,
+        api_response = api_instance.delete_namespace(namespace, body, pretty=pretty,
                                                      grace_period_seconds=grace_period_seconds,
                                                      propagation_policy=propagation_policy)
-        pprint(api_response)
+        # pprint(api_response)
     except ApiException as e:
         print("Exception when calling CoreV1Api->delete_namespace: %s\n" % e)
 
@@ -71,7 +71,8 @@ class KubernetesController(ClusterManager):
 
     def deploy_app(self, app_info, namespace=None):
         deployment = create_deployment_object(name=app_info.name, docker_image=app_info.docker_image)
-
+        # Create Namespace
+        create_namespace(namespace=namespace)
         # Create deployement
         api_instance = client.ExtensionsV1beta1Api()
         try:
@@ -80,7 +81,7 @@ class KubernetesController(ClusterManager):
                 namespace=namespace,
                 pretty=True)
             # pprint(api_response)
-            print("Deployment created. status='%s'" % str(api_response.status))
+            # print("Deployment created. status='%s'" % str(api_response.status))
             return True
         except ApiException as e:
             print("Exception when calling ExtensionsV1beta1Api->create_namespaced_deployment: %s\n" % e)
@@ -97,7 +98,7 @@ class KubernetesController(ClusterManager):
                 namespace=namespace,
                 body=deployment)
             # print(api_response.status)
-            print("Deployment updated. status='%s'" % str(api_response.status))
+            # print("Deployment updated. status='%s'" % str(api_response.status))
             return True
         except ApiException as e:
             print("Exception when calling ExtensionsV1beta1Api->patch_namespaced_deployment: %s\n" % e)
@@ -114,7 +115,7 @@ class KubernetesController(ClusterManager):
                     propagation_policy='Foreground',
                     grace_period_seconds=5))
             # pprint(api_response)
-            print("Deployment deleted. status='%s'" % str(api_response.status))
+            # print("Deployment deleted. status='%s'" % str(api_response.status))
             return True
         except ApiException as e:
             print("Exception when calling ExtensionsV1beta1Api->delete_namespaced_deployment: %s\n" % e)
@@ -123,22 +124,34 @@ class KubernetesController(ClusterManager):
     def stop_app(self, name, stateless, namespace=None):
         # api_instance = client.ExtensionsV1beta1Api()
         if stateless:           # If true, the application is stateless
-            self.scale_app(name=name, replicas=0, namespace=namespace)
+            if self.scale_app(name=name, replicas=0, namespace=namespace):
+                return True
+            else:
+                return False
         else:                   # TODO It is also necessary to delete the volume
-            self.scale_app(name=name, replicas=0, namespace=namespace)
+            if self.scale_app(name=name, replicas=0, namespace=namespace):
+                return True
+            else:
+                return False
 
     def start_app(self, name, stateless, namespace=None):
         # api_instance = client.ExtensionsV1beta1Api()
         if stateless:  # If true, the application is stateless
-            self.scale_app(name=name, replicas=1, namespace=namespace)
+            if self.scale_app(name=name, replicas=1, namespace=namespace):
+                return True
+            else:
+                return False
         else:  # TODO It is also necessary to start the volume
-            self.scale_app(name=name, replicas=1, namespace=namespace)
+            if self.scale_app(name=name, replicas=1, namespace=namespace):
+                return True
+            else:
+                return False
 
     def get_app(self, name, namespace=None):
         api_instance = client.ExtensionsV1beta1Api()
         try:
             api_response = api_instance.read_namespaced_deployment(name, namespace, pretty=True, exact=True, export=True)
-            pprint(api_response)
+            # pprint(api_response)
             return api_response         # TODO Decide what to return
         except ApiException as e:
             print("Exception when calling ExtensionsV1beta1Api->read_namespaced_deployment: %s\n" % e)
@@ -158,8 +171,8 @@ def main():
     # create_namespace(username)
     # delete_namespace(username)
     # kub.deploy_app(app_info=app_info, namespace=username)
-
-    kub.scale_app(name=name, replicas=3, namespace=username)
+    kub.get_app("nginx-example", "user-fcribeiro")
+    # kub.scale_app(name=name, replicas=1, namespace=username)
 
     # kub.delete_app(name=name, namespace=username)
 

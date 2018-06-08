@@ -63,10 +63,14 @@ def change_app_state(app_id, app_state):
     if app_state.state is not None:
         if app_state.state:
             state = "Running"
+            if app["state"] == "Running" or app["state"] == "Deployed":
+                return "Application is running already", 409
             if not kub.start_app(name=app["name"], stateless=app["stateless"], namespace=NAMESPACE + username):
                 return "Error Starting the Application", 400
         else:
             state = "Stopped"
+            if app["state"] == "Stopped":
+                return "Application is stopped already", 409
             if not kub.stop_app(name=app["name"], stateless=app["stateless"], namespace=NAMESPACE + username):
                 return "Error Stopping the Application", 400
         app["state"] = state
@@ -81,7 +85,7 @@ def change_app_state(app_id, app_state):
                         stateless=app["stateless"], quality_metrics=app["quality_metrics"])
 
 
-def create_user(user_info):
+def create_user(user_info):     # TODO ENCRYPT PASSWORD
     """Creates a user with all the necessary information
 
     :param user_info: User information
@@ -142,8 +146,10 @@ def deploy_app(app_info):
     app["name"] = app["name"].lower()
     app = json.dumps(app)
     if rs.hsetnx(user_apps, app_id, app):   # If the uuid already exists it returns zero
-        kub.deploy_app(app_info=app_info, namespace=NAMESPACE + username)
-        return AppInfo(id=app_id, name=app_info.name, state="Deployed")
+        if kub.deploy_app(app_info=app_info, namespace=NAMESPACE + username):
+            return AppInfo(id=app_id, name=app_info.name, state="Deployed")
+        else:
+            return "This operation could not be performed due to some error while deploying the application", 400
     else:
         return "This operation could not be performed due to a duplicate uuid generated. Please try again", 400
 
@@ -211,7 +217,7 @@ def hello_world():
     return "EMP WORKING!"
 
 
-def login(user_info):
+def login(user_info):           # TODO ENCRYPT PASSWORD
     """User login
 
     :param user_info: User information
