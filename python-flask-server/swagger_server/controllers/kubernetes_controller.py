@@ -171,8 +171,8 @@ def main():
     # create_namespace(username)
     # delete_namespace(username)
     # kub.deploy_app(app_info=app_info, namespace=username)
-    kub.get_app("nginx-example", "user-fcribeiro")
-    # kub.scale_app(name=name, replicas=1, namespace=username)
+    # kub.get_app("nginx-example", "user-fcribeiro")
+    # kub.scale_app(name=name, replicas=5, namespace=username)
 
     # kub.delete_app(name=name, namespace=username)
 
