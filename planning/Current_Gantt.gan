@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2018-07-12" view-index="0" gantt-divider-location="511" resource-divider-location="300" version="2.8.7" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2018-06-20" view-index="0" gantt-divider-location="511" resource-divider-location="300" version="2.8.7" locale="en_US">
     <description/>
     <view zooming-state="default:2" id="gantt-chart">
         <field id="tpd3" name="Name" width="318" order="0"/>
@@ -33,24 +33,17 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="107" name="Tracing Component" color="#000000" meeting="false" start="2018-06-29" duration="2" complete="0" thirdDate="2018-05-09" thirdDate-constraint="0" expand="true">
-            <depend id="89" type="2" difference="0" hardness="Rubber"/>
-            <task id="108" name="Deploy kafka" color="#8cb6ce" meeting="false" start="2018-06-29" duration="1" complete="0" thirdDate="2018-05-22" thirdDate-constraint="0" expand="true">
-                <depend id="109" type="2" difference="0" hardness="Rubber"/>
-            </task>
-            <task id="109" name="Play with kafka" color="#8cb6ce" meeting="false" start="2018-07-02" duration="1" complete="0" thirdDate="2018-05-23" thirdDate-constraint="0" expand="true"/>
-        </task>
-        <task id="171" name="Configure kafka and zipkin interactions" meeting="false" start="2018-07-03" duration="1" complete="0" expand="true"/>
-        <task id="173" name="Configure environment variable injection for kafka" color="#8cb6ce" meeting="false" start="2018-07-04" duration="1" complete="0" thirdDate="2018-05-21" thirdDate-constraint="0" expand="true"/>
-        <task id="172" name="Implement a simple algorithm" color="#8cb6ce" meeting="false" start="2018-07-05" duration="2" complete="0" thirdDate="2018-05-21" thirdDate-constraint="0" expand="true"/>
-        <task id="89" name="Run the application" color="#8cb6ce" meeting="false" start="2018-07-09" duration="1" complete="0" thirdDate="2018-05-18" thirdDate-constraint="0" expand="true">
+        <task id="171" name="Configure kafka and zipkin interactions" meeting="false" start="2018-07-02" duration="1" complete="0" expand="true"/>
+        <task id="173" name="Configure environment variable injection for kafka" color="#8cb6ce" meeting="false" start="2018-07-03" duration="1" complete="0" thirdDate="2018-05-21" thirdDate-constraint="0" expand="true"/>
+        <task id="172" name="Implement a simple algorithm" color="#8cb6ce" meeting="false" start="2018-07-04" duration="2" complete="0" thirdDate="2018-05-21" thirdDate-constraint="0" expand="true"/>
+        <task id="89" name="Run the application" color="#8cb6ce" meeting="false" start="2018-07-06" duration="1" complete="0" thirdDate="2018-05-18" thirdDate-constraint="0" expand="true">
             <depend id="142" type="2" difference="0" hardness="Rubber"/>
         </task>
-        <task id="142" name="Testing and validation" color="#000000" meeting="false" start="2018-07-11" duration="3" complete="0" thirdDate="2018-05-21" thirdDate-constraint="0" expand="true">
+        <task id="142" name="Testing and validation" color="#000000" meeting="false" start="2018-07-10" duration="3" complete="0" thirdDate="2018-05-21" thirdDate-constraint="0" expand="true">
             <depend id="134" type="2" difference="0" hardness="Rubber"/>
-            <task id="148" name="Run tests" color="#8cb6ce" meeting="false" start="2018-07-11" duration="3" complete="0" thirdDate="2018-05-21" thirdDate-constraint="0" expand="true"/>
+            <task id="148" name="Run tests" color="#8cb6ce" meeting="false" start="2018-07-10" duration="3" complete="0" thirdDate="2018-05-21" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="134" name="Write final report" color="#8cb6ce" meeting="false" start="2018-07-17" duration="20" complete="0" thirdDate="2018-06-05" thirdDate-constraint="0" expand="true"/>
+        <task id="134" name="Write final report" color="#8cb6ce" meeting="false" start="2018-07-16" duration="20" complete="0" thirdDate="2018-06-05" thirdDate-constraint="0" expand="true"/>
     </tasks>
     <resources/>
     <allocations/>

@@ -1,0 +1,41 @@
+# Service for songs-deployment
+kind: Service
+apiVersion: v1
+metadata:
+  name: songs-deployment-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: songs
+  ports:
+  - port: 5000
+    targetPort: 5000
+---
+# Deployment for Authentication_MS
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: songs-deployment
+  labels:
+    app: songs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: songs
+  template:
+    metadata:
+      labels:
+        app: songs
+    spec:
+      containers:
+      - name: songs
+        image: fcribeiro/users_ms_p3
+        env:
+        - name: DATABASEADDRESS
+          value: 172.17.0.2:3306
+        - name: TRANSPORTADDRESS
+          value: 35.240.40.147:80
+        ports:
+        - containerPort: 5000
