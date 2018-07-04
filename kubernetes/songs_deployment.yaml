@@ -2,40 +2,38 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: songs-deployment-service
+  name: auth-service
 spec:
   type: LoadBalancer
   selector:
-    app: songs
+    app: auth
   ports:
-  - port: 5000
-    targetPort: 5000
+  - port: 5003
+    targetPort: 5003
 ---
 # Deployment for Authentication_MS
 
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: songs-deployment
+  name: auth-deployment
   labels:
-    app: songs
+    app: auth
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: songs
+      app: auth
   template:
     metadata:
       labels:
-        app: songs
+        app: auth
     spec:
       containers:
-      - name: songs
-        image: fcribeiro/users_ms_p3
+      - name: auth
+        image: fcribeiro/authentication_ms_p3
         env:
-        - name: DATABASEADDRESS
-          value: 172.17.0.2:3306
-        - name: TRANSPORTADDRESS
-          value: 35.240.40.147:80
+        - name: USERSADDRESS
+          value: "127.0.0.1"
         ports:
-        - containerPort: 5000
+        - containerPort: 5003

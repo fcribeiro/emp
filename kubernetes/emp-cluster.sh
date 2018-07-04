@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Delete Cluster
-gcloud container clusters delete emp-cluster
+#gcloud container clusters delete emp-cluster
 
 # Config Project
 gcloud config set project calcium-ember-185414
@@ -25,16 +25,15 @@ helm init --service-account default
 # Install Kafka
 #helm install --name my-kafka incubator/kafka
 
+sleep 5
 
-
-
+sh ./deploy.sh
 
 # Testing Kafka
 
 #kubectl -n default exec testclient -- /usr/bin/kafka-topics --zookeeper my-kafka-zookeeper:2181 --topic test1 --create --partitions 1 --replication-factor 1
 
 #kubectl -n default exec -ti testclient -- /usr/bin/kafka-console-consumer --bootstrap-server my-kafka:9092 --topic test1 --from-beginning
-
 
 
 
