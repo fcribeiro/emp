@@ -1,1 +1,0 @@
-{"state": true,"quality_metrics": [{"metric": "metrica_teste","values": "value_teste"}]}

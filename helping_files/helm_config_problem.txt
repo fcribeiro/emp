@@ -1,1 +1,0 @@
-it won't work if you ran helm init previously. Sorry! I meant that you need to replace helm init with helm init --service-account default. Run kubectl -n kube-system delete deploy tiller-deploy and re-run helm init --service-account default again.
