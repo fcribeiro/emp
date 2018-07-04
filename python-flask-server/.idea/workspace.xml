@@ -11,14 +11,14 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/python_flask_server$__main__.coverage" NAME="__main__ Coverage Results" MODIFIED="1528381489442" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/swagger_server" />
-    <SUITE FILE_PATH="coverage/python_flask_server$kubernetes_controller.coverage" NAME="kubernetes_controller Coverage Results" MODIFIED="1529604828973" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/swagger_server/controllers" />
+    <SUITE FILE_PATH="coverage/python_flask_server$kubernetes_controller.coverage" NAME="kubernetes_controller Coverage Results" MODIFIED="1530744383746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/swagger_server/controllers" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="emp_server.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/swagger_server/controllers/emp_server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2831">
+            <state relative-caret-position="2828">
               <caret line="164" column="36" selection-start-line="164" selection-start-column="36" selection-end-line="164" selection-end-column="36" />
             </state>
           </provider>
@@ -27,8 +27,8 @@
       <file leaf-file-name="kube-config" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kube-config">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="722">
-              <caret line="38" selection-start-line="38" selection-end-line="38" />
+            <state relative-caret-position="171">
+              <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -36,10 +36,39 @@
       <file leaf-file-name="kubernetes_controller.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/swagger_server/controllers/kubernetes_controller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="668">
-              <caret line="177" selection-start-line="177" selection-end-line="177" />
+            <state relative-caret-position="188">
+              <caret line="15" column="49" lean-forward="true" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__main__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/swagger_server/__main__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+              <folding>
+                <element signature="e#24#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="swagger.yaml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/swagger_server/swagger/swagger.yaml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="emp_server_controller.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/swagger_server/controllers/emp_server_controller.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2356">
+              <caret line="124" column="17" lean-forward="true" selection-start-line="124" selection-start-column="17" selection-end-line="124" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -89,7 +118,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -112,23 +140,18 @@
               <item name="python-flask-server" type="b2602c69:ProjectViewProjectNode" />
               <item name="python-flask-server" type="462c0819:PsiDirectoryNode" />
               <item name="swagger_server" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="python-flask-server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="python-flask-server" type="462c0819:PsiDirectoryNode" />
-              <item name="swagger_server" type="462c0819:PsiDirectoryNode" />
               <item name="swagger" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../microservices/Python 3.6/Users_MS" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../microservices/Python 3.6/Playlists_MS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -170,6 +193,8 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="GOOGLE_APPLICATION_CREDENTIALS" value="$USER_HOME$/KubCredentials/emp-kubernetes-cluster.json" />
+        <env name="KUBECONFIG" value="$PROJECT_DIR$/kube-config" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/swagger_server/controllers" />
@@ -216,9 +241,9 @@
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.4047619" />
-      <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26120642" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.46212122" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32900432" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26784727" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -241,20 +266,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/kube-config">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/swagger_server/controllers/emp_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2831">
-          <caret line="164" column="36" lean-forward="true" selection-start-line="164" selection-start-column="36" selection-end-line="164" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/swagger_server/controllers/kubernetes_controller.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2451">
@@ -594,13 +605,6 @@
         <state relative-caret-position="-114" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/swagger_server/controllers/emp_server_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2166">
-          <caret line="124" column="17" lean-forward="true" selection-start-line="124" selection-start-column="17" selection-end-line="124" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/swagger_server/controllers/cluster_manager.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -608,24 +612,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/swagger_server/controllers/emp_server.py">
+    <entry file="file://$PROJECT_DIR$/kube-config">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2831">
-          <caret line="164" column="36" selection-start-line="164" selection-start-column="36" selection-end-line="164" selection-end-column="36" />
+        <state relative-caret-position="171">
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kube-config">
+    <entry file="file://$PROJECT_DIR$/swagger_server/__main__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="114">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#24#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/swagger_server/swagger/swagger.yaml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/swagger_server/controllers/emp_server_controller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2356">
+          <caret line="124" column="17" lean-forward="true" selection-start-line="124" selection-start-column="17" selection-end-line="124" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/swagger_server/controllers/emp_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2828">
+          <caret line="164" column="36" selection-start-line="164" selection-start-column="36" selection-end-line="164" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/swagger_server/controllers/kubernetes_controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="668">
-          <caret line="177" selection-start-line="177" selection-end-line="177" />
+        <state relative-caret-position="188">
+          <caret line="15" column="49" lean-forward="true" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>

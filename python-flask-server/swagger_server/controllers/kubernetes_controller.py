@@ -6,16 +6,24 @@ from pprint import pprint
 from swagger_server.models.app_deploy import AppDeploy
 from swagger_server.controllers.cluster_manager import ClusterManager
 import time
+import os
 
 
-config.load_kube_config(config_file="/home/fabio/Desktop/Projects/emp/python-flask-server/kube-config")
+KAFKAADDRESS = "10.11.243.15:9092"
+config.load_kube_config(config_file=os.environ['KUBECONFIG'])
 
 
 def create_deployment_object(name, docker_image):
+    # Add Environment Variables to Pod
+    all_envs = [client.V1EnvVar(name="KAFKAADDRESS", value=KAFKAADDRESS)]
+    # if len(envs) != 0:
+    #     for i in range(len(envs)):
+    #         all_envs.append(client.V1EnvVar(name=envs[i].name, value=envs[i].value))
     # Configureate Pod template container
     container = client.V1Container(
         name=name,
         image=docker_image,
+        env=all_envs,
         ports=[client.V1ContainerPort(container_port=80)])
     # Create and configurate a spec section
     template = client.V1PodTemplateSpec(
@@ -23,6 +31,7 @@ def create_deployment_object(name, docker_image):
         spec=client.V1PodSpec(containers=[container]))
     # Create the specification of deployment
     # TODO Ambient Variables client.V1EnvVar
+
     spec = client.ExtensionsV1beta1DeploymentSpec(
         replicas=1,
         template=template)
@@ -32,7 +41,6 @@ def create_deployment_object(name, docker_image):
         kind="Deployment",
         metadata=client.V1ObjectMeta(name=name),
         spec=spec)
-
     return deployment
 
 
@@ -160,17 +168,20 @@ class KubernetesController(ClusterManager):
 
 def main():
 
-    name = "nginx"
+    #name = "nginx"
     username = "fcribeiro"
-    docker_image = "nginx:1.7.9"
+    #docker_image = "nginx:1.7.9"
+    name = "envtest"
+    docker_image = "fcribeiro/env_test"
+
     app_info = AppDeploy(name, docker_image, True, None)
     # print(app_info)
 
     kub = KubernetesController()
 
-    # create_namespace(username)
+    #create_namespace(username)
     # delete_namespace(username)
-    # kub.deploy_app(app_info=app_info, namespace=username)
+    kub.deploy_app(app_info=app_info, namespace=username)
     # kub.get_app("nginx-example", "user-fcribeiro")
     # kub.scale_app(name=name, replicas=5, namespace=username)
 
