@@ -16,6 +16,7 @@ import re  # noqa: F401
 
 import six
 
+from swagger_client.models.environment_variables import EnvironmentVariables  # noqa: F401,E501
 from swagger_client.models.quality_metrics import QualityMetrics  # noqa: F401,E501
 
 
@@ -35,29 +36,37 @@ class AppDeploy(object):
     swagger_types = {
         'name': 'str',
         'docker_image': 'str',
+        'envs': 'list[EnvironmentVariables]',
         'stateless': 'bool',
+        'port': 'int',
         'quality_metrics': 'list[QualityMetrics]'
     }
 
     attribute_map = {
         'name': 'name',
         'docker_image': 'docker_image',
+        'envs': 'envs',
         'stateless': 'stateless',
+        'port': 'port',
         'quality_metrics': 'quality_metrics'
     }
 
-    def __init__(self, name=None, docker_image=None, stateless=None, quality_metrics=None):  # noqa: E501
+    def __init__(self, name=None, docker_image=None, envs=None, stateless=None, port=None, quality_metrics=None):  # noqa: E501
         """AppDeploy - a model defined in Swagger"""  # noqa: E501
 
         self._name = None
         self._docker_image = None
+        self._envs = None
         self._stateless = None
+        self._port = None
         self._quality_metrics = None
         self.discriminator = None
 
         self.name = name
         self.docker_image = docker_image
+        self.envs = envs
         self.stateless = stateless
+        self.port = port
         self.quality_metrics = quality_metrics
 
     @property
@@ -111,6 +120,29 @@ class AppDeploy(object):
         self._docker_image = docker_image
 
     @property
+    def envs(self):
+        """Gets the envs of this AppDeploy.  # noqa: E501
+
+
+        :return: The envs of this AppDeploy.  # noqa: E501
+        :rtype: list[EnvironmentVariables]
+        """
+        return self._envs
+
+    @envs.setter
+    def envs(self, envs):
+        """Sets the envs of this AppDeploy.
+
+
+        :param envs: The envs of this AppDeploy.  # noqa: E501
+        :type: list[EnvironmentVariables]
+        """
+        if envs is None:
+            raise ValueError("Invalid value for `envs`, must not be `None`")  # noqa: E501
+
+        self._envs = envs
+
+    @property
     def stateless(self):
         """Gets the stateless of this AppDeploy.  # noqa: E501
 
@@ -134,6 +166,31 @@ class AppDeploy(object):
             raise ValueError("Invalid value for `stateless`, must not be `None`")  # noqa: E501
 
         self._stateless = stateless
+
+    @property
+    def port(self):
+        """Gets the port of this AppDeploy.  # noqa: E501
+
+        Port number of the application  # noqa: E501
+
+        :return: The port of this AppDeploy.  # noqa: E501
+        :rtype: int
+        """
+        return self._port
+
+    @port.setter
+    def port(self, port):
+        """Sets the port of this AppDeploy.
+
+        Port number of the application  # noqa: E501
+
+        :param port: The port of this AppDeploy.  # noqa: E501
+        :type: int
+        """
+        if port is None:
+            raise ValueError("Invalid value for `port`, must not be `None`")  # noqa: E501
+
+        self._port = port
 
     @property
     def quality_metrics(self):

@@ -20,7 +20,7 @@ ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 USER_APPS = "apps:"
 USER_DATA = "user:"
 NAMESPACE = "user-"
-rs = redis.StrictRedis(host='172.17.0.2', port=6379, db=0, decode_responses=True)
+rs = redis.StrictRedis(host='172.17.0.3', port=6379, db=0, decode_responses=True)
 kub = KubernetesController()
 
 # while True:

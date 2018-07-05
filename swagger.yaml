@@ -1,52 +1,60 @@
-swagger: '2.0'
+---
+swagger: "2.0"
 info:
-  title: EMP_Server_Controller
   version: "0.1"
+  title: "EMP_Server_Controller"
 consumes:
-  - application/json
+- "application/json"
 produces:
-  - application/json
+- "application/json"
 paths:
   /:
     get:
-      operationId: application.hello_world
+      tags:
+      - "emp_server"
       summary: "EMP Working!"
-      tags: [emp_server]
+      operationId: "application_hello_world"
+      parameters: []
       responses:
         200:
-          description: OK
+          description: "OK"
           schema:
             type: "string"
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
   /app:
     get:
-        operationId: application.get_all_apps
-        tags: [emp_server]
-        summary: "Gets general information about all applications"
-        consumes:
-        - "application/json"
-        produces:
-        - "application/json"
-        responses:
-          200:
-            description: "OK."
-            schema:
-              $ref: '#/definitions/ArrayOfApps'
-          400:
-            description: "Bad request."
-            schema:
-              type: "string"
-          404:
-            description: "Not found."
-            schema:
-              type: "string"            
-          500:
-            description: "Internal server error."
-            schema:
-              type: "string"
+      tags:
+      - "emp_server"
+      summary: "Gets general information about all applications"
+      operationId: "application_get_all_apps"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "OK."
+          schema:
+            $ref: "#/definitions/ArrayOfApps"
+        400:
+          description: "Bad request."
+          schema:
+            type: "string"
+        404:
+          description: "Not found."
+          schema:
+            type: "string"
+        500:
+          description: "Internal server error."
+          schema:
+            type: "string"
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
     post:
-      operationId: application.deploy_app
-      tags: [emp_server]
+      tags:
+      - "emp_server"
       summary: "Deploys an application in the platform"
+      operationId: "application_deploy_app"
       consumes:
       - "application/json"
       produces:
@@ -57,12 +65,12 @@ paths:
         description: "Application object to be deployed"
         required: true
         schema:
-          $ref: '#/definitions/AppDeploy'
+          $ref: "#/definitions/AppDeploy"
       responses:
         201:
           description: "Created."
           schema:
-              $ref: '#/definitions/AppInfo'
+            $ref: "#/definitions/AppInfo"
         400:
           description: "Bad request."
           schema:
@@ -71,112 +79,153 @@ paths:
           description: "Internal server error"
           schema:
             type: "string"
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
   /app/user:
     post:
-        operationId: application.create_user
-        tags: [emp_server]
-        summary: "Creates a user with all the necessary information"
-        consumes:
-        - "application/json"
-        produces:
-        - "application/json"
-        parameters:
-        - in: "body"
-          name: "user_info"
-          description: "User information"
-          required: true
+      tags:
+      - "emp_server"
+      summary: "Creates a user with all the necessary information"
+      operationId: "application_create_user"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user_info"
+        description: "User information"
+        required: true
+        schema:
+          $ref: "#/definitions/UserInfo"
+      responses:
+        200:
+          description: "User created successfully"
           schema:
-            $ref: '#/definitions/UserInfo'
-        responses:
-          200:
-            description: "User created successfully"
-            schema:
-              type: "string"
-          400:
-            description: "Bad request."
-            schema:
-              type: "string"
-          404:
-            description: "Not found."
-            schema:
-              type: "string"
-          500:
-            description: "Internal server error."
-            schema:
-              type: "string"
+            type: "string"
+        400:
+          description: "Bad request."
+          schema:
+            type: "string"
+        404:
+          description: "Not found."
+          schema:
+            type: "string"
+        500:
+          description: "Internal server error."
+          schema:
+            type: "string"
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
   /app/login:
     post:
-        operationId: application.login_user
-        tags: [emp_server]
-        summary: "User login"
-        consumes:
-        - "application/json"
-        produces:
-        - "application/json"
-        parameters:
-        - in: "body"
-          name: "user_info"
-          description: "User information"
-          required: true
+      tags:
+      - "emp_server"
+      summary: "User login"
+      operationId: "application_login_user"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user_info"
+        description: "User information"
+        required: true
+        schema:
+          $ref: "#/definitions/UserInfo"
+      responses:
+        200:
+          description: "Logged in successfully"
           schema:
-            $ref: '#/definitions/UserInfo'
-        responses:
-          200:
-            description: "Logged in successfully"
-            schema:
-              type: "string"
-          400:
-            description: "Bad request."
-            schema:
-              type: "string"
-          401:
-            description: "Login Failed."
-            schema:
-              type: "string"
-          404:
-            description: "Not found."
-            schema:
-              type: "string"
-          500:
-            description: "Internal server error."
-            schema:
-              type: "string"
+            type: "string"
+        400:
+          description: "Bad request."
+          schema:
+            type: "string"
+        401:
+          description: "Login Failed."
+          schema:
+            type: "string"
+        404:
+          description: "Not found."
+          schema:
+            type: "string"
+        500:
+          description: "Internal server error."
+          schema:
+            type: "string"
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
   /app/{app_id}:
     get:
-        operationId: application.get_app
-        tags: [emp_server]
-        summary: "Gets all information about a specific application"
-        consumes:
-        - "application/json"
-        produces:
-        - "application/json"
-        parameters:
-        - name: "app_id"
-          in: "path"
-          description: "ID of the application to get information"
-          required: true
-          type: "string"
-        responses:
-          200:
-            description: "OK."
-            schema:
-              $ref: '#/definitions/AppTotalInfo'
-          400:
-            description: "Bad request."
-            schema:
-              type: "string"
-          404:
-            description: "Not found."
-            schema:
-              type: "string"
-          500:
-            description: "Internal server error."
-            schema:
-              type: "string"
+      tags:
+      - "emp_server"
+      summary: "Gets all information about a specific application"
+      operationId: "application_get_app"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "app_id"
+        in: "path"
+        description: "ID of the application to get information"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK."
+          schema:
+            $ref: "#/definitions/AppTotalInfo"
+        400:
+          description: "Bad request."
+          schema:
+            type: "string"
+        404:
+          description: "Not found."
+          schema:
+            type: "string"
+        500:
+          description: "Internal server error."
+          schema:
+            type: "string"
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
+    delete:
+      tags:
+      - "emp_server"
+      summary: "Removes an application from the platform"
+      operationId: "application_delete_app"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "app_id"
+        in: "path"
+        description: "ID of the application to remove"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK."
+          schema:
+            type: "string"
+        400:
+          description: "Bad request."
+          schema:
+            type: "string"
+        404:
+          description: "Not found."
+          schema:
+            type: "string"
+        500:
+          description: "Internal server error."
+          schema:
+            type: "string"
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
     patch:
-      operationId: application.change_app_state
-      tags: [emp_server]
+      tags:
+      - "emp_server"
       summary: "Changes an application state"
+      operationId: "application_change_app_state"
       consumes:
       - "application/json"
       produces:
@@ -197,7 +246,7 @@ paths:
         200:
           description: "OK."
           schema:
-              $ref: '#/definitions/AppTotalInfo'
+            $ref: "#/definitions/AppTotalInfo"
         400:
           description: "Bad request."
           schema:
@@ -210,79 +259,52 @@ paths:
           description: "Internal server error."
           schema:
             type: "string"
-    delete:
-        operationId: application.delete_app
-        tags: [emp_server]
-        summary: "Removes an application from the platform"
-        consumes:
-        - "application/json"
-        produces:
-        - "application/json"
-        parameters:
-        - name: "app_id"
-          in: "path"
-          description: "ID of the application to remove"
-          required: true
-          type: "string"
-        responses:
-          200:
-            description: "OK."
-            schema:
-              type: "string"
-          400:
-            description: "Bad request."
-            schema:
-              type: "string"
-          404:
-            description: "Not found."
-            schema:
-              type: "string"
-          500:
-            description: "Internal server error."
-            schema:
-              type: "string"
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
   /app/tracing/{app_id}:
     get:
-        operationId: application.get_app_tracing
-        tags: [emp_server]
-        summary: "Gets information about tracing of a specific application"
-        consumes:
-        - "application/json"
-        produces:
-        - "application/json"
-        parameters:
-        - name: "app_id"
-          in: "path"
-          description: "ID of the application"
-          required: true
-          type: "string"
-        responses:
-          200:
-            description: "OK."
-            schema:
-                type: "string"
-                example: "127.0.0.1:8080"
-          400:
-            description: "Bad request."
-            schema:
-              type: "string"
-          404:
-            description: "Not found."
-            schema:
-              type: "string"
-          500:
-            description: "Internal server error."
-            schema:
-              type: "string"
-            
+      tags:
+      - "emp_server"
+      summary: "Gets information about tracing of a specific application"
+      operationId: "application_get_app_tracing"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "app_id"
+        in: "path"
+        description: "ID of the application"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK."
+          schema:
+            type: "string"
+            example: "127.0.0.1:8080"
+        400:
+          description: "Bad request."
+          schema:
+            type: "string"
+        404:
+          description: "Not found."
+          schema:
+            type: "string"
+        500:
+          description: "Internal server error."
+          schema:
+            type: "string"
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
 definitions:
   AppDeploy:
     type: "object"
     required:
-    - "name"
     - "docker_image"
-    - "stateless"
+    - "envs"
+    - "name"
+    - "port"
     - "quality_metrics"
+    - "stateless"
     properties:
       name:
         type: "string"
@@ -292,104 +314,179 @@ definitions:
         type: "string"
         example: "fcribeiro/Songs_MS"
         description: "Name of the docker image"
+      envs:
+        type: "array"
+        items:
+          $ref: "#/definitions/EnvironmentVariables"
       stateless:
-          type: "boolean"
-          example: true
-          description: "For stateless apps use true, stateful use false."
+        type: "boolean"
+        example: true
+        description: "For stateless apps use true, stateful use false."
+      port:
+        type: "integer"
+        example: 8080
+        description: "Port number of the application"
       quality_metrics:
         type: "array"
         items:
-          $ref: '#/definitions/QualityMetrics'
+          $ref: "#/definitions/QualityMetrics"
+    example:
+      quality_metrics:
+      - metric: "metric"
+        values: "values"
+      - metric: "metric"
+        values: "values"
+      envs:
+      - name: "KAFKAADDRESS"
+      - value: "localhost:9092"
+      name: "Songs Application"
+      stateless: true
+      docker_image: "fcribeiro/Songs_MS"
   AppTotalInfo:
-      type: "object"
-      required:
-      - "id"
-      - "name"
-      - "state"
-      - "docker_image"
-      - "stateless"
-      - "quality_metrics"
-      properties:
-        id:
-          type: "string"
-          example: "abcABC"
-          description: "The application ID."
-        name:
-          type: "string"
-          example: "Songs Application"
-          description: "Name of the deployed application"
-        state:
-          type: "string"
-          example: "Running"
-          description: "Current state of the application"
-        docker_image:
-          type: "string"
-          example: "fcribeiro/Songs_MS"
-          description: "Name of the docker image"
-        stateless:
-          type: "boolean"
-          example: true
-          description: "Stateless apps use true, stateful use false."
-        quality_metrics:
-          type: "array"
-          items:
-            $ref: '#/definitions/QualityMetrics'
+    type: "object"
+    required:
+    - "docker_image"
+    - "envs"
+    - "id"
+    - "name"
+    - "port"
+    - "quality_metrics"
+    - "state"
+    - "stateless"
+    properties:
+      id:
+        type: "string"
+        example: "abcABC"
+        description: "The application ID."
+      name:
+        type: "string"
+        example: "Songs Application"
+        description: "Name of the deployed application"
+      state:
+        type: "string"
+        example: "Running"
+        description: "Current state of the application"
+      docker_image:
+        type: "string"
+        example: "fcribeiro/Songs_MS"
+        description: "Name of the docker image"
+      envs:
+        type: "array"
+        items:
+          $ref: "#/definitions/EnvironmentVariables"
+      stateless:
+        type: "boolean"
+        example: true
+        description: "Stateless apps use true, stateful use false."
+      quality_metrics:
+        type: "array"
+        items:
+          $ref: "#/definitions/QualityMetrics"
+      port:
+        type: "integer"
+        example: 8080
+        description: "Port number of the application"
+    example:
+      quality_metrics:
+      - metric: "metric"
+        values: "values"
+      - metric: "metric"
+        values: "values"
+      envs:
+      - name: "KAFKAADDRESS"
+      - value: "localhost:9092"
+      name: "Songs Application"
+      id: "abcABC"
+      state: "Running"
+      stateless: true
+      docker_image: "fcribeiro/Songs_MS"
   AppInfo:
-      type: "object"
-      required:
-      - "id"
-      - "name"
-      - "state"
-      properties:
-        id:
-          type: "string"
-          example: "abcABC"
-          description: "The application ID."
-        name:
-          type: "string"
-          example: "Songs Application"
-          description: "Name of the deployed application"
-        state:
-          type: "string"
-          example: "Stopped"
-          description: "Current state of the application"
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    - "state"
+    properties:
+      id:
+        type: "string"
+        example: "abcABC"
+        description: "The application ID."
+      name:
+        type: "string"
+        example: "Songs Application"
+        description: "Name of the deployed application"
+      state:
+        type: "string"
+        example: "Stopped"
+        description: "Current state of the application"
+    example:
+      name: "Songs Application"
+      id: "abcABC"
+      state: "Stopped"
   ArrayOfApps:
-      type: "array"
-      items:
-        $ref: '#/definitions/AppInfo'
+    type: "array"
+    items:
+      $ref: "#/definitions/AppInfo"
   QualityMetrics:
-      type: "object"
-      required:
-      - "metric"
-      - "value"
-      properties:
-        metric:
-          type: "string"
-        values:
-          type: "string"
+    type: "object"
+    required:
+    - "metric"
+    - "values"
+    properties:
+      metric:
+        type: "string"
+        description: "Name of the quality metric"
+      values:
+        type: "string"
+        description: "Values of the quality metric"
+    example:
+      metric: "metric"
+      values: "values"
+  EnvironmentVariables:
+    type: "object"
+    required:
+    - "name"
+    - "value"
+    properties:
+      name:
+        type: "string"
+        description: "Name of the environment variable"
+      value:
+        type: "string"
+        description: "Value of the environment variable"
+    example:
+      name: "KAFKAADDRESS"
+      value: "localhost:9092"
   AppState:
-      type: "object"
-      properties:
-        state:
-          type: "boolean"
-        quality_metrics:
-          type: "array"
-          items: 
-            $ref: '#/definitions/QualityMetrics'
+    type: "object"
+    properties:
+      state:
+        type: "boolean"
+      quality_metrics:
+        type: "array"
+        items:
+          $ref: "#/definitions/QualityMetrics"
+    example:
+      quality_metrics:
+      - metric: "metric"
+        values: "values"
+      - metric: "metric"
+        values: "values"
+      state: true
   UserInfo:
-      type: "object"
-      required: 
-      - "username"
-      - "password"
-      properties:
-        username:
-          type: "string"
-          example: "fcribeiro"
-          description: "Username of the user"
-        password:
-          type: "string"
-          example: "ribeiro123"
-          description: "Password of the user"
-          
-
-        
+    type: "object"
+    required:
+    - "password"
+    - "username"
+    properties:
+      username:
+        type: "string"
+        example: "fcribeiro"
+        description: "Username of the user"
+      password:
+        type: "string"
+        example: "ribeiro123"
+        description: "Password of the user"
+    example:
+      password: "ribeiro123"
+      username: "fcribeiro"

@@ -13,12 +13,13 @@ KAFKAADDRESS = "10.11.243.15:9092"
 config.load_kube_config(config_file=os.environ['KUBECONFIG'])
 
 
-def create_deployment_object(name, docker_image):
+def create_deployment_object(name, docker_image, envs):
     # Add Environment Variables to Pod
     all_envs = [client.V1EnvVar(name="KAFKAADDRESS", value=KAFKAADDRESS)]
-    # if len(envs) != 0:
-    #     for i in range(len(envs)):
-    #         all_envs.append(client.V1EnvVar(name=envs[i].name, value=envs[i].value))
+    # all_envs = [client.V1EnvVar(name="USERSADDRESS", value=KAFKAADDRESS)]
+    if len(envs) != 0:
+        for i in range(len(envs)):
+            all_envs.append(client.V1EnvVar(name=envs[i].name, value=envs[i].value))
     # Configureate Pod template container
     container = client.V1Container(
         name=name,
@@ -30,8 +31,6 @@ def create_deployment_object(name, docker_image):
         metadata=client.V1ObjectMeta(labels={"app": name}),
         spec=client.V1PodSpec(containers=[container]))
     # Create the specification of deployment
-    # TODO Ambient Variables client.V1EnvVar
-
     spec = client.ExtensionsV1beta1DeploymentSpec(
         replicas=1,
         template=template)
@@ -42,6 +41,39 @@ def create_deployment_object(name, docker_image):
         metadata=client.V1ObjectMeta(name=name),
         spec=spec)
     return deployment
+
+
+def create_service(name, username, app_port):
+    api_instance = client.CoreV1Api()
+    namespace = username
+
+    body = client.V1Service()  # V1Service
+
+    # Creating Meta Data
+    metadata = client.V1ObjectMeta()
+    metadata.name = name
+
+    body.metadata = metadata
+
+    # Creating spec
+    spec = client.V1ServiceSpec()
+    spec.type = "LoadBalancer"
+
+    # Creating Port object
+    port = client.V1ServicePort(port=app_port, target_port=app_port)
+
+    spec.ports = [port]
+    spec.selector = {"app": name}
+    body.spec = spec
+
+    pretty = 'pretty_example'  # str | If 'true', then the output is pretty printed. (optional)
+    try:
+        api_response = api_instance.create_namespaced_service(namespace, body, pretty=pretty)
+        # pprint(api_response)
+        return True
+    except ApiException as e:
+        print("Exception when calling CoreV1Api->create_namespaced_service: %s\n" % e)
+        return False
 
 
 def create_namespace(namespace):
@@ -77,8 +109,9 @@ def delete_namespace(namespace):
 
 class KubernetesController(ClusterManager):
 
-    def deploy_app(self, app_info, namespace=None):
-        deployment = create_deployment_object(name=app_info.name, docker_image=app_info.docker_image)
+    def deploy_app(self, app_info, namespace=None, username=None):
+        deployment = create_deployment_object(name=app_info.name, docker_image=app_info.docker_image,
+                                              envs=app_info.envs)
         # Create Namespace
         create_namespace(namespace=namespace)
         # Create deployement
@@ -88,9 +121,11 @@ class KubernetesController(ClusterManager):
                 body=deployment,
                 namespace=namespace,
                 pretty=True)
-            # pprint(api_response)
-            # print("Deployment created. status='%s'" % str(api_response.status))
-            return True
+
+            if create_service(app_info.name, username=username, app_port=app_info.port):
+                return True
+            else:
+                return False
         except ApiException as e:
             print("Exception when calling ExtensionsV1beta1Api->create_namespaced_deployment: %s\n" % e)
             return False
@@ -122,9 +157,23 @@ class KubernetesController(ClusterManager):
                 body=client.V1DeleteOptions(
                     propagation_policy='Foreground',
                     grace_period_seconds=5))
-            # pprint(api_response)
-            # print("Deployment deleted. status='%s'" % str(api_response.status))
-            return True
+
+            # Delete Service
+            api_instance = client.CoreV1Api()
+            body = client.V1DeleteOptions()  # V1DeleteOptions |
+            pretty = 'pretty_example'  # str | If 'true', then the output is pretty printed. (optional)
+            grace_period_seconds = 56  # int | The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately. (optional)
+            orphan_dependents = True  # bool | Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the \"orphan\" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both. (optional)
+            propagation_policy = 'propagation_policy_example'
+            try:
+                api_response = api_instance.delete_namespaced_service(name, namespace, body, pretty=pretty,
+                                                                      grace_period_seconds=grace_period_seconds,
+                                                                      orphan_dependents=orphan_dependents,
+                                                                      propagation_policy=propagation_policy)
+                return True
+            except ApiException as e:
+                print("Exception when calling CoreV1Api->delete_namespaced_service: %s\n" % e)
+                return False
         except ApiException as e:
             print("Exception when calling ExtensionsV1beta1Api->delete_namespaced_deployment: %s\n" % e)
             return False
@@ -171,17 +220,18 @@ def main():
     #name = "nginx"
     username = "fcribeiro"
     #docker_image = "nginx:1.7.9"
-    name = "envtest"
-    docker_image = "fcribeiro/env_test"
+    # name = "envtest"
+    # docker_image = "fcribeiro/env_test"
+    name = "auth-deployment"
+    docker_image = "fcribeiro/authentication_ms_p3"
 
-    app_info = AppDeploy(name, docker_image, True, None)
+    app_info = AppDeploy(name, docker_image, None, True, None)
     # print(app_info)
-
     kub = KubernetesController()
 
     #create_namespace(username)
     # delete_namespace(username)
-    kub.deploy_app(app_info=app_info, namespace=username)
+    kub.deploy_app(app_info=app_info, namespace=username, username=username)
     # kub.get_app("nginx-example", "user-fcribeiro")
     # kub.scale_app(name=name, replicas=5, namespace=username)
 

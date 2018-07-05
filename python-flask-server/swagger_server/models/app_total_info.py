@@ -6,6 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
+from swagger_server.models.environment_variables import EnvironmentVariables  # noqa: F401,E501
 from swagger_server.models.quality_metrics import QualityMetrics  # noqa: F401,E501
 from swagger_server import util
 
@@ -16,7 +17,7 @@ class AppTotalInfo(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, id: str=None, name: str=None, state: str=None, docker_image: str=None, stateless: bool=None, quality_metrics: List[QualityMetrics]=None):  # noqa: E501
+    def __init__(self, id: str=None, name: str=None, state: str=None, docker_image: str=None, envs: List[EnvironmentVariables]=None, stateless: bool=None, quality_metrics: List[QualityMetrics]=None, port: int=None):  # noqa: E501
         """AppTotalInfo - a model defined in Swagger
 
         :param id: The id of this AppTotalInfo.  # noqa: E501
@@ -27,18 +28,24 @@ class AppTotalInfo(Model):
         :type state: str
         :param docker_image: The docker_image of this AppTotalInfo.  # noqa: E501
         :type docker_image: str
+        :param envs: The envs of this AppTotalInfo.  # noqa: E501
+        :type envs: List[EnvironmentVariables]
         :param stateless: The stateless of this AppTotalInfo.  # noqa: E501
         :type stateless: bool
         :param quality_metrics: The quality_metrics of this AppTotalInfo.  # noqa: E501
         :type quality_metrics: List[QualityMetrics]
+        :param port: The port of this AppTotalInfo.  # noqa: E501
+        :type port: int
         """
         self.swagger_types = {
             'id': str,
             'name': str,
             'state': str,
             'docker_image': str,
+            'envs': List[EnvironmentVariables],
             'stateless': bool,
-            'quality_metrics': List[QualityMetrics]
+            'quality_metrics': List[QualityMetrics],
+            'port': int
         }
 
         self.attribute_map = {
@@ -46,16 +53,20 @@ class AppTotalInfo(Model):
             'name': 'name',
             'state': 'state',
             'docker_image': 'docker_image',
+            'envs': 'envs',
             'stateless': 'stateless',
-            'quality_metrics': 'quality_metrics'
+            'quality_metrics': 'quality_metrics',
+            'port': 'port'
         }
 
         self._id = id
         self._name = name
         self._state = state
         self._docker_image = docker_image
+        self._envs = envs
         self._stateless = stateless
         self._quality_metrics = quality_metrics
+        self._port = port
 
     @classmethod
     def from_dict(cls, dikt) -> 'AppTotalInfo':
@@ -169,6 +180,29 @@ class AppTotalInfo(Model):
         self._docker_image = docker_image
 
     @property
+    def envs(self) -> List[EnvironmentVariables]:
+        """Gets the envs of this AppTotalInfo.
+
+
+        :return: The envs of this AppTotalInfo.
+        :rtype: List[EnvironmentVariables]
+        """
+        return self._envs
+
+    @envs.setter
+    def envs(self, envs: List[EnvironmentVariables]):
+        """Sets the envs of this AppTotalInfo.
+
+
+        :param envs: The envs of this AppTotalInfo.
+        :type envs: List[EnvironmentVariables]
+        """
+        if envs is None:
+            raise ValueError("Invalid value for `envs`, must not be `None`")  # noqa: E501
+
+        self._envs = envs
+
+    @property
     def stateless(self) -> bool:
         """Gets the stateless of this AppTotalInfo.
 
@@ -215,3 +249,28 @@ class AppTotalInfo(Model):
             raise ValueError("Invalid value for `quality_metrics`, must not be `None`")  # noqa: E501
 
         self._quality_metrics = quality_metrics
+
+    @property
+    def port(self) -> int:
+        """Gets the port of this AppTotalInfo.
+
+        Port number of the application  # noqa: E501
+
+        :return: The port of this AppTotalInfo.
+        :rtype: int
+        """
+        return self._port
+
+    @port.setter
+    def port(self, port: int):
+        """Sets the port of this AppTotalInfo.
+
+        Port number of the application  # noqa: E501
+
+        :param port: The port of this AppTotalInfo.
+        :type port: int
+        """
+        if port is None:
+            raise ValueError("Invalid value for `port`, must not be `None`")  # noqa: E501
+
+        self._port = port

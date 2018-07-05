@@ -6,6 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
+from swagger_server.models.environment_variables import EnvironmentVariables  # noqa: F401,E501
 from swagger_server.models.quality_metrics import QualityMetrics  # noqa: F401,E501
 from swagger_server import util
 
@@ -16,35 +17,45 @@ class AppDeploy(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, name: str=None, docker_image: str=None, stateless: bool=None, quality_metrics: List[QualityMetrics]=None):  # noqa: E501
+    def __init__(self, name: str=None, docker_image: str=None, envs: List[EnvironmentVariables]=None, stateless: bool=None, port: int=None, quality_metrics: List[QualityMetrics]=None):  # noqa: E501
         """AppDeploy - a model defined in Swagger
 
         :param name: The name of this AppDeploy.  # noqa: E501
         :type name: str
         :param docker_image: The docker_image of this AppDeploy.  # noqa: E501
         :type docker_image: str
+        :param envs: The envs of this AppDeploy.  # noqa: E501
+        :type envs: List[EnvironmentVariables]
         :param stateless: The stateless of this AppDeploy.  # noqa: E501
         :type stateless: bool
+        :param port: The port of this AppDeploy.  # noqa: E501
+        :type port: int
         :param quality_metrics: The quality_metrics of this AppDeploy.  # noqa: E501
         :type quality_metrics: List[QualityMetrics]
         """
         self.swagger_types = {
             'name': str,
             'docker_image': str,
+            'envs': List[EnvironmentVariables],
             'stateless': bool,
+            'port': int,
             'quality_metrics': List[QualityMetrics]
         }
 
         self.attribute_map = {
             'name': 'name',
             'docker_image': 'docker_image',
+            'envs': 'envs',
             'stateless': 'stateless',
+            'port': 'port',
             'quality_metrics': 'quality_metrics'
         }
 
         self._name = name
         self._docker_image = docker_image
+        self._envs = envs
         self._stateless = stateless
+        self._port = port
         self._quality_metrics = quality_metrics
 
     @classmethod
@@ -109,6 +120,29 @@ class AppDeploy(Model):
         self._docker_image = docker_image
 
     @property
+    def envs(self) -> List[EnvironmentVariables]:
+        """Gets the envs of this AppDeploy.
+
+
+        :return: The envs of this AppDeploy.
+        :rtype: List[EnvironmentVariables]
+        """
+        return self._envs
+
+    @envs.setter
+    def envs(self, envs: List[EnvironmentVariables]):
+        """Sets the envs of this AppDeploy.
+
+
+        :param envs: The envs of this AppDeploy.
+        :type envs: List[EnvironmentVariables]
+        """
+        if envs is None:
+            raise ValueError("Invalid value for `envs`, must not be `None`")  # noqa: E501
+
+        self._envs = envs
+
+    @property
     def stateless(self) -> bool:
         """Gets the stateless of this AppDeploy.
 
@@ -132,6 +166,31 @@ class AppDeploy(Model):
             raise ValueError("Invalid value for `stateless`, must not be `None`")  # noqa: E501
 
         self._stateless = stateless
+
+    @property
+    def port(self) -> int:
+        """Gets the port of this AppDeploy.
+
+        Port number of the application  # noqa: E501
+
+        :return: The port of this AppDeploy.
+        :rtype: int
+        """
+        return self._port
+
+    @port.setter
+    def port(self, port: int):
+        """Sets the port of this AppDeploy.
+
+        Port number of the application  # noqa: E501
+
+        :param port: The port of this AppDeploy.
+        :type port: int
+        """
+        if port is None:
+            raise ValueError("Invalid value for `port`, must not be `None`")  # noqa: E501
+
+        self._port = port
 
     @property
     def quality_metrics(self) -> List[QualityMetrics]:

@@ -300,7 +300,9 @@ definitions:
     type: "object"
     required:
     - "docker_image"
+    - "envs"
     - "name"
+    - "port"
     - "quality_metrics"
     - "stateless"
     properties:
@@ -312,10 +314,18 @@ definitions:
         type: "string"
         example: "fcribeiro/Songs_MS"
         description: "Name of the docker image"
+      envs:
+        type: "array"
+        items:
+          $ref: "#/definitions/EnvironmentVariables"
       stateless:
         type: "boolean"
         example: true
         description: "For stateless apps use true, stateful use false."
+      port:
+        type: "integer"
+        example: 8080
+        description: "Port number of the application"
       quality_metrics:
         type: "array"
         items:
@@ -326,6 +336,9 @@ definitions:
         values: "values"
       - metric: "metric"
         values: "values"
+      envs:
+      - name: "KAFKAADDRESS"
+      - value: "localhost:9092"
       name: "Songs Application"
       stateless: true
       docker_image: "fcribeiro/Songs_MS"
@@ -333,8 +346,10 @@ definitions:
     type: "object"
     required:
     - "docker_image"
+    - "envs"
     - "id"
     - "name"
+    - "port"
     - "quality_metrics"
     - "state"
     - "stateless"
@@ -355,6 +370,10 @@ definitions:
         type: "string"
         example: "fcribeiro/Songs_MS"
         description: "Name of the docker image"
+      envs:
+        type: "array"
+        items:
+          $ref: "#/definitions/EnvironmentVariables"
       stateless:
         type: "boolean"
         example: true
@@ -363,12 +382,19 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/QualityMetrics"
+      port:
+        type: "integer"
+        example: 8080
+        description: "Port number of the application"
     example:
       quality_metrics:
       - metric: "metric"
         values: "values"
       - metric: "metric"
         values: "values"
+      envs:
+      - name: "KAFKAADDRESS"
+      - value: "localhost:9092"
       name: "Songs Application"
       id: "abcABC"
       state: "Running"
@@ -405,14 +431,32 @@ definitions:
     type: "object"
     required:
     - "metric"
+    - "values"
     properties:
       metric:
         type: "string"
+        description: "Name of the quality metric"
       values:
         type: "string"
+        description: "Values of the quality metric"
     example:
       metric: "metric"
       values: "values"
+  EnvironmentVariables:
+    type: "object"
+    required:
+    - "name"
+    - "value"
+    properties:
+      name:
+        type: "string"
+        description: "Name of the environment variable"
+      value:
+        type: "string"
+        description: "Value of the environment variable"
+    example:
+      name: "KAFKAADDRESS"
+      value: "localhost:9092"
   AppState:
     type: "object"
     properties:

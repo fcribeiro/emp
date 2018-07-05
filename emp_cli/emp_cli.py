@@ -70,7 +70,9 @@ def info(id):
 		click.echo("Name: %s" % response.name)
 		click.echo("Docker Image: %s" % response.docker_image)
 		click.echo("State: %s" % response.state)
+		click.echo("Port: %s" % response.port)
 		click.echo("Stateless: %s" % response.stateless)
+		click.echo("Environment Variables: %s" % response.envs)
 		click.echo("Quality Metrics: %s" % response.quality_metrics)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e.body.rstrip("\n"))

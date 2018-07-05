@@ -88,6 +88,7 @@ Class | Method | HTTP request | Description
  - [AppState](docs/AppState.md)
  - [AppTotalInfo](docs/AppTotalInfo.md)
  - [ArrayOfApps](docs/ArrayOfApps.md)
+ - [EnvironmentVariables](docs/EnvironmentVariables.md)
  - [QualityMetrics](docs/QualityMetrics.md)
  - [UserInfo](docs/UserInfo.md)
 

@@ -51,6 +51,7 @@ class QualityMetrics(Model):
     def metric(self) -> str:
         """Gets the metric of this QualityMetrics.
 
+        Name of the quality metric  # noqa: E501
 
         :return: The metric of this QualityMetrics.
         :rtype: str
@@ -61,6 +62,7 @@ class QualityMetrics(Model):
     def metric(self, metric: str):
         """Sets the metric of this QualityMetrics.
 
+        Name of the quality metric  # noqa: E501
 
         :param metric: The metric of this QualityMetrics.
         :type metric: str
@@ -74,6 +76,7 @@ class QualityMetrics(Model):
     def values(self) -> str:
         """Gets the values of this QualityMetrics.
 
+        Values of the quality metric  # noqa: E501
 
         :return: The values of this QualityMetrics.
         :rtype: str
@@ -84,9 +87,12 @@ class QualityMetrics(Model):
     def values(self, values: str):
         """Sets the values of this QualityMetrics.
 
+        Values of the quality metric  # noqa: E501
 
         :param values: The values of this QualityMetrics.
         :type values: str
         """
+        if values is None:
+            raise ValueError("Invalid value for `values`, must not be `None`")  # noqa: E501
 
         self._values = values

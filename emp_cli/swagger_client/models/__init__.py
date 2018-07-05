@@ -20,5 +20,6 @@ from swagger_client.models.app_info import AppInfo
 from swagger_client.models.app_state import AppState
 from swagger_client.models.app_total_info import AppTotalInfo
 from swagger_client.models.array_of_apps import ArrayOfApps
+from swagger_client.models.environment_variables import EnvironmentVariables
 from swagger_client.models.quality_metrics import QualityMetrics
 from swagger_client.models.user_info import UserInfo

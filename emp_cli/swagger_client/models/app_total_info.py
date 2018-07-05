@@ -16,6 +16,7 @@ import re  # noqa: F401
 
 import six
 
+from swagger_client.models.environment_variables import EnvironmentVariables  # noqa: F401,E501
 from swagger_client.models.quality_metrics import QualityMetrics  # noqa: F401,E501
 
 
@@ -37,8 +38,10 @@ class AppTotalInfo(object):
         'name': 'str',
         'state': 'str',
         'docker_image': 'str',
+        'envs': 'list[EnvironmentVariables]',
         'stateless': 'bool',
-        'quality_metrics': 'list[QualityMetrics]'
+        'quality_metrics': 'list[QualityMetrics]',
+        'port': 'int'
     }
 
     attribute_map = {
@@ -46,27 +49,33 @@ class AppTotalInfo(object):
         'name': 'name',
         'state': 'state',
         'docker_image': 'docker_image',
+        'envs': 'envs',
         'stateless': 'stateless',
-        'quality_metrics': 'quality_metrics'
+        'quality_metrics': 'quality_metrics',
+        'port': 'port'
     }
 
-    def __init__(self, id=None, name=None, state=None, docker_image=None, stateless=None, quality_metrics=None):  # noqa: E501
+    def __init__(self, id=None, name=None, state=None, docker_image=None, envs=None, stateless=None, quality_metrics=None, port=None):  # noqa: E501
         """AppTotalInfo - a model defined in Swagger"""  # noqa: E501
 
         self._id = None
         self._name = None
         self._state = None
         self._docker_image = None
+        self._envs = None
         self._stateless = None
         self._quality_metrics = None
+        self._port = None
         self.discriminator = None
 
         self.id = id
         self.name = name
         self.state = state
         self.docker_image = docker_image
+        self.envs = envs
         self.stateless = stateless
         self.quality_metrics = quality_metrics
+        self.port = port
 
     @property
     def id(self):
@@ -169,6 +178,29 @@ class AppTotalInfo(object):
         self._docker_image = docker_image
 
     @property
+    def envs(self):
+        """Gets the envs of this AppTotalInfo.  # noqa: E501
+
+
+        :return: The envs of this AppTotalInfo.  # noqa: E501
+        :rtype: list[EnvironmentVariables]
+        """
+        return self._envs
+
+    @envs.setter
+    def envs(self, envs):
+        """Sets the envs of this AppTotalInfo.
+
+
+        :param envs: The envs of this AppTotalInfo.  # noqa: E501
+        :type: list[EnvironmentVariables]
+        """
+        if envs is None:
+            raise ValueError("Invalid value for `envs`, must not be `None`")  # noqa: E501
+
+        self._envs = envs
+
+    @property
     def stateless(self):
         """Gets the stateless of this AppTotalInfo.  # noqa: E501
 
@@ -215,6 +247,31 @@ class AppTotalInfo(object):
             raise ValueError("Invalid value for `quality_metrics`, must not be `None`")  # noqa: E501
 
         self._quality_metrics = quality_metrics
+
+    @property
+    def port(self):
+        """Gets the port of this AppTotalInfo.  # noqa: E501
+
+        Port number of the application  # noqa: E501
+
+        :return: The port of this AppTotalInfo.  # noqa: E501
+        :rtype: int
+        """
+        return self._port
+
+    @port.setter
+    def port(self, port):
+        """Sets the port of this AppTotalInfo.
+
+        Port number of the application  # noqa: E501
+
+        :param port: The port of this AppTotalInfo.  # noqa: E501
+        :type: int
+        """
+        if port is None:
+            raise ValueError("Invalid value for `port`, must not be `None`")  # noqa: E501
+
+        self._port = port
 
     def to_dict(self):
         """Returns the model properties as a dict"""
