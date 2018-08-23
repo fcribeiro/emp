@@ -44,7 +44,7 @@ def login(username, password):
 @cli.command()
 @click.argument('file', type=click.File('r'))
 def deploy(file):
-	"""Deploys an application in the platform. The input file must be in json format and contain the following fields:\n\n\"name\" - Name of the application.\n\n\"docker_image\" - Docker image for the application to be deployed.\n\n\"stateless\" - If the application is stateless set it to \"true\". Otherwise set it to \"false\"\n\n\"quality_metrics\" - Contains an array of the following elements: \"metric\" (metric name) and \"values\" (valued for that metric)"""
+	"""Deploys an application in the platform. The input file must be in json format and contain the following fields:\n\nname - Name of the application.\n\ndocker_image - Docker image for the application to be deployed.\n\nstateless - If the application is stateless set it to \"true\". Otherwise set it to \"false\"\n\nport - Port number desired for the application to run.\n\nenvs - Array of environments variables that must contain the following elements: \"name\" (environment variable name) and \"value\" (value for that environment variable)\n\nquality_metrics - Array of quality metrics desired that must contain the following elements: \"metric\" (metric name) and \"values\" (value for that metric)"""
 
 	json_object = is_valid_json(file.read())
 	if not json_object:

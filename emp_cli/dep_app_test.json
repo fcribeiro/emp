@@ -2,10 +2,17 @@
   "name": "nginx-example",
   "docker_image": "nginx:1.7.9",
   "stateless": true,
+  "port": 5000,
+  "envs": [
+    {
+      "name": "virtual_env_name",
+      "value": "virtual_env_value"
+    }
+  ],
   "quality_metrics": [
     {
-      "metric": "string_metric",
-      "values": "string_values"
+      "metric": "quality_metric_name",
+      "values": "quality_metric_values"
     }
   ]
 }
