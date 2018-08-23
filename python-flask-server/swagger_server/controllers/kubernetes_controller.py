@@ -4,6 +4,7 @@ from kubernetes import client, config
 from kubernetes.client.rest import ApiException
 from pprint import pprint
 from swagger_server.models.app_deploy import AppDeploy
+from swagger_server.models.app_total_info import AppTotalInfo
 from swagger_server.controllers.cluster_manager import ClusterManager
 import time
 import os
@@ -208,30 +209,97 @@ class KubernetesController(ClusterManager):
         api_instance = client.ExtensionsV1beta1Api()
         try:
             api_response = api_instance.read_namespaced_deployment(name, namespace, pretty=True, exact=True, export=True)
-            # pprint(api_response)
+            pprint(api_response)
             return api_response         # TODO Decide what to return
         except ApiException as e:
             print("Exception when calling ExtensionsV1beta1Api->read_namespaced_deployment: %s\n" % e)
             return None
+
+    # def get_ip(self, name, namespace):
+    #     # read_namespaced_service
+    #     api_instance = client.CoreV1Api()
+    #
+    #     try:
+    #         api_response = api_instance.read_namespaced_service(name, namespace)
+    #         # pprint(api_response)
+    #         if api_response.status.load_balancer.ingress is None:
+    #             return None
+    #         else:
+    #             return api_response.status.load_balancer.ingress[0].ip
+    #
+    #     except ApiException as e:
+    #         print("Exception when calling CoreV1Api->read_namespaced_service: %s\n" % e)
+
+    @staticmethod
+    def get_ip(name, namespace):
+        api_instance = client.ExtensionsV1beta1Api()
+        try:
+            api_response = api_instance.read_namespaced_deployment(name, namespace, pretty=True, exact=True, export=True)
+            pprint(api_response)
+            replicas = api_response.spec.replicas
+        except ApiException as e:
+            print("Exception when calling ExtensionsV1beta1Api->read_namespaced_deployment: %s\n" % e)
+            return None
+
+        api_instance = client.CoreV1Api()
+        try:
+            api_response = api_instance.read_namespaced_service(name, namespace)
+            # pprint(api_response)
+            internal_ip = api_response.spec.cluster_ip
+
+            if api_response.status.load_balancer.ingress is None:
+                external_ip = None
+            else:
+                external_ip = api_response.status.load_balancer.ingress[0].ip
+
+            app_info = AppTotalInfo(name=name, internal_ip=internal_ip, external_ip=external_ip, replicas=replicas,
+                                    state=None)
+            return app_info
+
+        except ApiException as e:
+            print("Exception when calling CoreV1Api->read_namespaced_service: %s\n" % e)
+
+    @staticmethod
+    def get_tracing_app_ip(name, namespace):
+        api_instance = client.CoreV1Api()
+        try:
+            api_response = api_instance.read_namespaced_service(name, namespace)
+
+            if api_response.status.load_balancer.ingress is None:
+                external_ip = None
+            else:
+                external_ip = api_response.status.load_balancer.ingress[0].ip
+
+            return external_ip
+
+        except ApiException as e:
+            print("Exception when calling CoreV1Api->read_namespaced_service: %s\n" % e)
 
 
 def main():
 
     #name = "nginx"
     username = "fcribeiro"
-    #docker_image = "nginx:1.7.9"
-    # name = "envtest"
+    docker_image = "nginx:1.7.9"
+    name = "nginx"
     # docker_image = "fcribeiro/env_test"
-    name = "auth-deployment"
-    docker_image = "fcribeiro/authentication_ms_p3"
+    # name = "auth-deployment"
+    # docker_image = "fcribeiro/authentication_ms_p3"
 
-    app_info = AppDeploy(name, docker_image, None, True, None)
+    app_info = AppDeploy(name=name, docker_image=docker_image, port=5000, stateless=True, envs=[],
+                         quality_metrics=None)
     # print(app_info)
     kub = KubernetesController()
 
     #create_namespace(username)
     # delete_namespace(username)
-    kub.deploy_app(app_info=app_info, namespace=username, username=username)
+
+
+    # kub.deploy_app(app_info=app_info, namespace=username, username=username)
+
+
+    # kub.get_app(name="nginx", namespace="fcribeiro")
+
     # kub.get_app("nginx-example", "user-fcribeiro")
     # kub.scale_app(name=name, replicas=5, namespace=username)
 

@@ -187,6 +187,8 @@ def get_app(app_id):
         return "Application not found", 400
     app = json.loads(resp)
 
+    temp_app = kub.ge
+
     return AppTotalInfo(id=app_id, name=app["name"], state=app["state"], docker_image=app["docker_image"],
                         stateless=app["stateless"], quality_metrics=app["quality_metrics"])
 
