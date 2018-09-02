@@ -41,6 +41,14 @@ def base62uuid():
     return converter.encode(uuid4_as_int)
 
 
+def hash_password(password_raw):
+    if password_raw is '':
+        return ''
+    m = hashlib.md5()
+    m.update(password_raw.encode('utf-8'))
+    return m.hexdigest()
+
+
 def change_app_state(app_id, app_state):
     """Changes an application state
 
@@ -95,7 +103,7 @@ def create_user(user_info):     # TODO ENCRYPT PASSWORD
     """
     key = USER_DATA + user_info.username.lower()
     if rs.hsetnx(key, "username", user_info.username.lower()):
-        rs.hset(key, "password", user_info.password)
+        rs.hset(key, "password", hash_password(user_info.password))
     else:
         return "Username already exists"
 
@@ -241,7 +249,7 @@ def login(user_info):           # TODO ENCRYPT PASSWORD
     if not result:  # Checks if dictionary is empty, meaning that no user with that username was found
         return "Login failed"
     else:
-        if result.get("password") == user_info.password:
+        if result.get("password") == hash_password(user_info.password):
             return "Login successful"
         return "Login failed"
 
