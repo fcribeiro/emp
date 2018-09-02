@@ -1,5 +1,5 @@
 {
-  "name": "nginx-example",
+  "name": "nginx-second-app",
   "docker_image": "nginx:1.7.9",
   "stateless": true,
   "port": 5000,

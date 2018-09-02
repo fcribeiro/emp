@@ -44,9 +44,8 @@ def create_deployment_object(name, docker_image, envs):
     return deployment
 
 
-def create_service(name, username, app_port):
+def create_service(name, namespace, app_port):
     api_instance = client.CoreV1Api()
-    namespace = username
 
     body = client.V1Service()  # V1Service
 
@@ -110,7 +109,7 @@ def delete_namespace(namespace):
 
 class KubernetesController(ClusterManager):
 
-    def deploy_app(self, app_info, namespace=None, username=None):
+    def deploy_app(self, app_info, namespace=None):
         deployment = create_deployment_object(name=app_info.name, docker_image=app_info.docker_image,
                                               envs=app_info.envs)
         # Create Namespace
@@ -123,7 +122,7 @@ class KubernetesController(ClusterManager):
                 namespace=namespace,
                 pretty=True)
 
-            if create_service(app_info.name, username=username, app_port=app_info.port):
+            if create_service(name=app_info.name, namespace=namespace, app_port=app_info.port):
                 return True
             else:
                 return False
@@ -235,7 +234,7 @@ class KubernetesController(ClusterManager):
         api_instance = client.ExtensionsV1beta1Api()
         try:
             api_response = api_instance.read_namespaced_deployment(name, namespace, pretty=True, exact=True, export=True)
-            pprint(api_response)
+            # pprint(api_response)
             replicas = api_response.spec.replicas
         except ApiException as e:
             print("Exception when calling ExtensionsV1beta1Api->read_namespaced_deployment: %s\n" % e)
@@ -248,12 +247,13 @@ class KubernetesController(ClusterManager):
             # internal_ip = api_response.spec.cluster_ip
 
             if api_response.status.load_balancer.ingress is None:
-                external_ip = None
+                external_ip = "Not Ready Yet"
             else:
                 external_ip = api_response.status.load_balancer.ingress[0].ip
 
             app_info = AppTotalInfo(name=name, external_ip=external_ip, replicas=replicas,
                                     state=None)
+            print(app_info)
             return app_info
 
         except ApiException as e:
@@ -279,9 +279,9 @@ class KubernetesController(ClusterManager):
 def main():
 
     #name = "nginx"
-    username = "fcribeiro"
+    username = "user-fcribeiro"
     docker_image = "nginx:1.7.9"
-    name = "nginx"
+    name = "nginx-second-app"
     # docker_image = "fcribeiro/env_test"
     # name = "auth-deployment"
     # docker_image = "fcribeiro/authentication_ms_p3"
@@ -301,7 +301,7 @@ def main():
     # kub.get_app(name="nginx", namespace="fcribeiro")
 
     # kub.get_app("nginx-example", "user-fcribeiro")
-    # kub.scale_app(name=name, replicas=5, namespace=username)
+    kub.scale_app(name=name, replicas=10, namespace=username)
 
     # kub.delete_app(name=name, namespace=username)
 

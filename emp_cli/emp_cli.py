@@ -70,7 +70,9 @@ def info(id):
 		click.echo("Name: %s" % response.name)
 		click.echo("Docker Image: %s" % response.docker_image)
 		click.echo("State: %s" % response.state)
+		click.echo("IP: %s" % response.external_ip)
 		click.echo("Port: %s" % response.port)
+		click.echo("Replicas: %s" % response.replicas)
 		click.echo("Stateless: %s" % response.stateless)
 		click.echo("Environment Variables: %s" % response.envs)
 		click.echo("Quality Metrics: %s" % response.quality_metrics)
@@ -83,16 +85,11 @@ def list():
 	"""Returns all information about all applications of the current user in the platform."""
 	try:
 		response = api.application_get_all_apps()
-		#for i in response:
-#		print(response)
-		#for i in response:
-			#click.echo("ID: %s" % i.id)
-			#click.echo("Name: %s" % i.name)
-			#click.echo("Docker Image: %s" % i.docker_image)
-			#click.echo("State: %s" % i.state)
-			#click.echo("Stateless: %s" % i.stateless)
-			#click.echo("Quality Metrics: %s" % i.quality_metrics)
-		click.echo(response)
+		for i in response:
+			click.echo("ID: %s" % i)
+			click.echo("Name: %s" % response[i]["name"])
+			click.echo("Docker Image: %s" % response[i]["docker_image"])
+			click.echo("State: %s\n" % response[i]["state"])
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 

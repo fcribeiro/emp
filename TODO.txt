@@ -1,6 +1,5 @@
 TODO:
 
-Alterar o nome EMF para EMP no relatorio
 
 python3 -m venv env
 source env/bin/activate

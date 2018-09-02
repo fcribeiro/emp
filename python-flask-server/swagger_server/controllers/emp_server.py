@@ -83,7 +83,8 @@ def change_app_state(app_id, app_state):
     app_update = json.dumps(app)
     rs.hset(user_apps, app_id, app_update)
     return AppTotalInfo(id=app_id, name=app["name"], state=app["state"], docker_image=app["docker_image"],
-                        stateless=app["stateless"], quality_metrics=app["quality_metrics"])
+                        replicas=app["replicas"], external_ip=app["external_ip"], port=app["port"],
+                        stateless=app["stateless"], quality_metrics=app["quality_metrics"], envs=app["envs"])
 
 
 def create_user(user_info):     # TODO ENCRYPT PASSWORD
@@ -145,6 +146,8 @@ def deploy_app(app_info):
     app = app_info.to_dict()
     app["state"] = "Deployed"
     app["name"] = app["name"].lower()
+    app["external_ip"] = "None"
+    app["replicas"] = 1
     app = json.dumps(app)
     if rs.hsetnx(user_apps, app_id, app):   # If the uuid already exists it returns zero
         if kub.deploy_app(app_info=app_info, namespace=NAMESPACE + username):
@@ -188,10 +191,16 @@ def get_app(app_id):
         return "Application not found", 400
     app = json.loads(resp)
 
-    # temp_app = kub.ge
+    temp_app = kub.get_ip(name=app["name"], namespace=NAMESPACE+username)
+    app["replicas"] = temp_app.replicas
+    app["external_ip"] = temp_app.external_ip
+
+    app_update = json.dumps(app)
+    rs.hset(user_apps, app_id, app_update)
 
     return AppTotalInfo(id=app_id, name=app["name"], state=app["state"], docker_image=app["docker_image"],
-                        stateless=app["stateless"], quality_metrics=app["quality_metrics"])
+                        replicas=app["replicas"], external_ip=app["external_ip"], port=app["port"],
+                        stateless=app["stateless"], quality_metrics=app["quality_metrics"], envs=app["envs"])
 
 
 def get_app_tracing(app_id):
