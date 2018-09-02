@@ -21,7 +21,7 @@ def application_change_app_state(app_id, app_state):  # noqa: E501
     :param app_state: Parameters that will change the state of the application
     :type app_state: dict | bytes
 
-    :rtype: AppTotalInfo
+    :rtype: AppInfo
     """
     if connexion.request.is_json:
         app_state = AppState.from_dict(connexion.request.get_json())  # noqa: E501

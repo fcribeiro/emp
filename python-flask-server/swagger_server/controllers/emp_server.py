@@ -49,7 +49,7 @@ def change_app_state(app_id, app_state):
     :param app_state: Parameters that will change the state of the application
     :type app_state: dict | bytes
 
-    :rtype: AppTotalInfo
+    :rtype: AppInfo
     """
 
     username = "fcribeiro"  # TODO Get username from authentication token
@@ -82,9 +82,7 @@ def change_app_state(app_id, app_state):
 
     app_update = json.dumps(app)
     rs.hset(user_apps, app_id, app_update)
-    return AppTotalInfo(id=app_id, name=app["name"], state=app["state"], docker_image=app["docker_image"],
-                        replicas=app["replicas"], external_ip=app["external_ip"], port=app["port"],
-                        stateless=app["stateless"], quality_metrics=app["quality_metrics"], envs=app["envs"])
+    return AppInfo(id=app_id, name=app["name"], state=app["state"])
 
 
 def create_user(user_info):     # TODO ENCRYPT PASSWORD
@@ -194,6 +192,9 @@ def get_app(app_id):
     temp_app = kub.get_ip(name=app["name"], namespace=NAMESPACE+username)
     app["replicas"] = temp_app.replicas
     app["external_ip"] = temp_app.external_ip
+
+    if (app["external_ip"] != "Not Ready Yet") and (app["state"] == "Deployed"):
+        app["state"] = "Running"
 
     app_update = json.dumps(app)
     rs.hset(user_apps, app_id, app_update)

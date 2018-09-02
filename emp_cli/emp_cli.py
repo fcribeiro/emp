@@ -131,7 +131,7 @@ def update_metrics(id, metric, values):
 	try:
 		state = {"quality_metrics": [{"metric": metric,"values": values}]}
 		response = api.application_change_app_state(app_id=id, app_state=state)
-		click.echo(response)
+		click.echo("Quality metric successfully changed")
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 

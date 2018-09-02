@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 # **application_change_app_state**
-> AppTotalInfo application_change_app_state(app_id, app_state)
+> AppInfo application_change_app_state(app_id, app_state)
 
 Changes an application state
 
@@ -50,7 +50,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AppTotalInfo**](AppTotalInfo.md)
+[**AppInfo**](AppInfo.md)
 
 ### Authorization
 

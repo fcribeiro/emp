@@ -246,7 +246,7 @@ paths:
         200:
           description: "OK."
           schema:
-            $ref: "#/definitions/AppTotalInfo"
+            $ref: "#/definitions/AppInfo"
         400:
           description: "Bad request."
           schema:
