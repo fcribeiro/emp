@@ -245,14 +245,14 @@ class KubernetesController(ClusterManager):
         try:
             api_response = api_instance.read_namespaced_service(name, namespace)
             # pprint(api_response)
-            internal_ip = api_response.spec.cluster_ip
+            # internal_ip = api_response.spec.cluster_ip
 
             if api_response.status.load_balancer.ingress is None:
                 external_ip = None
             else:
                 external_ip = api_response.status.load_balancer.ingress[0].ip
 
-            app_info = AppTotalInfo(name=name, internal_ip=internal_ip, external_ip=external_ip, replicas=replicas,
+            app_info = AppTotalInfo(name=name, external_ip=external_ip, replicas=replicas,
                                     state=None)
             return app_info
 
@@ -260,7 +260,7 @@ class KubernetesController(ClusterManager):
             print("Exception when calling CoreV1Api->read_namespaced_service: %s\n" % e)
 
     @staticmethod
-    def get_tracing_app_ip(name, namespace):
+    def get_app_tracing_ip(name, namespace):
         api_instance = client.CoreV1Api()
         try:
             api_response = api_instance.read_namespaced_service(name, namespace)

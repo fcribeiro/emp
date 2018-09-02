@@ -1,6 +1,7 @@
 import json
 import redis
 import uuid
+import base64
 import hashlib
 import baseconv
 import jsonpickle
@@ -20,7 +21,7 @@ ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 USER_APPS = "apps:"
 USER_DATA = "user:"
 NAMESPACE = "user-"
-rs = redis.StrictRedis(host='172.17.0.3', port=6379, db=0, decode_responses=True)
+rs = redis.StrictRedis(host='172.17.0.2', port=6379, db=0, decode_responses=True)
 kub = KubernetesController()
 
 # while True:
@@ -187,7 +188,7 @@ def get_app(app_id):
         return "Application not found", 400
     app = json.loads(resp)
 
-    temp_app = kub.ge
+    # temp_app = kub.ge
 
     return AppTotalInfo(id=app_id, name=app["name"], state=app["state"], docker_image=app["docker_image"],
                         stateless=app["stateless"], quality_metrics=app["quality_metrics"])
@@ -201,13 +202,10 @@ def get_app_tracing(app_id):
 
     :rtype: str
     """
-    # TODO Get the applications tracing link
-    app_link = "http://localhost:8080"
-    variable = False        # TODO REMOVE THIS
+    app_link = kub.get_app_tracing_ip("zipkin", "default")
 
-    if variable:   # TODO IN CASE THE APP DOES NOT EXIST
+    if app_link is None:
         return "Application not found", 400
-
     return app_link
 
 
@@ -232,7 +230,10 @@ def login(user_info):           # TODO ENCRYPT PASSWORD
     result = rs.hgetall(key)
     if not result:  # Checks if dictionary is empty, meaning that no user with that username was found
         return "Login failed"
-    return "Login successful"
+    else:
+        if result.get("password") == user_info.password:
+            return "Login successful"
+        return "Login failed"
 
 
 
