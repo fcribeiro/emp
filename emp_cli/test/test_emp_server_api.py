@@ -74,7 +74,7 @@ class TestEmpServerApi(unittest.TestCase):
     def test_application_get_app_tracing(self):
         """Test case for application_get_app_tracing
 
-        Gets information about tracing of a specific application  # noqa: E501
+        Gets tracing information about a specific application  # noqa: E501
         """
         pass
 

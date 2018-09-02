@@ -41,7 +41,9 @@ class AppTotalInfo(object):
         'envs': 'list[EnvironmentVariables]',
         'stateless': 'bool',
         'quality_metrics': 'list[QualityMetrics]',
-        'port': 'int'
+        'port': 'int',
+        'replicas': 'int',
+        'external_ip': 'str'
     }
 
     attribute_map = {
@@ -52,10 +54,12 @@ class AppTotalInfo(object):
         'envs': 'envs',
         'stateless': 'stateless',
         'quality_metrics': 'quality_metrics',
-        'port': 'port'
+        'port': 'port',
+        'replicas': 'replicas',
+        'external_ip': 'external_ip'
     }
 
-    def __init__(self, id=None, name=None, state=None, docker_image=None, envs=None, stateless=None, quality_metrics=None, port=None):  # noqa: E501
+    def __init__(self, id=None, name=None, state=None, docker_image=None, envs=None, stateless=None, quality_metrics=None, port=None, replicas=None, external_ip=None):  # noqa: E501
         """AppTotalInfo - a model defined in Swagger"""  # noqa: E501
 
         self._id = None
@@ -66,6 +70,8 @@ class AppTotalInfo(object):
         self._stateless = None
         self._quality_metrics = None
         self._port = None
+        self._replicas = None
+        self._external_ip = None
         self.discriminator = None
 
         self.id = id
@@ -76,6 +82,8 @@ class AppTotalInfo(object):
         self.stateless = stateless
         self.quality_metrics = quality_metrics
         self.port = port
+        self.replicas = replicas
+        self.external_ip = external_ip
 
     @property
     def id(self):
@@ -272,6 +280,56 @@ class AppTotalInfo(object):
             raise ValueError("Invalid value for `port`, must not be `None`")  # noqa: E501
 
         self._port = port
+
+    @property
+    def replicas(self):
+        """Gets the replicas of this AppTotalInfo.  # noqa: E501
+
+        Number of replicas of an application  # noqa: E501
+
+        :return: The replicas of this AppTotalInfo.  # noqa: E501
+        :rtype: int
+        """
+        return self._replicas
+
+    @replicas.setter
+    def replicas(self, replicas):
+        """Sets the replicas of this AppTotalInfo.
+
+        Number of replicas of an application  # noqa: E501
+
+        :param replicas: The replicas of this AppTotalInfo.  # noqa: E501
+        :type: int
+        """
+        if replicas is None:
+            raise ValueError("Invalid value for `replicas`, must not be `None`")  # noqa: E501
+
+        self._replicas = replicas
+
+    @property
+    def external_ip(self):
+        """Gets the external_ip of this AppTotalInfo.  # noqa: E501
+
+        External IP of the application  # noqa: E501
+
+        :return: The external_ip of this AppTotalInfo.  # noqa: E501
+        :rtype: str
+        """
+        return self._external_ip
+
+    @external_ip.setter
+    def external_ip(self, external_ip):
+        """Sets the external_ip of this AppTotalInfo.
+
+        External IP of the application  # noqa: E501
+
+        :param external_ip: The external_ip of this AppTotalInfo.  # noqa: E501
+        :type: str
+        """
+        if external_ip is None:
+            raise ValueError("Invalid value for `external_ip`, must not be `None`")  # noqa: E501
+
+        self._external_ip = external_ip
 
     def to_dict(self):
         """Returns the model properties as a dict"""

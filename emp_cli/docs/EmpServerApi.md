@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**application_deploy_app**](EmpServerApi.md#application_deploy_app) | **POST** /app | Deploys an application in the platform
 [**application_get_all_apps**](EmpServerApi.md#application_get_all_apps) | **GET** /app | Gets general information about all applications
 [**application_get_app**](EmpServerApi.md#application_get_app) | **GET** /app/{app_id} | Gets all information about a specific application
-[**application_get_app_tracing**](EmpServerApi.md#application_get_app_tracing) | **GET** /app/tracing/{app_id} | Gets information about tracing of a specific application
+[**application_get_app_tracing**](EmpServerApi.md#application_get_app_tracing) | **GET** /app/tracing/{app_id} | Gets tracing information about a specific application
 [**application_hello_world**](EmpServerApi.md#application_hello_world) | **GET** / | EMP Working!
 [**application_login_user**](EmpServerApi.md#application_login_user) | **POST** /app/login | User login
 
@@ -292,7 +292,7 @@ No authorization required
 # **application_get_app_tracing**
 > str application_get_app_tracing(app_id)
 
-Gets information about tracing of a specific application
+Gets tracing information about a specific application
 
 ### Example
 ```python
@@ -307,7 +307,7 @@ api_instance = swagger_client.EmpServerApi()
 app_id = 'app_id_example' # str | ID of the application
 
 try:
-    # Gets information about tracing of a specific application
+    # Gets tracing information about a specific application
     api_response = api_instance.application_get_app_tracing(app_id)
     pprint(api_response)
 except ApiException as e:

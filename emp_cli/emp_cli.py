@@ -156,7 +156,7 @@ def tracing(id):
 	"""Returns a link containing traces of a specific application. This command requires an "id" of a specific application as an argument"""
 	try:
 		response = api.application_get_app_tracing(app_id=id)
-		click.echo(response)
+		click.echo("IP: %s" % response)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 

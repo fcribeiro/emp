@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **stateless** | **bool** | Stateless apps use true, stateful use false. | 
 **quality_metrics** | [**list[QualityMetrics]**](QualityMetrics.md) |  | 
 **port** | **int** | Port number of the application | 
+**replicas** | **int** | Number of replicas of an application | 
+**external_ip** | **str** | External IP of the application | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

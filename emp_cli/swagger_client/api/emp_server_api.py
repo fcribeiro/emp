@@ -616,7 +616,7 @@ class EmpServerApi(object):
             collection_formats=collection_formats)
 
     def application_get_app_tracing(self, app_id, **kwargs):  # noqa: E501
-        """Gets information about tracing of a specific application  # noqa: E501
+        """Gets tracing information about a specific application  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True
@@ -637,7 +637,7 @@ class EmpServerApi(object):
             return data
 
     def application_get_app_tracing_with_http_info(self, app_id, **kwargs):  # noqa: E501
-        """Gets information about tracing of a specific application  # noqa: E501
+        """Gets tracing information about a specific application  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async=True

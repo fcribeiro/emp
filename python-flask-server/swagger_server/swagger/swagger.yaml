@@ -264,7 +264,7 @@ paths:
     get:
       tags:
       - "emp_server"
-      summary: "Gets information about tracing of a specific application"
+      summary: "Gets tracing information about a specific application"
       operationId: "application_get_app_tracing"
       consumes:
       - "application/json"
@@ -347,10 +347,12 @@ definitions:
     required:
     - "docker_image"
     - "envs"
+    - "external_ip"
     - "id"
     - "name"
     - "port"
     - "quality_metrics"
+    - "replicas"
     - "state"
     - "stateless"
     properties:
@@ -386,6 +388,14 @@ definitions:
         type: "integer"
         example: 8080
         description: "Port number of the application"
+      replicas:
+        type: "integer"
+        example: 1
+        description: "Number of replicas of an application"
+      external_ip:
+        type: "string"
+        example: "1"
+        description: "External IP of the application"
     example:
       quality_metrics:
       - metric: "metric"

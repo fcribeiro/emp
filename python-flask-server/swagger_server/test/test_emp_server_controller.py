@@ -98,7 +98,7 @@ class TestEmpServerController(BaseTestCase):
     def test_application_get_app_tracing(self):
         """Test case for application_get_app_tracing
 
-        Gets information about tracing of a specific application
+        Gets tracing information about a specific application
         """
         response = self.client.open(
             '/app/tracing/{app_id}'.format(app_id='app_id_example'),
