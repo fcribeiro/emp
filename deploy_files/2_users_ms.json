@@ -1,0 +1,18 @@
+{
+  "name": "users-ms",
+  "docker_image": "fcribeiro/users_ms_p3",
+  "stateless": true,
+  "port": 5000,
+  "envs": [
+    {
+      "name": "DATABASEADDRESS",
+      "value": "35.241.157.69:3306"
+    }
+  ],
+  "quality_metrics": [
+    {
+      "metric": "quality_metric_name",
+      "values": "quality_metric_values"
+    }
+  ]
+}

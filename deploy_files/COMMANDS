@@ -1,0 +1,45 @@
+---------REQUESTS -----------
+
+
+Create User
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "email": "fabioribeiro%40email.com", "name": "Fabio Ribeiro", "password": "123456" }' '35.240.33.22:5000/users'
+
+
+Login auth-ms
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "email": "fabioribeiro%40email.com", "password": "123456" }' '35.195.65.87:5003/login'
+
+
+Create Song
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJ2YWwiLCJpYXQiOjE0MjI2MDU0NDV9.eUiabuiKv-8PYk2AkGY4Fb5KMZeorYBLw261JPQD5lM' -d '{ "album": "Nevermind", "artist": "Nirvana", "path": "C://example/smells_like_teen_spirit_by_nirvana", "release_year": 1991, "title": "Smells Like Teen Spirit", "user_id": 1 }' '35.233.51.200:5001/songs'
+
+
+Create Playlist
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibmFtZSI6IkpvaG4gRG9lIiwiZW1haWwiOiJqb2huZG9lJTQwZW1haWwuY29tIn0.7zrXWCLVJUtiZCgTx83_YDlxs3JkdqIBoMQAF0ivDhk' -d '{ "name": "My Playlist", "user_id": 1 }' '130.211.55.198:5002/playlists'
+
+
+Convert Songs
+curl -X GET --header 'Accept: application/json' --header 'Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJ2YWwiLCJpYXQiOjE0MjI2MDU0NDV9.eUiabuiKv-8PYk2AkGY4Fb5KMZeorYBLw261JPQD5lM' '104.199.92.24:5001/songs/convert/1'
+
+
+Add Music to Playlist
+curl -X POST "130.211.55.198:5002/playlists/songs/1" -H "accept: application/json" -H "Content-Type: application/json" --header 'Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJ2YWwiLCJpYXQiOjE0MjI2MDU0NDV9.eUiabuiKv-8PYk2AkGY4Fb5KMZeorYBLw261JPQD5lM' -d "{ \"song_id\": 1, \"user_id\": 1}"
+
+
+Aggregator
+curl -X GET --header 'Accept: application/json' --header 'Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJrZXkiOiJ2YWwiLCJpYXQiOjE0MjI2MDU0NDV9.eUiabuiKv-8PYk2AkGY4Fb5KMZeorYBLw261JPQD5lM' '35.240.125.53:5004/playlists/songs/1'
+
+
+
+
+
+
+
+
+
+
+
+
+
+./jmeter -n -t JmeterTestPlan.jmx -l result.jtl
+
+

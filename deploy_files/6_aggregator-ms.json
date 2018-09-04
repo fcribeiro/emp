@@ -1,0 +1,22 @@
+{
+  "name": "aggregator-ms",
+  "docker_image": "fcribeiro/aggregator_ms_p3",
+  "stateless": true,
+  "port": 5004,
+  "envs": [
+    {
+      "name": "SONGSADDRESS",
+      "value": "35.233.51.200:5001"
+    },
+    {
+      "name": "PLAYLISTSADDRESS",
+      "value": "104.199.92.24:5002"
+    }
+  ],
+  "quality_metrics": [
+    {
+      "metric": "quality_metric_name",
+      "values": "quality_metric_values"
+    }
+  ]
+}

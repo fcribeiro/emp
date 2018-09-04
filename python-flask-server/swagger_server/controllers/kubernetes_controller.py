@@ -10,13 +10,13 @@ import time
 import os
 
 
-KAFKAADDRESS = "10.11.243.15:9092"
 config.load_kube_config(config_file=os.environ['KUBECONFIG'])
 
 
 def create_deployment_object(name, docker_image, envs):
     # Add Environment Variables to Pod
-    all_envs = [client.V1EnvVar(name="KAFKAADDRESS", value=KAFKAADDRESS)]
+    kafka_address = get_kafka_ip("my-kafka", "default")
+    all_envs = [client.V1EnvVar(name="KAFKAADDRESS", value=kafka_address)]
     # all_envs = [client.V1EnvVar(name="USERSADDRESS", value=KAFKAADDRESS)]
     if len(envs) != 0:
         for i in range(len(envs)):
@@ -105,6 +105,19 @@ def delete_namespace(namespace):
         # pprint(api_response)
     except ApiException as e:
         print("Exception when calling CoreV1Api->delete_namespace: %s\n" % e)
+
+
+def get_kafka_ip(name, namespace):
+    api_instance = client.CoreV1Api()
+    try:
+        api_response = api_instance.read_namespaced_service(name, namespace)
+        # pprint(api_response)
+        internal_ip = api_response.spec.cluster_ip
+
+        return internal_ip
+
+    except ApiException as e:
+        print("Exception when calling CoreV1Api->read_namespaced_service: %s\n" % e)
 
 
 class KubernetesController(ClusterManager):
@@ -281,7 +294,7 @@ def main():
     #name = "nginx"
     username = "user-fcribeiro"
     docker_image = "nginx:1.7.9"
-    name = "nginx-second-app"
+    name = "songs-ms"
     # docker_image = "fcribeiro/env_test"
     # name = "auth-deployment"
     # docker_image = "fcribeiro/authentication_ms_p3"
@@ -302,7 +315,7 @@ def main():
 
     # kub.get_app("nginx-example", "user-fcribeiro")
     kub.scale_app(name=name, replicas=10, namespace=username)
-
+    # print(get_kafka_ip("my-kafka", "default"))
     # kub.delete_app(name=name, namespace=username)
 
 

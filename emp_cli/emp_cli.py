@@ -158,15 +158,15 @@ def tracing(id):
 		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 
 
-@cli.command()
-def hello():
-	"""Hello World"""
-	try:
-		response = api.application_hello_world()
-		#response = json.dumps(response)
-		click.echo(response)
-	except ApiException as e:
-		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
+#@cli.command()
+#def hello():
+#	"""Hello World"""
+#	try:
+#		response = api.application_hello_world()
+#		#response = json.dumps(response)
+#		click.echo(response)
+#	except ApiException as e:
+#		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
 
 
 def is_valid_json(text):

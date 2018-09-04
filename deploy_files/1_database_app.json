@@ -1,0 +1,18 @@
+{
+  "name": "mariadb",
+  "docker_image": "mariadb",
+  "stateless": true,
+  "port": 3306,
+  "envs": [
+    {
+      "name": "MYSQL_ROOT_PASSWORD",
+      "value": "ribeiro"
+    }
+  ],
+  "quality_metrics": [
+    {
+      "metric": "quality_metric_name",
+      "values": "quality_metric_values"
+    }
+  ]
+}

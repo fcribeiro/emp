@@ -159,7 +159,7 @@ def deploy_app(app_info):
         if kub.deploy_app(app_info=app_info, namespace=NAMESPACE + username):
             return AppInfo(id=app_id, name=app_info.name, state="Deployed")
         else:
-            # TODO Delete from redis.
+            rs.hdel(user_apps, app_id)
             return "This operation could not be performed due to some error while deploying the application", 400
     else:
         return "This operation could not be performed due to a duplicate uuid generated. Please try again", 400
