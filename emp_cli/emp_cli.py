@@ -53,8 +53,8 @@ def deploy(file):
 
 	try:
 		response = api.application_deploy_app(app_deploy=json_object)
-		click.echo("ID: %s" % response.id)
 		click.echo("Name: %s" % response.name)
+		click.echo("ID: %s" % response.id)
 		click.echo("State: %s" % response.state)
 	except ApiException as e:
 		click.echo("Exception: %s\n" % e.body.rstrip("\n"))
@@ -66,8 +66,8 @@ def info(id):
 	"""Returns all information about a specific application in the platform. This command requires an "id" of a specific application as an argument"""
 	try:
 		response = api.application_get_app(app_id=id)
-		click.echo("ID: %s" % response.id)
 		click.echo("Name: %s" % response.name)
+		click.echo("ID: %s" % response.id)
 		click.echo("Docker Image: %s" % response.docker_image)
 		click.echo("State: %s" % response.state)
 		click.echo("IP: %s" % response.external_ip)
@@ -86,8 +86,8 @@ def list():
 	try:
 		response = api.application_get_all_apps()
 		for i in response:
-			click.echo("ID: %s" % i)
 			click.echo("Name: %s" % response[i]["name"])
+			click.echo("ID: %s" % i)
 			click.echo("Docker Image: %s" % response[i]["docker_image"])
 			click.echo("State: %s\n" % response[i]["state"])
 	except ApiException as e:
