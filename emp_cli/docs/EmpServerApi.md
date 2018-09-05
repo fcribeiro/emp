@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**application_get_app_tracing**](EmpServerApi.md#application_get_app_tracing) | **GET** /app/tracing/{app_id} | Gets tracing information about a specific application
 [**application_hello_world**](EmpServerApi.md#application_hello_world) | **GET** / | EMP Working!
 [**application_login_user**](EmpServerApi.md#application_login_user) | **POST** /app/login | User login
+[**application_scale_app**](EmpServerApi.md#application_scale_app) | **PATCH** /app/scale/{app_id} | Changes an application state
 
 
 # **application_change_app_state**
@@ -407,6 +408,54 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_info** | [**UserInfo**](UserInfo.md)| User information | 
+
+### Return type
+
+**str**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **application_scale_app**
+> str application_scale_app(app_id, replicas)
+
+Changes an application state
+
+### Example
+```python
+from __future__ import print_function
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.EmpServerApi()
+app_id = 'app_id_example' # str | ID of the application to change its state
+replicas = 56 # int | Number of Replicas
+
+try:
+    # Changes an application state
+    api_response = api_instance.application_scale_app(app_id, replicas)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling EmpServerApi->application_scale_app: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **app_id** | **str**| ID of the application to change its state | 
+ **replicas** | **int**| Number of Replicas | 
 
 ### Return type
 

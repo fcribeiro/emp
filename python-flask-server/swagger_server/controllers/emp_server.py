@@ -254,4 +254,18 @@ def login(user_info):           # TODO ENCRYPT PASSWORD
         return "Login failed"
 
 
+def scale_app(app_id, replicas):
+    username = "fcribeiro"  # TODO Get username from authentication token
+    user_apps = USER_APPS + username
+    resp = rs.hget(user_apps, app_id)
+    if resp is None:  # TODO App Not Found
+        return "Application not found", 400
+    app = json.loads(resp)
+    name = app["name"]
+    namespace = NAMESPACE + username
+    kub.scale_app(name=name, replicas=replicas, namespace=namespace)
+    
+    return "Application replicas number updated"
+
+
 

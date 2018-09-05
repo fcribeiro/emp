@@ -260,6 +260,47 @@ paths:
           schema:
             type: "string"
       x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
+  /app/scale/{app_id}:
+    patch:
+      tags:
+      - "emp_server"
+      summary: "Changes an application state"
+      operationId: "application_scale_app"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "app_id"
+        in: "path"
+        description: "ID of the application to change its state"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "replicas"
+        description: "Number of Replicas"
+        required: true
+        schema:
+          type: "integer"
+          example: 10
+      responses:
+        200:
+          description: "OK."
+          schema:
+            type: "string"
+        400:
+          description: "Bad request."
+          schema:
+            type: "string"
+        404:
+          description: "Not found."
+          schema:
+            type: "string"
+        500:
+          description: "Internal server error."
+          schema:
+            type: "string"
+      x-swagger-router-controller: "swagger_server.controllers.emp_server_controller"
   /app/tracing/{app_id}:
     get:
       tags:

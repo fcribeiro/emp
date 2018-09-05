@@ -92,6 +92,13 @@ class TestEmpServerApi(unittest.TestCase):
         """
         pass
 
+    def test_application_scale_app(self):
+        """Test case for application_scale_app
+
+        Changes an application state  # noqa: E501
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

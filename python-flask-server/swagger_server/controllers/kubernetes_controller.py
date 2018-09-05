@@ -227,21 +227,6 @@ class KubernetesController(ClusterManager):
             print("Exception when calling ExtensionsV1beta1Api->read_namespaced_deployment: %s\n" % e)
             return None
 
-    # def get_ip(self, name, namespace):
-    #     # read_namespaced_service
-    #     api_instance = client.CoreV1Api()
-    #
-    #     try:
-    #         api_response = api_instance.read_namespaced_service(name, namespace)
-    #         # pprint(api_response)
-    #         if api_response.status.load_balancer.ingress is None:
-    #             return None
-    #         else:
-    #             return api_response.status.load_balancer.ingress[0].ip
-    #
-    #     except ApiException as e:
-    #         print("Exception when calling CoreV1Api->read_namespaced_service: %s\n" % e)
-
     @staticmethod
     def get_ip(name, namespace):
         api_instance = client.ExtensionsV1beta1Api()
@@ -290,33 +275,10 @@ class KubernetesController(ClusterManager):
 
 
 def main():
-
-    #name = "nginx"
-    username = "user-fcribeiro"
-    docker_image = "nginx:1.7.9"
+    namespace = "user-fcribeiro"
     name = "songs-ms"
-    # docker_image = "fcribeiro/env_test"
-    # name = "auth-deployment"
-    # docker_image = "fcribeiro/authentication_ms_p3"
-
-    app_info = AppDeploy(name=name, docker_image=docker_image, port=5000, stateless=True, envs=[],
-                         quality_metrics=None)
-    # print(app_info)
     kub = KubernetesController()
-
-    #create_namespace(username)
-    # delete_namespace(username)
-
-
-    # kub.deploy_app(app_info=app_info, namespace=username, username=username)
-
-
-    # kub.get_app(name="nginx", namespace="fcribeiro")
-
-    # kub.get_app("nginx-example", "user-fcribeiro")
-    kub.scale_app(name=name, replicas=10, namespace=username)
-    # print(get_kafka_ip("my-kafka", "default"))
-    # kub.delete_app(name=name, namespace=username)
+    kub.scale_app(name=name, replicas=20, namespace=namespace)
 
 
 if __name__ == '__main__':

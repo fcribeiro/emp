@@ -79,6 +79,7 @@ Class | Method | HTTP request | Description
 *EmpServerApi* | [**application_get_app_tracing**](docs/EmpServerApi.md#application_get_app_tracing) | **GET** /app/tracing/{app_id} | Gets tracing information about a specific application
 *EmpServerApi* | [**application_hello_world**](docs/EmpServerApi.md#application_hello_world) | **GET** / | EMP Working!
 *EmpServerApi* | [**application_login_user**](docs/EmpServerApi.md#application_login_user) | **POST** /app/login | User login
+*EmpServerApi* | [**application_scale_app**](docs/EmpServerApi.md#application_scale_app) | **PATCH** /app/scale/{app_id} | Changes an application state
 
 
 ## Documentation For Models

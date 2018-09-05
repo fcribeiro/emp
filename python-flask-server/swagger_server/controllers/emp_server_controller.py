@@ -7,8 +7,8 @@ from swagger_server.models.app_state import AppState  # noqa: E501
 from swagger_server.models.app_total_info import AppTotalInfo  # noqa: E501
 from swagger_server.models.array_of_apps import ArrayOfApps  # noqa: E501
 from swagger_server.models.user_info import UserInfo  # noqa: E501
-import swagger_server.controllers.emp_server as emp
 from swagger_server import util
+import swagger_server.controllers.emp_server as emp
 
 
 def application_change_app_state(app_id, app_state):  # noqa: E501
@@ -132,3 +132,18 @@ def application_login_user(user_info):  # noqa: E501
     if connexion.request.is_json:
         user_info = UserInfo.from_dict(connexion.request.get_json())  # noqa: E501
     return emp.login(user_info=user_info)
+
+
+def application_scale_app(app_id, replicas):  # noqa: E501
+    """Changes an application state
+
+     # noqa: E501
+
+    :param app_id: ID of the application to change its state
+    :type app_id: str
+    :param replicas: Number of Replicas
+    :type replicas: int
+
+    :rtype: str
+    """
+    return emp.scale_app(app_id=app_id, replicas=replicas)

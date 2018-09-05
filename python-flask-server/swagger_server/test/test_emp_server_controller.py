@@ -133,6 +133,20 @@ class TestEmpServerController(BaseTestCase):
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
+    def test_application_scale_app(self):
+        """Test case for application_scale_app
+
+        Changes an application state
+        """
+        replicas = 56
+        response = self.client.open(
+            '/app/scale/{app_id}'.format(app_id='app_id_example'),
+            method='PATCH',
+            data=json.dumps(replicas),
+            content_type='application/json')
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
 
 if __name__ == '__main__':
     import unittest
