@@ -264,8 +264,8 @@ def scale_app(app_id, replicas):
     name = app["name"]
     namespace = NAMESPACE + username
     kub.scale_app(name=name, replicas=replicas, namespace=namespace)
-    
-    return "Application replicas number updated"
+
+    return "Application scaled successfully"
 
 
 
