@@ -25,10 +25,10 @@ users:
   user:
     auth-provider:
       config:
-        access-token: ya29.Gl0XBnEe8TP4zr_wkLHFnxvvrPrXVo997n4bq1m6lem-WhKfoLxMHIqt8vYc0etXswJ1aVkLZjv40BAqiCPTcQ59lREtA49Qs7WZTT2b1TLmE22MEQwA1Rl1EnUys9Y
+        access-token: ya29.Gl0XBg-xldB5m_RwixvFwIPAqvFrGoIsIgxGuRhdMfgvefbn7NpPSXfogtptSmmFoSTYm5-SQIlWqyCszRGDPjtjrHSVrt9yDk2tTMehYlRsgpzNVm3dnBDPzC8NsSc
         cmd-args: config config-helper --format=json
         cmd-path: /usr/lib/google-cloud-sdk/bin/gcloud
-        expiry: 2018-09-13T18:22:37Z
+        expiry: 2018-09-13T19:32:01Z
         expiry-key: '{.credential.token_expiry}'
         token-key: '{.credential.access_token}'
       name: gcp

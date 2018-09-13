@@ -6,7 +6,7 @@
   "envs": [
     {
       "name": "DATABASEADDRESS",
-      "value": "35.241.157.69:3306"
+      "value": "35.241.187.208:3306"
     }
   ],
   "quality_metrics": [

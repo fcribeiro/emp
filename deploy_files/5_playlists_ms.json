@@ -6,11 +6,11 @@
   "envs": [
     {
       "name": "DATABASEADDRESS",
-      "value": "35.241.157.69:3306"
+      "value": "35.233.51.200:3306"
     },
     {
       "name": "SONGSADDRESS",
-      "value": "35.233.51.200:5001"
+      "value": "35.240.40.56:5001"
     }
   ],
   "quality_metrics": [
