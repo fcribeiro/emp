@@ -22,30 +22,20 @@ kubectl create clusterrolebinding add-on-cluster-admin \
 
 helm init --service-account default
 
+
+#sleep 5
+
 # Install Kafka
 #helm install --name my-kafka incubator/kafka
 
-sleep 5
-
-sh ./deploy.sh
-
 # Testing Kafka
+	#After Kafka is up and running
 
-#kubectl -n default exec testclient -- /usr/bin/kafka-topics --zookeeper my-kafka-zookeeper:2181 --topic test1 --create --partitions 1 --replication-factor 1
-
-#kubectl -n default exec -ti testclient -- /usr/bin/kafka-console-consumer --bootstrap-server my-kafka:9092 --topic test1 --from-beginning
-
-
-
+#kubectl create -f kafka_pod.yml
+#kubectl -n default exec testclient -- /usr/bin/kafka-topics --zookeeper my-kafka-zookeeper:2181 --topic zipkin --create --partitions 1 --replication-factor 1
+#kubectl -n default exec -ti testclient -- /usr/bin/kafka-console-consumer --bootstrap-server my-kafka:9092 --topic zipkin --from-beginning
 
 
-
-# OTHER
-
-#gcloud beta compute disks create --zone europe-west1-b --size 10GB gce-disk-1
+#sh ./deploy.sh
 
 
-#gcloud compute disks create mysql-disk --size=10GB --zone=europe-west1-b --type=pd-standard --no-require-csek-key-create
-
-
-#gcloud compute instances stop INSTANCE_NAMES --zone=europe-west1-b
